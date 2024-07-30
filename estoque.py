@@ -75,6 +75,7 @@ def layout_estoque():
     
     
     st.subheader('Vendas Perdidas')
+    st.warning('Ainda estamos trabalhando nisso! Aguarde!')
     vendas_perdidas = 1300.00
-    st.write('Aqui vem o gráfico de valor em vendas perdidas no mês por dia..')
-    st.error(f'Até o momento foi registrado R$ {(vendas_perdidas):.2f} em vendas perdidas nesse mês!')
+    #st.write('Aqui vem o gráfico de valor em vendas perdidas no mês por dia..')
+    #st.error(f'Até o momento foi registrado R$ {(vendas_perdidas):.2f} em vendas perdidas nesse mês!')
