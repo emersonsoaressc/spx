@@ -68,7 +68,7 @@ def layout_estoque():
         
     st.write(df_faltas_grupo)
 
-    '''
+    
     st.header('Indicador de Excesso de estoque')
     df_excesso_grupo['preco_custo'] = pd.to_numeric(df_excesso_grupo['preco_custo'], errors='coerce')
     df_excesso_grupo['valor_excesso'] = df_excesso_grupo['preco_custo']*df_excesso_grupo['excesso']
@@ -84,7 +84,7 @@ def layout_estoque():
         st.metric(label='Qtd itens em excesso do grupo', value=f'{itens_excesso}')
     st.subheader('Produtos com estoque em excesso (estoque > demanda)')
     st.write(df_excesso_grupo)
-    '''
+    
     
     st.subheader('Vendas Perdidas')
     st.warning('Ainda estamos trabalhando nisso! Aguarde!')
