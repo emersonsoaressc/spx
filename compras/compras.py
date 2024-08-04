@@ -79,3 +79,8 @@ def layout_compras():
         curvas = st.multiselect('Selecione as curvas',['A','B','C','D'])
         #comprar somente zerados
         somente_zerados = st.checkbox('somente zerados')
+        
+        
+        st.write(filtro_avançado)
+        st.write(curvas)
+        st.write(somente_zerados)
