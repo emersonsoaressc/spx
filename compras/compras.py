@@ -56,7 +56,7 @@ def layout_compras():
             df_excesso_grupo = 1
             estoque_base_grupo = 1
             
-        df_faltas_grupo['custo_virgula'] = df_faltas_grupo['preco_custo'].replace(',','').replace('.',',')
+        df_faltas_grupo['custo_virgula'] = df_faltas_grupo['preco_custo'].replace('.',',')
         
         with kpi1:
             st.metric(label='Ruptura do grupo', value=f'{(faltas_grupo/estoque_base_grupo*100):.1f}%')
