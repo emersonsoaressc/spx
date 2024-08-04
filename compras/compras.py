@@ -107,7 +107,7 @@ def layout_compras():
         #retirar envelopes
         retirar_envelopes = st.checkbox('retirar envelopes')
         if retirar_envelopes:
-            df_faltas_smartped = df_faltas_smartped.query("produto.str.contains(' ENV ')")
+            df_faltas_smartped = df_faltas_smartped.query("produto.str.contains('ENV')")
         
         if filtro_avançado == 'Nenhum filtro avançado':
             tipo_compras = st.selectbox('Selecione o tipo da compra:',['Estoque mínimo','Demanda'],)
