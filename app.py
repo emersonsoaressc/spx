@@ -1,5 +1,5 @@
 import streamlit as st
-from compras import layout_compras
+from compras.compras import layout_compras
 from home import home
 from estoque import layout_estoque
 
