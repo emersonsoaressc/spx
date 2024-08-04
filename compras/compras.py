@@ -109,7 +109,7 @@ def layout_compras():
                 df_faltas_grupo['comprar'] = df_faltas_grupo['demanda'] - df_faltas_grupo['estoque']
                 
                 
-        df_faltas_smartped = df_faltas_grupo[['cnpj','ean']]
+        df_faltas_smartped = df_faltas_grupo[['cnpj','produto','laboratorio','ean','comprar','preco_custo']]
         st.write(df_faltas_smartped)
         
         st.write(filtro_avançado)
