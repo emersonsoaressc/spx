@@ -12,7 +12,7 @@ def layout_estoque():
     valor_estoque_base = valor_em_estoque+valor_faltas
     
     with st.expander('Comprar Produtos', expanded=False):
-        st.header('Indicador de ruptura')
+        st.subheader('Indicador de ruptura')
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
             st.metric(label='Ruptura total', value=f'{(valor_faltas/valor_estoque_base*100):.1f}%')
@@ -22,7 +22,7 @@ def layout_estoque():
             st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas/1000):.1f} mil')
             
         
-        st.subheader('Ruptura por grupo de produto')
+        st.write('Ruptura por grupo de produto')
         grupo_produtos = st.selectbox('Selecione o grupo de produtos e aguarde a geração da análise de ruptura',['Genéricos e Similares (por princípio ativo)','3000 - Éticos','8000 - Perfumaria', '9000 - Correlatos', '10000 - Conveniência'])
         st.write(grupo_produtos)
         
@@ -70,7 +70,7 @@ def layout_estoque():
             st.write(df_faltas_grupo)
 
     with st.expander('Análise de Excesso de estoque', expanded=False):
-        st.header('Indicador de Excesso de estoque')
+        st.subheader('Indicador de Excesso de estoque')
         df_excesso_grupo['preco_custo'] = pd.to_numeric(df_excesso_grupo['preco_custo'], errors='coerce')
         df_excesso_grupo['valor_excesso'] = df_excesso_grupo['preco_custo']*df_excesso_grupo['excesso']
         excesso = df_excesso_grupo['valor_excesso'].sum()
