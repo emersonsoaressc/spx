@@ -109,17 +109,20 @@ def layout_compras():
         if retirar_envelopes:
             df_faltas_smartped = df_faltas_smartped.query("produto.str.contains('ENV') == False")
         
-        if filtro_avançado == 'Nenhum filtro avançado':
-            tipo_compras = st.selectbox('Selecione o tipo da compra:',['Estoque mínimo','Demanda'],)
+        if filtro_avançado == 'Comprar por laboratório':
+            lst_labs = st.multiselect('laboratorios',df_faltas_smartped['laboratorio'].unique())
+            df_faltas_smartped = df_faltas_smartped.query("laboratorio in @lst_labs")
             
-            #compras por estoque mínimo
-            if tipo_compras == 'Estoque mínimo':
-                df_faltas_smartped['comprar'] = df_faltas_smartped['estoque_minimo'] - df_faltas_smartped['estoque']
-                df_faltas_smartped = df_faltas_smartped.query("comprar > 0")
-            #compras por Demanda
-            if tipo_compras == 'Demanda':
-                df_faltas_smartped['comprar'] = df_faltas_smartped['demanda'] - df_faltas_smartped['estoque']
-                df_faltas_smartped = df_faltas_smartped.query("comprar > 0")
+        tipo_compras = st.selectbox('Selecione o tipo da compra:',['Estoque mínimo','Demanda'],)
+        
+        #compras por estoque mínimo
+        if tipo_compras == 'Estoque mínimo':
+            df_faltas_smartped['comprar'] = df_faltas_smartped['estoque_minimo'] - df_faltas_smartped['estoque']
+            df_faltas_smartped = df_faltas_smartped.query("comprar > 0")
+        #compras por Demanda
+        if tipo_compras == 'Demanda':
+            df_faltas_smartped['comprar'] = df_faltas_smartped['demanda'] - df_faltas_smartped['estoque']
+            df_faltas_smartped = df_faltas_smartped.query("comprar > 0")
                 
                 
         df_faltas_smartped = df_faltas_smartped[['cnpj','produto','laboratorio','ean','comprar','preco_custo','curva']]
@@ -133,4 +136,4 @@ def layout_compras():
         st.write(filtro_avançado)
         st.write(curvas)
         st.write(somente_zerados)
-        st.multiselect('laboratorios',df_faltas_smartped['laboratorio'].unique())
+        
