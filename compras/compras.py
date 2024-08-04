@@ -96,11 +96,11 @@ def layout_compras():
             ])
         #comprar por curva
         curvas = st.multiselect('Selecione as curvas',['A / Q','B / Q','C / Q','D / Q'])
+        if curvas != None:
+            df_faltas_smartped = df_faltas_smartped.query("curva in @curvas")
+        
         #comprar somente zerados
         somente_zerados = st.checkbox('somente zerados')
-        
-        
-        
         if somente_zerados:
             df_faltas_smartped = df_faltas_smartped.query("estoque == 0")
         
