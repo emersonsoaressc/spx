@@ -117,7 +117,7 @@ def layout_compras():
                 df_faltas_smartped = df_faltas_smartped.query("comprar > 0")
                 
                 
-        df_faltas_smartped = df_faltas_smartped[['cnpj','produto','laboratorio','ean','comprar','preco_custo']]
+        df_faltas_smartped = df_faltas_smartped[['cnpj','produto','laboratorio','ean','comprar','preco_custo','curva']]
         st.write(df_faltas_smartped)
         
         st.write(filtro_avançado)
