@@ -1,7 +1,8 @@
 import pandas as pd 
 import numpy as np
+import streamlit as st
 
-
+@st.cache
 def analise_estoque(filial):
     df_saldo_estoque = pd.read_excel(f'planilhas/estoque/saldo_estoque_{filial}.xlsx', header=11, usecols=('B,C,F,G,H,I,J,O,P,Q,S,U,X'))[0:-3]
     df_saldo_estoque = df_saldo_estoque.set_axis(['ean','produto','laboratorio','grupo','curva','estoque_minimo','demanda','estoque','preco_custo','preco_venda','lucro','preco_custo_total','preco_venda_total'], axis=1)

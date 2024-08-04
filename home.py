@@ -16,6 +16,7 @@ def home():
     st.subheader('Indicador de ruptura')
     
     #001 - Matriz
+    
     with st.expander('001 - Matriz', expanded=True):
         valor_em_estoque_001, valor_faltas_001, df_estoque_001 = analise_estoque('001')
         valor_estoque_base_001 = valor_em_estoque_001+valor_faltas_001
