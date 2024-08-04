@@ -11,7 +11,7 @@ def layout_estoque():
     
     valor_estoque_base = valor_em_estoque+valor_faltas
     
-    with st.expander('Análise de Ruptura', expanded=False):
+    with st.expander('Comprar Produtos', expanded=False):
         st.header('Indicador de ruptura')
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -65,7 +65,9 @@ def layout_estoque():
         with kpi3:
             st.metric(label='R$ faltas do grupo', value=f'R$ {(faltas_grupo/1000):.1f} mil')
             
-        st.write(df_faltas_grupo)
+        ver_df_faltas_grupo = st.checkbox('Ver dataframe')
+        if ver_df_faltas_grupo:
+            st.write(df_faltas_grupo)
 
     with st.expander('Análise de Excesso de estoque', expanded=False):
         st.header('Indicador de Excesso de estoque')
@@ -90,6 +92,3 @@ def layout_estoque():
         vendas_perdidas = 1300.00
         #st.write('Aqui vem o gráfico de valor em vendas perdidas no mês por dia..')
         #st.error(f'Até o momento foi registrado R$ {(vendas_perdidas):.2f} em vendas perdidas nesse mês!')
-        
-    with st.expander('Comprar produtos!', expanded=True):
-        st.write('testando..')
