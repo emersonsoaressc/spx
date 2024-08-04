@@ -110,7 +110,7 @@ def layout_compras():
             #compras por estoque mínimo
             if tipo_compras == 'Estoque mínimo':
                 df_faltas_smartped['comprar'] = df_faltas_smartped['estoque_minimo'] - df_faltas_smartped['estoque']
-                    
+                df_faltas_smartped = df_faltas_smartped.query("comprar > 0")
             #compras por Demanda
             if tipo_compras == 'Demanda':
                 df_faltas_smartped['comprar'] = df_faltas_smartped['demanda'] - df_faltas_smartped['estoque']
