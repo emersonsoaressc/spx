@@ -89,11 +89,15 @@ def layout_compras():
         #filtros avançados
         df_faltas_smartped = df_faltas_grupo
         
-        #comprar somente zerados
+        #comprar por filtros avançados (laboratórios)
         filtro_avançado = st.selectbox('Selecione o filtro avançado', [
             'Nenhum filtro avançado',
             'Comprar por laboratório',
             ])
+        if filtro_avançado == 'Comprar por laboratório':
+            lst_labs = st.multiselect('laboratorios',df_faltas_smartped['laboratorio'].unique())
+            df_faltas_smartped = df_faltas_smartped.query("laboratorio in @lst_labs")
+            
         #comprar por curva
         curvas = st.multiselect('Selecione as curvas',['A / Q','B / Q','C / Q','D / Q'])
         if curvas != None:
@@ -108,10 +112,6 @@ def layout_compras():
         retirar_envelopes = st.checkbox('retirar envelopes')
         if retirar_envelopes:
             df_faltas_smartped = df_faltas_smartped.query("produto.str.contains('ENV') == False")
-        
-        if filtro_avançado == 'Comprar por laboratório':
-            lst_labs = st.multiselect('laboratorios',df_faltas_smartped['laboratorio'].unique())
-            df_faltas_smartped = df_faltas_smartped.query("laboratorio in @lst_labs")
             
         tipo_compras = st.selectbox('Selecione o tipo da compra:',['Estoque mínimo','Demanda'],)
         
