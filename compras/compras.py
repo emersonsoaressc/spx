@@ -80,7 +80,10 @@ def layout_compras():
         #comprar somente zerados
         somente_zerados = st.checkbox('somente zerados')
         
+        if filtro_avançado == 'Nenhum filtro avançado':
+            pass
         
         st.write(filtro_avançado)
         st.write(curvas)
         st.write(somente_zerados)
+        st.write(curvas = None)
