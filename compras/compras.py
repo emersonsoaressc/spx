@@ -133,7 +133,3 @@ def layout_compras():
         valor_pedido = df_pedido['custo_total'].sum()
         st.warning(f'O valor estimado para esse pedido é de R$ {valor_pedido:.2f}')
         
-        st.write(filtro_avançado)
-        st.write(curvas)
-        st.write(somente_zerados)
-        
