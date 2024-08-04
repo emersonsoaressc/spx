@@ -56,7 +56,6 @@ def layout_compras():
             df_excesso_grupo = 1
             estoque_base_grupo = 1
             
-        df_faltas_grupo['custo_virgula'] = df_faltas_grupo['preco_custo'].replace('.',',')
         
         with kpi1:
             st.metric(label='Ruptura do grupo', value=f'{(faltas_grupo/estoque_base_grupo*100):.1f}%')
@@ -111,7 +110,7 @@ def layout_compras():
                 df_faltas_grupo['comprar'] = df_faltas_grupo['demanda'] - df_faltas_grupo['estoque']
                 
                 
-        df_faltas_smartped = df_faltas_grupo[['cnpj','produto','laboratorio','ean','comprar','custo_virgula']]
+        df_faltas_smartped = df_faltas_grupo[['cnpj','produto','laboratorio','ean','comprar','preco_custo']]
         st.write(df_faltas_smartped)
         
         st.write(filtro_avançado)
