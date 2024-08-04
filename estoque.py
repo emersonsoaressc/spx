@@ -10,17 +10,17 @@ def layout_estoque():
     valor_em_estoque, valor_faltas, df_estoque = analise_estoque(cod_filial)
     
     valor_estoque_base = valor_em_estoque+valor_faltas
+
+    st.subheader('Indicador de ruptura')
+    kpi1,kpi2,kpi3 =  st.columns(3)
+    with kpi1:
+        st.metric(label='Ruptura total', value=f'{(valor_faltas/valor_estoque_base*100):.1f}%')
+    with kpi2:
+        st.metric(label='Valor em estoque', value=f'R$ {(valor_em_estoque/1000):.1f} mil')
+    with kpi3:
+        st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas/1000):.1f} mil')
     
     with st.expander('Comprar Produtos', expanded=False):
-        st.subheader('Indicador de ruptura')
-        kpi1,kpi2,kpi3 =  st.columns(3)
-        with kpi1:
-            st.metric(label='Ruptura total', value=f'{(valor_faltas/valor_estoque_base*100):.1f}%')
-        with kpi2:
-            st.metric(label='Valor em estoque', value=f'R$ {(valor_em_estoque/1000):.1f} mil')
-        with kpi3:
-            st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas/1000):.1f} mil')
-            
         
         st.write('Ruptura por grupo de produto')
         grupo_produtos = st.selectbox('Selecione o grupo de produtos e aguarde a geração da análise de ruptura',['Genéricos e Similares (por princípio ativo)','3000 - Éticos','8000 - Perfumaria', '9000 - Correlatos', '10000 - Conveniência'])
