@@ -69,26 +69,29 @@ def layout_estoque():
             
         st.write(df_faltas_grupo)
 
+    with st.expander('Análise de Excesso de estoque', expanded=False):
+        st.header('Indicador de Excesso de estoque')
+        df_excesso_grupo['preco_custo'] = pd.to_numeric(df_excesso_grupo['preco_custo'], errors='coerce')
+        df_excesso_grupo['valor_excesso'] = df_excesso_grupo['preco_custo']*df_excesso_grupo['excesso']
+        excesso = df_excesso_grupo['valor_excesso'].sum()
+        itens_excesso = df_excesso_grupo['excesso'].sum()
+        
+        kpi1,kpi2,kpi3 =  st.columns(3)
+        with kpi1:
+            st.metric(label='% de excesso no grupo', value=f'{(excesso/estoque_base_grupo*100):.1f}%')
+        with kpi2:
+            st.metric(label='R$ excesso do grupo', value=f'R$ {(excesso/1000):.1f} mil')
+        with kpi3:
+            st.metric(label='Qtd itens em excesso do grupo', value=f'{itens_excesso}')
+        st.subheader('Produtos com estoque em excesso (estoque > demanda)')
+        st.write(df_excesso_grupo)
     
-    st.header('Indicador de Excesso de estoque')
-    df_excesso_grupo['preco_custo'] = pd.to_numeric(df_excesso_grupo['preco_custo'], errors='coerce')
-    df_excesso_grupo['valor_excesso'] = df_excesso_grupo['preco_custo']*df_excesso_grupo['excesso']
-    excesso = df_excesso_grupo['valor_excesso'].sum()
-    itens_excesso = df_excesso_grupo['excesso'].sum()
-    
-    kpi1,kpi2,kpi3 =  st.columns(3)
-    with kpi1:
-        st.metric(label='% de excesso no grupo', value=f'{(excesso/estoque_base_grupo*100):.1f}%')
-    with kpi2:
-        st.metric(label='R$ excesso do grupo', value=f'R$ {(excesso/1000):.1f} mil')
-    with kpi3:
-        st.metric(label='Qtd itens em excesso do grupo', value=f'{itens_excesso}')
-    st.subheader('Produtos com estoque em excesso (estoque > demanda)')
-    st.write(df_excesso_grupo)
-    
-    
-    st.subheader('Vendas Perdidas')
-    st.warning('Ainda estamos trabalhando nisso! Aguarde!')
-    vendas_perdidas = 1300.00
-    #st.write('Aqui vem o gráfico de valor em vendas perdidas no mês por dia..')
-    #st.error(f'Até o momento foi registrado R$ {(vendas_perdidas):.2f} em vendas perdidas nesse mês!')
+    with st.expander('Análise de vendas perdidas', expanded=False):
+        st.subheader('Vendas Perdidas')
+        st.warning('Ainda estamos trabalhando nisso! Aguarde!')
+        vendas_perdidas = 1300.00
+        #st.write('Aqui vem o gráfico de valor em vendas perdidas no mês por dia..')
+        #st.error(f'Até o momento foi registrado R$ {(vendas_perdidas):.2f} em vendas perdidas nesse mês!')
+        
+    with st.expander('Comprar produtos!', expanded=True):
+        st.write('testando..')
