@@ -68,6 +68,25 @@ def layout_estoque():
         ver_df_faltas_grupo = st.checkbox('Ver dataframe')
         if ver_df_faltas_grupo:
             st.write(df_faltas_grupo)
+            
+            
+        #filtros avançados
+        
+        #comprar somente zerados
+        filtro_avançado = st.selectbox('Selecione o filtro avançado', [
+            'Nenhum filtro avançado',
+            'Comprar por laboratório',
+            ])
+        #comprar por curva
+        abrir_curva = st.checkbox('Selecionar curvas')
+        if abrir_curva:
+            curva_A = st.checkbox('A')
+            curva_B = st.checkbox('B')
+            curva_C = st.checkbox('C')
+        #comprar somente zerados
+        somente_zerados = st.checkbox('somente zerados')
+        
+        
 
     with st.expander('Análise de Excesso de estoque', expanded=False):
         st.subheader('Indicador de Excesso de estoque')
