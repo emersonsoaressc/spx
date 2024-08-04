@@ -63,10 +63,27 @@ def layout_compras():
         with kpi3:
             st.metric(label='R$ faltas do grupo', value=f'R$ {(faltas_grupo/1000):.1f} mil')
             
+        if cod_filial == '001':
+            df_faltas_grupo['cnpj'] = '31179778000214'
+        if cod_filial == '004':
+            df_faltas_grupo['cnpj'] = '31179778000303'
+        if cod_filial == '005':
+            df_faltas_grupo['cnpj'] = '31179778000486'
+        if cod_filial == '007':
+            df_faltas_grupo['cnpj'] = '51816219000285'
+        if cod_filial == '008':
+            df_faltas_grupo['cnpj'] = '51816219000102'
+        if cod_filial == '009':
+            df_faltas_grupo['cnpj'] = '31179778000567'
+        if cod_filial == '010':
+            df_faltas_grupo['cnpj'] = '31179778000133'
+        if cod_filial == '011':
+            df_faltas_grupo['cnpj'] = '31179778000648'
+            
+        #ver dataframe de faltas
         ver_df_faltas_grupo = st.checkbox('Ver dataframe')
         if ver_df_faltas_grupo:
             st.write(df_faltas_grupo)
-            
             
         #filtros avançados
         
@@ -86,23 +103,12 @@ def layout_compras():
             #compras por estoque mínimo
             if tipo_compras == 'Estoque mínimo':
                 df_faltas_grupo['comprar'] = df_faltas_grupo['estoque_minimo'] - df_faltas_grupo['estoque']
-                if cod_filial == '001':
-                    df_faltas_grupo['cnpj'] = '31179778000214'
-                if cod_filial == '004':
-                    df_faltas_grupo['cnpj'] = '31179778000303'
-                if cod_filial == '005':
-                    df_faltas_grupo['cnpj'] = '31179778000486'
-                if cod_filial == '007':
-                    df_faltas_grupo['cnpj'] = '51816219000285'
-                if cod_filial == '008':
-                    df_faltas_grupo['cnpj'] = '51816219000102'
-                if cod_filial == '009':
-                    df_faltas_grupo['cnpj'] = '31179778000567'
-                if cod_filial == '010':
-                    df_faltas_grupo['cnpj'] = '31179778000133'
-                if cod_filial == '011':
-                    df_faltas_grupo['cnpj'] = '31179778000648'
                     
+            #compras por Demanda
+            if tipo_compras == 'Demanda':
+                df_faltas_grupo['comprar'] = df_faltas_grupo['demanda'] - df_faltas_grupo['estoque']
+                
+                
                 st.write(df_faltas_grupo)
         
         st.write(filtro_avançado)
