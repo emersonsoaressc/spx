@@ -11,62 +11,63 @@ def layout_estoque():
     
     valor_estoque_base = valor_em_estoque+valor_faltas
     
-    st.header('Indicador de ruptura')
-    kpi1,kpi2,kpi3 =  st.columns(3)
-    with kpi1:
-        st.metric(label='Ruptura total', value=f'{(valor_faltas/valor_estoque_base*100):.1f}%')
-    with kpi2:
-        st.metric(label='Valor em estoque', value=f'R$ {(valor_em_estoque/1000):.1f} mil')
-    with kpi3:
-        st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas/1000):.1f} mil')
+    with st.expander('Análise de Ruptura', expanded=False):
+        st.header('Indicador de ruptura')
+        kpi1,kpi2,kpi3 =  st.columns(3)
+        with kpi1:
+            st.metric(label='Ruptura total', value=f'{(valor_faltas/valor_estoque_base*100):.1f}%')
+        with kpi2:
+            st.metric(label='Valor em estoque', value=f'R$ {(valor_em_estoque/1000):.1f} mil')
+        with kpi3:
+            st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas/1000):.1f} mil')
+            
         
-    
-    st.subheader('Ruptura por grupo de produto')
-    grupo_produtos = st.selectbox('Selecione o grupo de produtos e aguarde a geração da análise de ruptura',['Genéricos e Similares (por princípio ativo)','3000 - Éticos','8000 - Perfumaria', '9000 - Correlatos', '10000 - Conveniência'])
-    st.write(grupo_produtos)
-    
-    kpi1,kpi2,kpi3 =  st.columns(3)
-    
+        st.subheader('Ruptura por grupo de produto')
+        grupo_produtos = st.selectbox('Selecione o grupo de produtos e aguarde a geração da análise de ruptura',['Genéricos e Similares (por princípio ativo)','3000 - Éticos','8000 - Perfumaria', '9000 - Correlatos', '10000 - Conveniência'])
+        st.write(grupo_produtos)
+        
+        kpi1,kpi2,kpi3 =  st.columns(3)
+        
 
-    if grupo_produtos == '3000 - Éticos':
-        estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='3000')
-        estoque_base_grupo = estoque_grupo+faltas_grupo
-        
-    elif grupo_produtos == '8000 - Perfumaria':
-        estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='8000')
-        estoque_base_grupo = estoque_grupo+faltas_grupo
+        if grupo_produtos == '3000 - Éticos':
+            estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='3000')
+            estoque_base_grupo = estoque_grupo+faltas_grupo
+            
+        elif grupo_produtos == '8000 - Perfumaria':
+            estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='8000')
+            estoque_base_grupo = estoque_grupo+faltas_grupo
 
-    elif grupo_produtos == '9000 - Correlatos':
-        estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='9000')
-        estoque_base_grupo = estoque_grupo+faltas_grupo
+        elif grupo_produtos == '9000 - Correlatos':
+            estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='9000')
+            estoque_base_grupo = estoque_grupo+faltas_grupo
 
-    elif grupo_produtos == '10000 - Conveniência':
-        estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='10000')
-        estoque_base_grupo = estoque_grupo+faltas_grupo
-        
-    elif grupo_produtos == 'Genéricos e Similares (por princípio ativo)':
-        estoque_grupo = 1
-        faltas_grupo = 1
-        df_faltas_grupo = 1
-        df_excesso_grupo = 1
-        estoque_base_grupo = 1
-        st.warning('Ainda estamos trabalhando nisso! Aguarde!')
-        
-    else:
-        estoque_grupo = 1
-        faltas_grupo = 1
-        df_faltas_grupo = 1
-        df_excesso_grupo = 1
-        estoque_base_grupo = 1
-        
-    with kpi1:
-        st.metric(label='Ruptura do grupo', value=f'{(faltas_grupo/estoque_base_grupo*100):.1f}%')
-    with kpi2:
-        st.metric(label='R$ estoque do grupo', value=f'R$ {(estoque_grupo/1000):.1f} mil')
-    with kpi3:
-        st.metric(label='R$ faltas do grupo', value=f'R$ {(faltas_grupo/1000):.1f} mil')
-        
-    st.write(df_faltas_grupo)
+        elif grupo_produtos == '10000 - Conveniência':
+            estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='10000')
+            estoque_base_grupo = estoque_grupo+faltas_grupo
+            
+        elif grupo_produtos == 'Genéricos e Similares (por princípio ativo)':
+            estoque_grupo = 1
+            faltas_grupo = 1
+            df_faltas_grupo = 1
+            df_excesso_grupo = 1
+            estoque_base_grupo = 1
+            st.warning('Ainda estamos trabalhando nisso! Aguarde!')
+            
+        else:
+            estoque_grupo = 1
+            faltas_grupo = 1
+            df_faltas_grupo = 1
+            df_excesso_grupo = 1
+            estoque_base_grupo = 1
+            
+        with kpi1:
+            st.metric(label='Ruptura do grupo', value=f'{(faltas_grupo/estoque_base_grupo*100):.1f}%')
+        with kpi2:
+            st.metric(label='R$ estoque do grupo', value=f'R$ {(estoque_grupo/1000):.1f} mil')
+        with kpi3:
+            st.metric(label='R$ faltas do grupo', value=f'R$ {(faltas_grupo/1000):.1f} mil')
+            
+        st.write(df_faltas_grupo)
 
     
     st.header('Indicador de Excesso de estoque')
