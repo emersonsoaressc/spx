@@ -107,9 +107,10 @@ def layout_compras():
             #compras por Demanda
             if tipo_compras == 'Demanda':
                 df_faltas_grupo['comprar'] = df_faltas_grupo['demanda'] - df_faltas_grupo['estoque']
+                df_faltas_grupo['custo_virgula'] = df_faltas_grupo['preco_custo'].replace(',','').replace('.',',')
                 
                 
-        df_faltas_smartped = df_faltas_grupo[['cnpj','produto','laboratorio','ean','comprar','preco_custo']]
+        df_faltas_smartped = df_faltas_grupo[['cnpj','produto','laboratorio','ean','comprar','custo_virgula']]
         st.write(df_faltas_smartped)
         
         st.write(filtro_avançado)
