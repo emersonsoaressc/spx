@@ -22,7 +22,6 @@ def layout_estoque():
     
     with st.expander('Comprar Produtos', expanded=False):
         
-        st.write('Ruptura por grupo de produto')
         grupo_produtos = st.selectbox('Selecione o grupo de produtos e aguarde a geração da análise de ruptura',['Genéricos e Similares (por princípio ativo)','3000 - Éticos','8000 - Perfumaria', '9000 - Correlatos', '10000 - Conveniência'])
         st.write(grupo_produtos)
         
