@@ -98,19 +98,24 @@ def layout_compras():
         #comprar somente zerados
         somente_zerados = st.checkbox('somente zerados')
         
+        df_faltas_smartped = df_faltas_grupo
+        
+        if somente_zerados:
+            df_faltas_smartped = df_faltas_smartped.query("estoque =< 0")
+        
         if filtro_avançado == 'Nenhum filtro avançado':
             tipo_compras = st.selectbox('Selecione o tipo da compra:',['Estoque mínimo','Demanda'],)
             
             #compras por estoque mínimo
             if tipo_compras == 'Estoque mínimo':
-                df_faltas_grupo['comprar'] = df_faltas_grupo['estoque_minimo'] - df_faltas_grupo['estoque']
+                df_faltas_smartped['comprar'] = df_faltas_smartped['estoque_minimo'] - df_faltas_smartped['estoque']
                     
             #compras por Demanda
             if tipo_compras == 'Demanda':
-                df_faltas_grupo['comprar'] = df_faltas_grupo['demanda'] - df_faltas_grupo['estoque']
+                df_faltas_smartped['comprar'] = df_faltas_smartped['demanda'] - df_faltas_smartped['estoque']
                 
                 
-        df_faltas_smartped = df_faltas_grupo[['cnpj','produto','laboratorio','ean','comprar','preco_custo']]
+        df_faltas_smartped = df_faltas_smartped[['cnpj','produto','laboratorio','ean','comprar','preco_custo']]
         st.write(df_faltas_smartped)
         
         st.write(filtro_avançado)
