@@ -102,7 +102,7 @@ def layout_compras():
         
         
         if somente_zerados:
-            df_faltas_smartped = df_faltas_smartped.query("estoque =< 0")
+            df_faltas_smartped = df_faltas_smartped.query("estoque == 0")
         
         if filtro_avançado == 'Nenhum filtro avançado':
             tipo_compras = st.selectbox('Selecione o tipo da compra:',['Estoque mínimo','Demanda'],)
