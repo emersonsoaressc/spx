@@ -86,6 +86,7 @@ def layout_compras():
             #compras por estoque mínimo
             if tipo_compras == 'Estoque mínimo':
                 df_faltas_grupo['comprar'] = df_faltas_grupo['estoque_minimo'] - df_faltas_grupo['estoque']
+                df_faltas_grupo['cnpj'] = '31179778000133'
                 st.write(df_faltas_grupo)
         
         st.write(filtro_avançado)
