@@ -133,4 +133,4 @@ def layout_compras():
         st.write(filtro_avançado)
         st.write(curvas)
         st.write(somente_zerados)
-        
+        st.multiselect('laboratorios',df_faltas_smartped['laboratorio'])

@@ -37,5 +37,9 @@ def analise_estoque_grupo(df_saldo_estoque_grupo, grupo):
     df_excesso = df_excesso.query('excesso > 0')
     df_excesso['ean'] = df_excesso['ean'].astype(str)
     return valor_em_estoque, valor_faltas, df_faltas, df_excesso
+
+
+    
+    
     
     
