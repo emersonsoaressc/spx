@@ -120,6 +120,11 @@ def layout_compras():
         df_faltas_smartped = df_faltas_smartped[['cnpj','produto','laboratorio','ean','comprar','preco_custo','curva']]
         st.write(df_faltas_smartped)
         
+        df_pedido = df_faltas_smartped
+        df_pedido['custo_total'] = df_pedido['comprar'] * df_pedido['preco_custo']
+        valor_pedido = df_pedido['custo_total'].sum()
+        st.warning(f'O valor estimado para esse pedido é de R$ {valor_pedido}')
+        
         st.write(filtro_avançado)
         st.write(curvas)
         st.write(somente_zerados)
