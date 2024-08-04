@@ -87,6 +87,7 @@ def layout_compras():
             st.write(df_faltas_grupo)
             
         #filtros avançados
+        df_faltas_smartped = df_faltas_grupo
         
         #comprar somente zerados
         filtro_avançado = st.selectbox('Selecione o filtro avançado', [
@@ -98,7 +99,7 @@ def layout_compras():
         #comprar somente zerados
         somente_zerados = st.checkbox('somente zerados')
         
-        df_faltas_smartped = df_faltas_grupo
+        
         
         if somente_zerados:
             df_faltas_smartped = df_faltas_smartped.query("estoque =< 0")
