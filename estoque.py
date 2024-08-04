@@ -77,11 +77,7 @@ def layout_estoque():
             'Comprar por laboratório',
             ])
         #comprar por curva
-        st.write('Selecione as curvas')
-        curva_A = st.checkbox('A')
-        curva_B = st.checkbox('B')
-        curva_C = st.checkbox('C')
-        curva_todas = st.checkbox('Todas as curvas')
+        curvas = st.multiselect('Selecione as curvas',['A','B','C','D'])
         #comprar somente zerados
         somente_zerados = st.checkbox('somente zerados')
         
