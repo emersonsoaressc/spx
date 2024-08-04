@@ -6,15 +6,15 @@ from estoque import layout_estoque
 
 st.sidebar.image('images/logo_shopfarma_sem_fundo.png')
 
-with st.sidebar.expander('Sistema de Compras', expanded=True):
-    compras_lst = ['Home','Dashboard','Análise de estoque']
-    compras_selectbox = st.selectbox('',compras_lst)
+with st.sidebar.expander('Gestão de estoque avançada', expanded=True):
+    gestao_lst = ['Home','Sistema de gestao']
+    gestao_selectbox = st.selectbox('',gestao_lst)
 
-if compras_selectbox == 'Home':
+if gestao_selectbox == 'Home':
     home()
 
-if compras_selectbox == 'Dashboard':
+if gestao_selectbox == 'Dashboard':
     layout_compras()
     
-if compras_selectbox == 'Análise de estoque':
+if gestao_selectbox == 'Sistema de compras':
     layout_estoque()
