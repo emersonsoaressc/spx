@@ -46,11 +46,9 @@ def layout_estoque():
             estoque_base_grupo = estoque_grupo+faltas_grupo
             
         elif grupo_produtos == 'Genéricos e Similares (por princípio ativo)':
-            estoque_grupo = 1
-            faltas_grupo = 1
-            df_faltas_grupo = 1
-            df_excesso_grupo = 1
-            estoque_base_grupo = 1
+            estoque_grupo, faltas_grupo, df_faltas_grupo, df_excesso_grupo = analise_estoque_grupo(df_estoque, grupo='2000')
+            estoque_base_grupo = estoque_grupo+faltas_grupo
+
             st.warning('Ainda estamos trabalhando nisso! Aguarde!')
             
         else:
