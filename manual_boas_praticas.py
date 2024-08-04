@@ -35,15 +35,15 @@ pdf.set_font("Arial", "B", 12)
 pdf.cell(0, 10, "BRITOPHARMA FARMACIA, PERFUMARIA E DRUGSTORE LTDA", 0, 1, "C")
 pdf.ln(10)
 pdf.set_font("Arial", "", 12)
-pdf.cell(0, 10, "CNPJ: 31179778000133", 0, 1, "C")
-pdf.cell(0, 10, "Inscrição Estadual: 258911166 SC", 0, 1, "C")
-pdf.cell(0, 10, "AFE: 7.63728.7", 0, 1, "C")
+pdf.cell(0, 10, "CNPJ: 31179778000648", 0, 1, "C")
+pdf.cell(0, 10, "Inscrição Estadual: 262975157 SC", 0, 1, "C")
+pdf.cell(0, 10, "AFE: 5.10849-3", 0, 1, "C")
 pdf.ln(10)
 pdf.cell(0, 10, "FARMACÊUTICO RESPONSÁVEL", 0, 1, "C")
-pdf.cell(0, 10, "Emerson Gustavo da Silva Soares", 0, 1, "C")
-pdf.cell(0, 10, "CRF-SC: 14984", 0, 1, "C")
+pdf.cell(0, 10, "Ricardo Ramos Cassol", 0, 1, "C")
+pdf.cell(0, 10, "CRF-SC: 21356", 0, 1, "C")
 pdf.ln(20)
-pdf.cell(0, 10, "Data de Publicação: 07/2024", 0, 1, "C")
+pdf.cell(0, 10, "Data de Publicação: 08/2024", 0, 1, "C")
 
 # Content Sections
 sections = [
@@ -57,27 +57,28 @@ sections = [
      "promovendo um ambiente seguro e eficiente para clientes e colaboradores."),
     
     ("2. Dados da Empresa", 
-     "CNPJ: 31179778000133\n"
+     "CNPJ: 31179778000648\n"
      "Razão Social: BRITOPHARMA FARMACIA, PERFUMARIA E DRUGSTORE LTDA\n"
      "Nome Fantasia: SHOPFARMA\n"
-     "Inscrição Estadual: 258911166 SC\n"
-     "AFE: 7.63728.7"),
+     "Inscrição Estadual: 262975157 SC\n"
+     "AFE: 5.10849-3"),
     
     ("3. Farmacêutico Responsável", 
-     "Nome: Emerson Gustavo da Silva Soares\n"
-     "CRF-SC: 14984"),
+     "Nome: Ricardo Ramos Cassol\n"
+     "CRF-SC: 21356"),
     
     ("4. Estrutura Física", 
-     "A loja possui uma área total de aproximadamente 150m², composta por:\n"
+     "A loja possui uma área total de aproximadamente 180m², composta por:\n"
      "- Sala de serviços farmacêuticos: 9m²\n"
-     "- Cozinha: 9m²\n"
-     "- Banheiros: 5m² e 8m²\n"
+     "- Sala de serviços farmacêuticos: 9m²\n"
+     "- Cozinha: 15m²\n"
+     "- Banheiros: 8m²\n"
      "- Área para armazenamento de mercadorias a dar entrada\n"
-     "- Capacidade de atendimento: 4 clientes simultaneamente\n"
+     "- Capacidade de atendimento: 5 clientes simultaneamente\n"
      "- Área de medicamentos tarjados: Acesso exclusivo aos colaboradores\n"
-     "- Armários para medicamentos de controle especial: 3 unidades, com chave de posse exclusiva do farmacêutico\n"
-     "- Gôndolas: 9 unidades (1 para produtos de conveniência, 2 para medicamentos OTC e nutracêuticos, 6 para produtos de perfumaria)\n"
-     "- Equipamentos adicionais: 1 freezer de sorvetes, 1 geladeira para bebidas não-alcoólicas, prateleiras para fraldas, leites e itens infantis"),
+     "- Sala-armário para medicamentos de controle especial: 2 m², com chave de posse exclusiva do farmacêutico\n"
+     "- Gôndolas: 12 unidades (1 para produtos de conveniência, 5 para medicamentos OTC e nutracêuticos, 6 para produtos de perfumaria)\n"
+     "- Equipamentos adicionais: 1 freezer de sorvetes, 1 geladeira para bebidas não-alcoólicas, prateleiras para fraldas, leites e itens infantis, produtos de beleza e dermocosméticos"),
     
     ("5. Gestão de Estoque", 
      "Recebimento e Armazenamento:\n"
@@ -92,7 +93,7 @@ sections = [
      "Procedimentos:\n"
      "- A dispensação de medicamentos deve seguir rigorosamente as prescrições médicas e as normas regulamentares.\n"
      "- Medicamentos tarjados são acessíveis apenas aos colaboradores da loja.\n"
-     "- Medicamentos de controle especial são armazenados em armários trancados, com chave de posse exclusiva do farmacêutico."),
+     "- Medicamentos de controle especial são armazenados em sala-armário trancados, com chave de posse exclusiva do farmacêutico."),
     
     ("8. Higiene e Segurança", 
      "Procedimentos de Limpeza e Desinfecção:\n"
@@ -133,4 +134,4 @@ pdf.add_page()
 pdf.set_font("Arial", "", 12)
 pdf.cell(0, 10, f"{sections[1]}", 0, 1, "C")
 
-pdf.output("manual_boas_praticas.pdf")
+pdf.output("manual_boas_praticas_trindade.pdf")
