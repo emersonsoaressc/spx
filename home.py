@@ -16,28 +16,28 @@ def home():
     st.subheader('Indicador de ruptura')
     
     #001 - Matriz
-    valor_em_estoque_001, valor_faltas_001, df_estoque_001 = analise_estoque('001')
-    valor_estoque_base_001 = valor_em_estoque_001+valor_faltas_001
-    st.write('001 - Matriz')
-    kpi1,kpi2,kpi3 =  st.columns(3)
-    with kpi1:
-        st.metric(label='Ruptura total', value=f'{(valor_faltas_001/valor_estoque_base_001*100):.1f}%')
-    with kpi2:
-        st.metric(label='Valor em estoque', value=f'R$ {(valor_em_estoque_001/1000):.1f} mil')
-    with kpi3:
-        st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas_001/1000):.1f} mil')
+    with st.expander('001 - Matriz', expanded=True):
+        valor_em_estoque_001, valor_faltas_001, df_estoque_001 = analise_estoque('001')
+        valor_estoque_base_001 = valor_em_estoque_001+valor_faltas_001
+        kpi1,kpi2,kpi3 =  st.columns(3)
+        with kpi1:
+            st.metric(label='Ruptura total', value=f'{(valor_faltas_001/valor_estoque_base_001*100):.1f}%')
+        with kpi2:
+            st.metric(label='Valor em estoque', value=f'R$ {(valor_em_estoque_001/1000):.1f} mil')
+        with kpi3:
+            st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas_001/1000):.1f} mil')
         
     #004 - Centrinho
-    valor_em_estoque_004, valor_faltas_004, df_estoque_004 = analise_estoque('004')
-    valor_estoque_base_004 = valor_em_estoque_004+valor_faltas_004
-    st.write('004 - Centrinho')
-    kpi1,kpi2,kpi3 =  st.columns(3)
-    with kpi1:
-        st.metric(label='Ruptura total', value=f'{(valor_faltas_004/valor_estoque_base_004*100):.1f}%')
-    with kpi2:
-        st.metric(label='Valor em estoque', value=f'R$ {(valor_em_estoque_004/1000):.1f} mil')
-    with kpi3:
-        st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas_004/1000):.1f} mil')
+    with st.expander('004 - Centrinho', expanded=True):
+        valor_em_estoque_004, valor_faltas_004, df_estoque_004 = analise_estoque('004')
+        valor_estoque_base_004 = valor_em_estoque_004+valor_faltas_004
+        kpi1,kpi2,kpi3 =  st.columns(3)
+        with kpi1:
+            st.metric(label='Ruptura total', value=f'{(valor_faltas_004/valor_estoque_base_004*100):.1f}%')
+        with kpi2:
+            st.metric(label='Valor em estoque', value=f'R$ {(valor_em_estoque_004/1000):.1f} mil')
+        with kpi3:
+            st.metric(label='Valor em faltas', value=f'R$ {(valor_faltas_004/1000):.1f} mil')
     
     
     
