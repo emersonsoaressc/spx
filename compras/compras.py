@@ -81,9 +81,13 @@ def layout_compras():
         somente_zerados = st.checkbox('somente zerados')
         
         if filtro_avançado == 'Nenhum filtro avançado':
-            pass
+            tipo_compras = st.selectbox('Selecione o tipo da compra:',['Estoque mínimo','Demanda'],)
+            
+            #compras por estoque mínimo
+            if tipo_compras == 'Estoque mínimo':
+                st.write(df_faltas_grupo)
         
         st.write(filtro_avançado)
         st.write(curvas)
         st.write(somente_zerados)
-        st.write(curvas = None)
+        
