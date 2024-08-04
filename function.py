@@ -12,8 +12,7 @@ def analise_estoque(filial):
     df_saldo_estoque['estoque_minimo'] = pd.to_numeric(df_saldo_estoque['estoque_minimo'], errors='coerce')
     df_saldo_estoque['preco_custo_total'] = pd.to_numeric(df_saldo_estoque['preco_custo_total'], errors='coerce')
     df_saldo_estoque['preco_custo'] = pd.to_numeric(df_saldo_estoque['preco_custo'], errors='coerce')
-    df_saldo_estoque['ean'] = df_saldo_estoque['ean'].astype(int)
-    df_saldo_estoque['ean'] = df_saldo_estoque['ean'].astype(str)
+    df_saldo_estoque['ean'] = df_saldo_estoque['ean'].fillna(0).astype(int)
 
     df_saldo_estoque_filtrado = df_saldo_estoque.query('estoque_minimo > 0')
     valor_em_estoque = df_saldo_estoque['preco_custo_total'].sum()
