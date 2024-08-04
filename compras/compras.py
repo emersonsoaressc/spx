@@ -76,7 +76,7 @@ def layout_compras():
             'Comprar por laboratório',
             ])
         #comprar por curva
-        curvas = st.multiselect('Selecione as curvas',['A','B','C','D'])
+        curvas = st.multiselect('Selecione as curvas',['A / Q','B / Q','C / Q','D / Q'])
         #comprar somente zerados
         somente_zerados = st.checkbox('somente zerados')
         
