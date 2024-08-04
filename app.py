@@ -1,7 +1,6 @@
 import streamlit as st
 from compras.compras import layout_compras
 from home import home
-from estoque import layout_estoque
 
 
 st.sidebar.image('images/logo_shopfarma_sem_fundo.png')
@@ -14,7 +13,7 @@ if gestao_selectbox == 'Home':
     home()
 
 if gestao_selectbox == 'Dashboard':
-    layout_compras()
+    pass
     
 if gestao_selectbox == 'Sistema de compras':
-    layout_estoque()
+    layout_compras()
