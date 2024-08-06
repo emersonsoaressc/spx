@@ -25,10 +25,10 @@ def analise_estoque(filial):
 @st.cache
 def analise_estoque_grupo(df_saldo_estoque_grupo, grupo):
     df = df_saldo_estoque_grupo.query(f'grupo == {grupo}')
-    df_saldo_estoque_grupo_filtrado = df_saldo_estoque_grupo.query('estoque_minimo > 0')
+    df_saldo_estoque_grupo_filtrado = df.query('estoque_minimo > 0')
     valor_em_estoque = df_saldo_estoque_grupo['preco_custo_total'].sum()
     df_faltas = df_saldo_estoque_grupo_filtrado
-    df_faltas['valor_faltas'] = df_faltas['estoque_minimo']*df_faltas['preco_custo']
+    df_faltas['valor_faltas'] = np.where((df_faltas['estoque_minimo'] - df_faltas['estoque']) < 0,0,((df_faltas['estoque_minimo'] - df_faltas['estoque'])*df_faltas['preco_custo']))
     df_faltas['ean'] = df_faltas['ean'].astype(str)
     valor_faltas = df_faltas['valor_faltas'].sum()
     
