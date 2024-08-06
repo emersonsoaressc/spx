@@ -24,7 +24,8 @@ def analise_estoque(filial):
 
 @st.cache
 def analise_estoque_grupo(df_saldo_estoque_grupo, grupo):
-    df_saldo_estoque_grupo = df_saldo_estoque_grupo.query(f'grupo == {grupo}')
+    grupo_filtro = grupo
+    df_saldo_estoque_grupo = df_saldo_estoque_grupo.query(f'grupo == @grupo_filtro')
     df_saldo_estoque_grupo_filtrado = df_saldo_estoque_grupo.query('estoque_minimo > 0')
     valor_em_estoque = df_saldo_estoque_grupo['preco_custo_total'].sum()
     df_faltas = df_saldo_estoque_grupo_filtrado
