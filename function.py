@@ -17,7 +17,7 @@ def analise_estoque(filial):
     df_saldo_estoque_filtrado = df_saldo_estoque.query('estoque_minimo > 0')
     valor_em_estoque = df_saldo_estoque['preco_custo_total'].sum()
     df_faltas = df_saldo_estoque_filtrado.query('estoque == 0')
-    df_faltas['valor_faltas'] = df_faltas['estoque_minimo']*df_faltas['preco_custo']
+    df_faltas['valor_faltas'] = np.where((df_faltas['estoque_minimo'] - df_faltas['estoque']) < 0,0,((df_faltas['estoque_minimo'] - df_faltas['estoque'])*df_faltas['preco_custo']))
     valor_faltas = df_faltas['valor_faltas'].sum()
     
     return valor_em_estoque, valor_faltas, df_saldo_estoque
