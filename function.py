@@ -1,14 +1,15 @@
 import pandas as pd 
 import numpy as np
-import streamlit as st
+#import streamlit as st
 
-@st.cache
-def analise_estoque(filial):
-    df_saldo_estoque = pd.read_excel(f'planilhas/estoque/saldo_estoque_{filial}.xls', header=11, usecols=('B,C,F,G,H,I,J,O,P,Q,S,U,X'))[0:-3]
+#@st.cache
+def analise_estoque(filial, tipo_arquivo = 'xlsx'):
+    df_saldo_estoque = pd.read_excel(f'planilhas/estoque/saldo_estoque_{filial}.{tipo_arquivo}', header=11, usecols=('B,C,F,G,H,I,J,O,P,Q,S,U,X'))[0:-3]
     df_saldo_estoque = df_saldo_estoque.set_axis(['ean','produto','laboratorio','grupo','curva','estoque_minimo','demanda','estoque','preco_custo','preco_venda','lucro','preco_custo_total','preco_venda_total'], axis=1)
     df_saldo_estoque['grupo'] = df_saldo_estoque['grupo'].astype(int)
-    df_saldo_estoque['preco_custo_total'] = df_saldo_estoque['preco_custo_total'].str.replace('.', '').str.replace(',', '.')
-    df_saldo_estoque['preco_custo'] = df_saldo_estoque['preco_custo'].str.replace('.', '').str.replace(',', '.')
+    if tipo_arquivo == 'xlsx':
+        df_saldo_estoque['preco_custo_total'] = df_saldo_estoque['preco_custo_total'].str.replace('.', '').str.replace(',', '.')
+        df_saldo_estoque['preco_custo'] = df_saldo_estoque['preco_custo'].str.replace('.', '').str.replace(',', '.')
     df_saldo_estoque['estoque_minimo'] = pd.to_numeric(df_saldo_estoque['estoque_minimo'], errors='coerce')
     df_saldo_estoque['preco_custo_total'] = pd.to_numeric(df_saldo_estoque['preco_custo_total'], errors='coerce')
     df_saldo_estoque['preco_custo'] = pd.to_numeric(df_saldo_estoque['preco_custo'], errors='coerce')
@@ -22,7 +23,8 @@ def analise_estoque(filial):
     
     return valor_em_estoque, valor_faltas, df_saldo_estoque
 
-@st.cache
+
+#@st.cache
 def analise_estoque_grupo(df_saldo_estoque_grupo, grupo):
     df = df_saldo_estoque_grupo.query(f'grupo == {grupo}')
     df_saldo_estoque_grupo_filtrado = df.query('estoque_minimo > 0')
