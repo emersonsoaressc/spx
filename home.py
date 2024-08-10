@@ -18,7 +18,10 @@ def home():
     #001 - Matriz
     
     with st.expander('001 - Matriz', expanded=True):
-        valor_em_estoque_001, valor_faltas_001, df_estoque_001 = analise_estoque('001','xls')
+        try:
+            valor_em_estoque_001, valor_faltas_001, df_estoque_001 = analise_estoque('001','xls')
+        except:
+            valor_em_estoque_001, valor_faltas_001, df_estoque_001 = analise_estoque('001','xlsx')
         valor_estoque_base_001 = valor_em_estoque_001+valor_faltas_001
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -30,7 +33,10 @@ def home():
         
     #004 - Centrinho
     with st.expander('004 - Centrinho', expanded=True):
-        valor_em_estoque_004, valor_faltas_004, df_estoque_004 = analise_estoque('004','xls')
+        try:
+            valor_em_estoque_004, valor_faltas_004, df_estoque_004 = analise_estoque('004','xls')
+        except:
+            valor_em_estoque_004, valor_faltas_004, df_estoque_004 = analise_estoque('004','xls')
         valor_estoque_base_004 = valor_em_estoque_004+valor_faltas_004
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -42,7 +48,10 @@ def home():
             
     #005 - Calil
     with st.expander('005 - Calil', expanded=True):
-        valor_em_estoque_005, valor_faltas_005, df_estoque_005 = analise_estoque('005','xls')
+        try:
+            valor_em_estoque_005, valor_faltas_005, df_estoque_005 = analise_estoque('005','xls')
+        except:
+            valor_em_estoque_005, valor_faltas_005, df_estoque_005 = analise_estoque('005','xls')
         valor_estoque_base_005 = valor_em_estoque_005+valor_faltas_005
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
