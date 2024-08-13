@@ -6,8 +6,8 @@ def convertXLS(arquivo_xls):
     pass
 
 @st.cache
-def analise_estoque(filial, tipo_arquivo = 'xlsx'):
-    df_saldo_estoque = pd.read_excel(f'planilhas/estoque/saldo_estoque_{filial}.{tipo_arquivo}', header=11, usecols=('B,C,F,G,H,I,J,O,P,Q,S,U,X'))[0:-3]
+def analise_estoque(filial):
+    df_saldo_estoque = pd.read_excel(f'planilhas/estoque/saldo_estoque_{filial}.xlsx', header=11, usecols=('B,C,F,G,H,I,J,O,P,Q,S,U,X'))[0:-3]
     df_saldo_estoque = df_saldo_estoque.set_axis(['ean','produto','laboratorio','grupo','curva','estoque_minimo','demanda','estoque','preco_custo','preco_venda','lucro','preco_custo_total','preco_venda_total'], axis=1)
     df_saldo_estoque['grupo'] = df_saldo_estoque['grupo'].astype(int)
     df_saldo_estoque['preco_custo_total'] = df_saldo_estoque['preco_custo_total'].str.replace('.', '').str.replace(',', '.')
