@@ -99,7 +99,7 @@ def layout_compras():
             lst_labs = st.multiselect('laboratorios',df_faltas_smartped['laboratorio'].unique())
             df_faltas_smartped = df_faltas_smartped.query("laboratorio in @lst_labs")
         
-        if filtro_avançado == 'Comprar por descrição':
+        elif filtro_avançado == 'Comprar por descrição':
             txt_descricao = (f"{st.text_input('qual descrição quer filtrar?')}").upper()
             df_faltas_smartped = df_faltas_smartped.query(f"produto.str.contains('{txt_descricao}')")
             
