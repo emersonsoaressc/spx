@@ -106,7 +106,7 @@ def layout_compras():
         
         elif filtro_avançado == 'Comprar excuindo laboratorio':
             lst_not_labs = st.multiselect('laboratorios',df_faltas_smartped['laboratorio'].unique())
-            df_faltas_smartped = df_faltas_smartped.query("laboratorio not in @lst_labs")
+            df_faltas_smartped = df_faltas_smartped.query("laboratorio not in @lst_not_labs")
             
         #comprar por curva
         curvas = st.multiselect('Selecione as curvas',['A / Q','B / Q','C / Q','D / Q'])
