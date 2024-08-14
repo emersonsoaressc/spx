@@ -100,7 +100,8 @@ def layout_compras():
             df_faltas_smartped = df_faltas_smartped.query("laboratorio in @lst_labs")
         
         if filtro_avançado == 'Comprar por descrição':
-            txt_descricao = st.text_input('qual descrição quer filtrar?',)
+            txt_descricao = st.text_input('qual descrição quer filtrar?')
+            st.write(txt_descricao)
             df_faltas_smartped = df_faltas_smartped.query("produto.str.contains('@txt_descricao')")
             
         #comprar por curva
