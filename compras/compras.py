@@ -101,7 +101,7 @@ def layout_compras():
         
         if filtro_avançado == 'Comprar por descrição':
             txt_descricao = f"{st.text_input('qual descrição quer filtrar?')}"
-            df_faltas_smartped = df_faltas_smartped.query(f"produto.str.contains({txt_descricao})")
+            df_faltas_smartped = df_faltas_smartped.query(f"produto.str.contains('{txt_descricao}')")
             
         #comprar por curva
         curvas = st.multiselect('Selecione as curvas',['A / Q','B / Q','C / Q','D / Q'])
