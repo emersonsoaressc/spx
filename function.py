@@ -17,9 +17,8 @@ def analise_estoque(filial):
     df_saldo_estoque['preco_custo'] = pd.to_numeric(df_saldo_estoque['preco_custo'], errors='coerce')
     df_saldo_estoque['ean'] = df_saldo_estoque['ean'].fillna(0).astype(int)
 
-    lst_grupos = st.multiselect('laboratorios',df_saldo_estoque['grupo'].unique())
+    
     df_saldo_estoque_filtrado = df_saldo_estoque.query('estoque_minimo > 0')
-    df_saldo_estoque_filtrado = df_saldo_estoque_filtrado.query('grupo in @lst_grupos')
     valor_em_estoque = df_saldo_estoque['preco_custo_total'].sum()
     df_faltas = df_saldo_estoque_filtrado.query('estoque == 0')
     df_faltas['valor_faltas'] = np.where((df_faltas['estoque_minimo'] - df_faltas['estoque']) < 0,0,((df_faltas['estoque_minimo'] - df_faltas['estoque'])*df_faltas['preco_custo']))
