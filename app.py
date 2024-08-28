@@ -9,8 +9,8 @@ with st.sidebar.expander('Gestão de colaboradores',expanded=True):
     lst_gestao_colab = ['Dashboard Geral','Avaliação Individual']
     gestao_colab = st.selectbox('',lst_gestao_colab)
     
-    if gestao_colab == 'Dashboard Geral':
-        dash_colab()
+if gestao_colab == 'Dashboard Geral':
+    dash_colab()
 
 with st.sidebar.expander('Gestão de estoque avançada', expanded=False):
     lst_gestao_estoque = ['','Home','Sistema de compras']
