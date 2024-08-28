@@ -6,7 +6,7 @@ from colaboradores import dash_colab
 st.sidebar.image('images/logo_shopfarma_sem_fundo.png')
 
 with st.sidebar.expander('Gestão de colaboradores',expanded=True):
-    lst_gestao_colab = ['','Dashboard Geral','Avaliação Individual']
+    lst_gestao_colab = ['Dashboard Geral','Avaliação Individual']
     gestao_colab = st.selectbox('',lst_gestao_colab)
     
     if gestao_colab == 'Dashboard Geral':
