@@ -7,8 +7,9 @@ st.sidebar.image('images/logo_shopfarma_sem_fundo.png')
 
 with st.sidebar.expander('Gestão de colaboradores',expanded=True):
     lst_gestao_colab = ['','Dashboard Geral','Avaliação Individual']
-
-    if lst_gestao_colab == 'Dashboard Geral':
+    gestao_colab = st.sidebar.selectbox(lst_gestao_colab)
+    
+    if gestao_colab == 'Dashboard Geral':
         dash_colab()
 
 with st.sidebar.expander('Gestão de estoque avançada', expanded=False):
