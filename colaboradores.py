@@ -46,7 +46,7 @@ def colab_individual():
     
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
-        st.metric(label='Venda Total', value=0)
+        st.metric(label='Venda Total', value=df_vendedor['valor_liquido'].sum())
         st.metric(label='% desconto concedido', value=0)
         st.metric(label='Vendas Genéricos/Similares', value=0)
     with kpi2:
