@@ -43,5 +43,7 @@ def colab_individual():
     st.write(cod_vendedor)
     
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
-    st.write(df_vendedor)
+    st.write(df_relacao_vendas)
+    
+
     
