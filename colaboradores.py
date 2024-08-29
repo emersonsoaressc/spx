@@ -44,7 +44,7 @@ def colab_individual():
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
     
     #KPI's
-    venda_total = float(df_vendedor['valor_liquido'].sum())
+    venda_total = round(float(df_vendedor['valor_liquido'].sum()),2)
     clientes_atendidos = int(df_vendedor['cupom'].count())
     tkm = round(venda_total/clientes_atendidos,2)
     desconto_percent = round((((-df_vendedor['valor_desconto'].sum())/venda_total)*100),2)
