@@ -52,13 +52,12 @@ def colab_individual():
     
     for i in seletor_colab:
         codigo = i.split('-')[0].strip()
+        lista_codigos_vendedores.append(codigo)
         st.write(codigo)
-    
-    cod_vendedor = int((seletor_colab.split("-")[0].strip()))
     
     # inserir tratamento de erros
 
-    df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
+    df_vendedor = df_relacao_vendas.query('vendedor in lista_codigos_vendedores')
     dt1,dt2 =  st.columns(2)
     with dt1:
         data_inicial = st.date_input('Data inicial')
