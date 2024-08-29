@@ -45,7 +45,7 @@ def colab_individual():
     df_relacao_vendas['cod_venda'] = df_relacao_vendas['cod_venda'].astype(str)
     df_relacao_vendas['cupom'] = df_relacao_vendas['cupom'].astype(str)
     lst_vendedor = df_colaboradores['cod_nome_colab'].unique()
-    cod_vendedor = int((st.multiselect('Selecione o vendedor',lst_vendedor).split("-")[0].strip()))
+    cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor).split("-")[0].strip()))
     
     # inserir tratamento de erros
     try:
