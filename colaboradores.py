@@ -37,9 +37,9 @@ def dash_colab():
 def colab_individual():
     df_relacao_vendas = pd.read_excel('planilhas/vendas/vendedores/relacao_vendas.xls', header=10, usecols=('B,E,G,Q,U,AA,AB,AI,AL,AM,AP,AS'))
     df_relacao_vendas = df_relacao_vendas.set_axis(['cod_venda','filial','forma_pagamento','data','hora','cupom','cliente','vendedor','valor_bruto','%desconto','valor_desconto','valor_liquido'], axis=1)[0:-3]
-
+    df_relacao_vendas['vendedor'] = df_relacao_vendas['vendedor'].astype(int)
     lst_vendedor = ['6 - Emerson Soares', '11 - Shandrica Soares']
-    cod_vendedor = (st.selectbox('Selecione o vendedor',lst_vendedor)).split('-')[0].strip()
+    cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor)).split('-')[0].strip())
     st.write(cod_vendedor)
     
     #df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
