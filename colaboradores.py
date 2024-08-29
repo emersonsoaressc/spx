@@ -31,3 +31,7 @@ def dash_colab():
     # melhores vendedores em itens por cupom
     with st.expander('Melhores Vendedores em itens por cupom', expanded=False):
         st.write('')
+        
+        
+def colab_individual():
+    pass
