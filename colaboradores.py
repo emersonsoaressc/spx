@@ -14,16 +14,20 @@ def dash_colab():
         st.metric(label='Lucro Bruto por colaborador', value=0, delta=0.1)
     
     # melhores vendedores em faturamento
-    st.subheader('Melhores Vendedores em faturamento')
+    with st.expander('Melhores Vendedores em faturamento', expanded=False):
+        st.write('')
     
     
     # melhores vendedores em lucratividade bruta
-    st.subheader('Melhores Vendedores em lucratividade bruta')
+    with st.expander('Melhores Vendedores em lucratividade bruta', expanded=False):
+        st.write('')
     
     
     # melhores vendedores em ticket médio
-    st.subheader('Melhores Vendedores em ticket médio')
+    with st.expander('Melhores Vendedores em ticket médio', expanded=False):
+        st.write('')
     
     
     # melhores vendedores em itens por cupom
-    st.subheader('Melhores Vendedores em ticket médio')
+    with st.expander('Melhores Vendedores em itens por cupom', expanded=False):
+        st.write('')
