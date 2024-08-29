@@ -45,48 +45,48 @@ def colab_individual():
     df_relacao_vendas['cod_venda'] = df_relacao_vendas['cod_venda'].astype(str)
     df_relacao_vendas['cupom'] = df_relacao_vendas['cupom'].astype(str)
     lst_vendedor = df_colaboradores['cod_nome_colab'].unique()
-    seletor_colab = st.selectbox('Selecione o vendedor',lst_vendedor)
+    seletor_colab = st.multiselect('Selecione o vendedor',lst_vendedor)
     cod_vendedor = int((seletor_colab.split("-")[0].strip()))
     
     # inserir tratamento de erros
-    try:
-        df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
-        dt1,dt2 =  st.columns(2)
-        with dt1:
-            data_inicial = st.date_input('Data inicial')
-        with dt2:
-            data_final = st.date_input('Data final')
-        df_vendedor = df_vendedor.query('data >= @data_inicial')
-        df_vendedor = df_vendedor.query('data <= @data_final')
 
-        #KPI's
-        venda_liquida = round(float(df_vendedor['valor_liquido'].sum()),2)
-        clientes_atendidos = int(df_vendedor['cupom'].count())
-        tkm = round(venda_liquida/clientes_atendidos,2)
-        valor_desconto = -df_vendedor['valor_desconto'].sum()
-        venda_bruta = venda_liquida + valor_desconto
-        desconto_percent = round(valor_desconto/venda_bruta*100,2)
-        
-        cupons_nao_identificados = df_vendedor['cliente'].isna().sum()
-        cupons_identificados = df_vendedor['cliente'].count()
-        cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
-        
-        kpi1,kpi2,kpi3 =  st.columns(3)
-        with kpi1:
-            st.metric(label='Venda liquida', value=f'R$ {venda_liquida}')
-            st.metric(label='% desconto concedido', value=f'{desconto_percent}%')
-            st.metric(label='Vendas Genéricos/Similares', value=0)
-        with kpi2:
-            st.metric(label='Clientes atendidos', value=clientes_atendidos)
-            st.metric(label='% cupons com clientes cadastrados', value=f'{cupons_identificados_percent}%')
-            st.metric(label='Vendas Perfumaria', value=0)
-        with kpi3:
-            st.metric(label='Ticket médio', value=f'R$ {tkm}')
-            st.metric(label='Itens por cupom', value=0)
-            st.metric(label='Vendas CSR', value=0)
+    df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
+    dt1,dt2 =  st.columns(2)
+    with dt1:
+        data_inicial = st.date_input('Data inicial')
+    with dt2:
+        data_final = st.date_input('Data final')
+    df_vendedor = df_vendedor.query('data >= @data_inicial')
+    df_vendedor = df_vendedor.query('data <= @data_final')
 
-        st.write(df_vendedor)
-        
-    except:
-        st.warning('No momento não temos dados para este colaborador')
+    #KPI's
+    venda_liquida = round(float(df_vendedor['valor_liquido'].sum()),2)
+    clientes_atendidos = int(df_vendedor['cupom'].count())
+    tkm = round(venda_liquida/clientes_atendidos,2)
+    valor_desconto = -df_vendedor['valor_desconto'].sum()
+    venda_bruta = venda_liquida + valor_desconto
+    desconto_percent = round(valor_desconto/venda_bruta*100,2)
+    
+    cupons_nao_identificados = df_vendedor['cliente'].isna().sum()
+    cupons_identificados = df_vendedor['cliente'].count()
+    cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
+    
+    kpi1,kpi2,kpi3 =  st.columns(3)
+    with kpi1:
+        st.metric(label='Venda liquida', value=f'R$ {venda_liquida}')
+        st.metric(label='% desconto concedido', value=f'{desconto_percent}%')
+        st.metric(label='Vendas Genéricos/Similares', value=0)
+    with kpi2:
+        st.metric(label='Clientes atendidos', value=clientes_atendidos)
+        st.metric(label='% cupons com clientes cadastrados', value=f'{cupons_identificados_percent}%')
+        st.metric(label='Vendas Perfumaria', value=0)
+    with kpi3:
+        st.metric(label='Ticket médio', value=f'R$ {tkm}')
+        st.metric(label='Itens por cupom', value=0)
+        st.metric(label='Vendas CSR', value=0)
+
+    st.write(df_vendedor)
+    
+
+    st.warning('No momento não temos dados para este colaborador')
     
