@@ -34,4 +34,5 @@ def dash_colab():
         
         
 def colab_individual():
-    pass
+    lst_vendedor = ['6 - Emerson Soares', '11 - Shandrica Soares']
+    st.selectbox('Selecione o vendedor',lst_vendedor)
