@@ -56,8 +56,8 @@ def colab_individual():
         valor_desconto = -df_vendedor['valor_desconto'].sum()
         venda_bruta = venda_liquida + valor_desconto
         desconto_percent = round(valor_desconto/venda_bruta*100,2)
-        cupons_nao_identificados = df_relacao_vendas['clientes'].isna().sum()
-        cupons_identificados = df_relacao_vendas['clientes'].count()
+        cupons_nao_identificados = int(df_relacao_vendas['clientes'].isna().sum())
+        cupons_identificados = int(df_relacao_vendas['clientes'].count())
         cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
         
         kpi1,kpi2,kpi3 =  st.columns(3)
