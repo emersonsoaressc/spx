@@ -42,8 +42,8 @@ def colab_individual():
     cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor)).split('-')[0].strip())
     st.write(cod_vendedor)
     
-    #df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
-    st.write(df_relacao_vendas)
+    df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
+    st.write(df_vendedor)
 
 
     
