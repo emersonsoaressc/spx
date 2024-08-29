@@ -40,10 +40,17 @@ def colab_individual():
     df_relacao_vendas['vendedor'] = df_relacao_vendas['vendedor'].astype(int)
     lst_vendedor = ['6 - Emerson Soares', '11 - Shandrica Soares']
     cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor)).split('-')[0].strip())
-    st.write(cod_vendedor)
     
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
     st.write(df_vendedor)
+    
+    kpi1,kpi2,kpi3 =  st.columns(3)
+    with kpi1:
+        st.metric(label='Venda Total', value=0)
+    with kpi2:
+        st.metric(label='Clientes atendidos', value=0)
+    with kpi3:
+        st.metric(label='Ticket médio', value=0)
 
 
     
