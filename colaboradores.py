@@ -43,7 +43,7 @@ def colab_individual():
     df_relacao_vendas = df_relacao_vendas.set_axis(['cod_venda','filial','forma_pagamento','data','hora','cupom','cliente','vendedor','valor_bruto','%desconto','valor_desconto','valor_liquido'], axis=1)[0:-3]
     df_relacao_vendas['vendedor'] = df_relacao_vendas['vendedor'].astype(int)
     lst_vendedor = df_colaboradores['cod_nome_colab'].unique()
-    cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor)).split('-')[0].strip())
+    cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor)))
     
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
     
