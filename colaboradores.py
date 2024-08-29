@@ -43,10 +43,11 @@ def colab_individual():
     
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
     
-    
+    #KPI's
+    venda_total = df_vendedor['valor_liquido'].sum()
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
-        st.metric(label='Venda Total', value=df_vendedor['valor_liquido'].sum())
+        st.metric(label='Venda Total', value=f'R${venda_total}')
         st.metric(label='% desconto concedido', value=0)
         st.metric(label='Vendas Genéricos/Similares', value=0)
     with kpi2:
