@@ -50,8 +50,11 @@ def colab_individual():
     # inserir tratamento de erros
     try:
         df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
-        data_inicial = st.date_input('Data inicial')
-        data_final = st.date_input('Data final')
+        dt1,dt2 =  st.columns(2)
+        with dt1:
+            data_inicial = st.date_input('Data inicial')
+        with dt2:
+            data_final = st.date_input('Data final')
 
         #KPI's
         venda_liquida = round(float(df_vendedor['valor_liquido'].sum()),2)
