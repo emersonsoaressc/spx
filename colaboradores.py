@@ -48,37 +48,37 @@ def colab_individual():
     cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor).split("-")[0].strip()))
     
     # inserir tratamento de erros
+    try:
+        df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
 
-    df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
+        #KPI's
+        venda_liquida = round(float(df_vendedor['valor_liquido'].sum()),2)
+        clientes_atendidos = int(df_vendedor['cupom'].count())
+        tkm = round(venda_liquida/clientes_atendidos,2)
+        valor_desconto = -df_vendedor['valor_desconto'].sum()
+        venda_bruta = venda_liquida + valor_desconto
+        desconto_percent = round(valor_desconto/venda_bruta*100,2)
+        
+        cupons_nao_identificados = df_vendedor['cliente'].isna().sum()
+        cupons_identificados = df_vendedor['cliente'].count()
+        cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
+        
+        kpi1,kpi2,kpi3 =  st.columns(3)
+        with kpi1:
+            st.metric(label='Venda liquida', value=f'R$ {venda_liquida}')
+            st.metric(label='% desconto concedido', value=f'{desconto_percent}%')
+            st.metric(label='Vendas Genéricos/Similares', value=0)
+        with kpi2:
+            st.metric(label='Clientes atendidos', value=clientes_atendidos)
+            st.metric(label='% cupons com clientes cadastrados', value=cupons_identificados_percent)
+            st.metric(label='Vendas Perfumaria', value=0)
+        with kpi3:
+            st.metric(label='Ticket médio', value=f'R$ {tkm}')
+            st.metric(label='Itens por cupom', value=0)
+            st.metric(label='Vendas CSR', value=0)
 
-    #KPI's
-    venda_liquida = round(float(df_vendedor['valor_liquido'].sum()),2)
-    clientes_atendidos = int(df_vendedor['cupom'].count())
-    tkm = round(venda_liquida/clientes_atendidos,2)
-    valor_desconto = -df_vendedor['valor_desconto'].sum()
-    venda_bruta = venda_liquida + valor_desconto
-    desconto_percent = round(valor_desconto/venda_bruta*100,2)
-    
-    cupons_nao_identificados = df_vendedor['cliente'].isna().sum()
-    cupons_identificados = df_vendedor['cliente'].count()
-    cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
-    
-    kpi1,kpi2,kpi3 =  st.columns(3)
-    with kpi1:
-        st.metric(label='Venda liquida', value=f'R$ {venda_liquida}')
-        st.metric(label='% desconto concedido', value=f'{desconto_percent}%')
-        st.metric(label='Vendas Genéricos/Similares', value=0)
-    with kpi2:
-        st.metric(label='Clientes atendidos', value=clientes_atendidos)
-        st.metric(label='% cupons com clientes cadastrados', value=cupons_identificados_percent)
-        st.metric(label='Vendas Perfumaria', value=0)
-    with kpi3:
-        st.metric(label='Ticket médio', value=f'R$ {tkm}')
-        st.metric(label='Itens por cupom', value=0)
-        st.metric(label='Vendas CSR', value=0)
-
-    st.write(df_vendedor)
-    
-    #except:
-    #    st.warning('No momento não temos dados para este colaborador')
+        st.write(df_vendedor)
+        
+    except:
+        st.warning('No momento não temos dados para este colaborador')
     
