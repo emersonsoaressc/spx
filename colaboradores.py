@@ -55,7 +55,8 @@ def colab_individual():
             data_inicial = st.date_input('Data inicial')
         with dt2:
             data_final = st.date_input('Data final')
-        df_vendedor = df_vendedor.query('data > @data_inicial')
+        df_vendedor = df_vendedor.query('data >= @data_inicial')
+        df_vendedor = df_vendedor.query('data <= @data_final')
 
         #KPI's
         venda_liquida = round(float(df_vendedor['valor_liquido'].sum()),2)
