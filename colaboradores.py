@@ -46,7 +46,7 @@ def colab_individual():
     #KPI's
     venda_total = float(df_vendedor['valor_liquido'].sum())
     clientes_atendidos = int(df_vendedor['cupom'].count())
-    
+    tkm = venda_total/clientes_atendidos
     
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
@@ -58,7 +58,7 @@ def colab_individual():
         st.metric(label='% cupons com clientes cadastrados', value=0)
         st.metric(label='Vendas Perfumaria', value=0)
     with kpi3:
-        st.metric(label='Ticket médio', value=0)
+        st.metric(label='Ticket médio', value=tkm)
         st.metric(label='Itens por cupom', value=0)
         st.metric(label='Vendas CSR', value=0)
 
