@@ -56,6 +56,9 @@ def colab_individual():
         valor_desconto = -df_vendedor['valor_desconto'].sum()
         venda_bruta = venda_liquida + valor_desconto
         desconto_percent = round(valor_desconto/venda_bruta*100,2)
+        cupons_nao_identificados = df_relacao_vendas['clientes'].isna().sum()
+        cupons_identificados = df_relacao_vendas['clientes'].count()
+        cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
         
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -64,7 +67,7 @@ def colab_individual():
             st.metric(label='Vendas Genéricos/Similares', value=0)
         with kpi2:
             st.metric(label='Clientes atendidos', value=clientes_atendidos)
-            st.metric(label='% cupons com clientes cadastrados', value=0)
+            st.metric(label='% cupons com clientes cadastrados', value=cupons_identificados_percent)
             st.metric(label='Vendas Perfumaria', value=0)
         with kpi3:
             st.metric(label='Ticket médio', value=f'R$ {tkm}')
