@@ -47,6 +47,7 @@ def colab_individual():
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
         st.metric(label='Venda Total', value=0)
+        st.metric(label='% desconto concedido', value=0)
     with kpi2:
         st.metric(label='Clientes atendidos', value=0)
     with kpi3:
