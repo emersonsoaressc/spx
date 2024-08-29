@@ -44,14 +44,16 @@ def colab_individual():
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
     
     #KPI's
-    venda_total = round(float(df_vendedor['valor_liquido'].sum()),2)
+    venda_liquida = round(float(df_vendedor['valor_liquido'].sum()),2)
     clientes_atendidos = int(df_vendedor['cupom'].count())
-    tkm = round(venda_total/clientes_atendidos,2)
-    desconto_percent = round((((-df_vendedor['valor_desconto'].sum())/venda_total)*100),2)
+    tkm = round(venda_liquida/clientes_atendidos,2)
+    valor_desconto = -df_vendedor['valor_desconto'].sum()
+    venda_bruta = venda_liquida + valor_desconto
+    desconto_percent = round(valor_desconto/venda_bruta*100,2)
     
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
-        st.metric(label='Venda Total', value=f'R$ {venda_total}')
+        st.metric(label='Venda liquida', value=f'R$ {venda_liquida}')
         st.metric(label='% desconto concedido', value=f'{desconto_percent}%')
         st.metric(label='Vendas Genéricos/Similares', value=0)
     with kpi2:
