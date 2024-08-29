@@ -45,6 +45,9 @@ def colab_individual():
     
     #KPI's
     venda_total = float(df_vendedor['valor_liquido'].sum())
+    clientes_atendidos = int(df_vendedor['cupom'].count())
+    
+    
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
         st.metric(label='Venda Total', value=f'R${venda_total}')
