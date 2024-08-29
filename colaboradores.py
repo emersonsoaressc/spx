@@ -37,13 +37,13 @@ def dash_colab():
 def colab_individual():
     df_colaboradores = pd.read_excel('planilhas/vendas/vendedores/lista_colaboradores.xls', header=8,usecols=('B,C,E'))[0:-5]
     df_colaboradores = df_colaboradores.set_axis(['codigo','colaborador','admissao'], axis=1)
-    df_colaboradores['cod_nome_colab'] = df_colaboradores['codigo'].astype(str) + df_colaboradores['colaborador']
+    df_colaboradores['cod_nome_colab'] = df_colaboradores['codigo'].astype(str) + ' - '+ df_colaboradores['colaborador']
 
     df_relacao_vendas = pd.read_excel('planilhas/vendas/vendedores/relacao_vendas.xls', header=10, usecols=('B,E,G,Q,U,AA,AB,AI,AL,AM,AP,AS'))
     df_relacao_vendas = df_relacao_vendas.set_axis(['cod_venda','filial','forma_pagamento','data','hora','cupom','cliente','vendedor','valor_bruto','%desconto','valor_desconto','valor_liquido'], axis=1)[0:-3]
     df_relacao_vendas['vendedor'] = df_relacao_vendas['vendedor'].astype(int)
     lst_vendedor = df_colaboradores['cod_nome_colab'].unique()
-    cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor)))
+    cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor).split("-")[0].strip()))
     
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
     
