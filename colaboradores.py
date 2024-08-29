@@ -48,11 +48,15 @@ def colab_individual():
     with kpi1:
         st.metric(label='Venda Total', value=0)
         st.metric(label='% desconto concedido', value=0)
+        st.metric(label='Vendas Genéricos/Similares', value=0)
     with kpi2:
         st.metric(label='Clientes atendidos', value=0)
         st.metric(label='% cupons com clientes cadastrados', value=0)
+        st.metric(label='Vendas Perfumaria', value=0)
     with kpi3:
         st.metric(label='Ticket médio', value=0)
+        st.metric(label='Itens por cupom', value=0)
+        st.metric(label='Vendas CSR', value=0)
 
 
     
