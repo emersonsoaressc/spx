@@ -42,7 +42,7 @@ def colab_individual():
     cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor)).split('-')[0].strip())
     
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
-    st.write(df_vendedor)
+    
     
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
@@ -58,5 +58,5 @@ def colab_individual():
         st.metric(label='Itens por cupom', value=0)
         st.metric(label='Vendas CSR', value=0)
 
-
+    st.write(df_vendedor)
     
