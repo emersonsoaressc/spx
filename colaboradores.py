@@ -50,7 +50,7 @@ def colab_individual():
     
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
-        st.metric(label='Venda Total', value=f'R${venda_total}')
+        st.metric(label='Venda Total', value=f'R$ {venda_total}')
         st.metric(label='% desconto concedido', value=0)
         st.metric(label='Vendas Genéricos/Similares', value=0)
     with kpi2:
@@ -58,7 +58,7 @@ def colab_individual():
         st.metric(label='% cupons com clientes cadastrados', value=0)
         st.metric(label='Vendas Perfumaria', value=0)
     with kpi3:
-        st.metric(label='Ticket médio', value=tkm)
+        st.metric(label='Ticket médio', value=f'R$ {tkm}')
         st.metric(label='Itens por cupom', value=0)
         st.metric(label='Vendas CSR', value=0)
 
