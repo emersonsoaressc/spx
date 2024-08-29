@@ -54,7 +54,7 @@ def colab_individual():
         st.metric(label='% desconto concedido', value=0)
         st.metric(label='Vendas Genéricos/Similares', value=0)
     with kpi2:
-        st.metric(label='Clientes atendidos', value=0)
+        st.metric(label='Clientes atendidos', value=clientes_atendidos)
         st.metric(label='% cupons com clientes cadastrados', value=0)
         st.metric(label='Vendas Perfumaria', value=0)
     with kpi3:
