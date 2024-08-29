@@ -38,7 +38,7 @@ def colab_individual():
     df_relacao_vendas = pd.read_excel('planilhas/vendas/vendedores/relacao_vendas.xls', header=10, usecols=('B,E,G,Q,U,AA,AB,AI,AL,AM,AP,AS'))
     df_relacao_vendas = df_relacao_vendas.set_axis(['cod_venda','filial','forma_pagamento','data','hora','cupom','cliente','vendedor','valor_bruto','%desconto','valor_desconto','valor_liquido'], axis=1)[0:-3]
     df_relacao_vendas['vendedor'] = df_relacao_vendas['vendedor'].astype(int)
-    lst_vendedor = ['6 - Emerson Soares', '11 - Shandrica Soares']
+    lst_vendedor = ['6 - Emerson Soares', '11 - Shandrica Soares', '66 - Elaine Coelho']
     cod_vendedor = int((st.selectbox('Selecione o vendedor',lst_vendedor)).split('-')[0].strip())
     
     df_vendedor = df_relacao_vendas.query('vendedor == @cod_vendedor')
@@ -47,7 +47,7 @@ def colab_individual():
     venda_total = float(df_vendedor['valor_liquido'].sum())
     clientes_atendidos = int(df_vendedor['cupom'].count())
     tkm = round(venda_total/clientes_atendidos,2)
-    desconto_percent = round((((df_vendedor['valor_desconto'].sum())/venda_total)*100),2)
+    desconto_percent = round((((-df_vendedor['valor_desconto'].sum())/venda_total)*100),2)
     
     kpi1,kpi2,kpi3 =  st.columns(3)
     with kpi1:
