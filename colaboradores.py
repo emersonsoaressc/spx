@@ -55,7 +55,7 @@ def colab_individual():
     print(lista_codigos_vendedores)
     # inserir tratamento de erros
     df_vendedor = df_relacao_vendas.query('vendedor in @lista_codigos_vendedores')
-    st.write(df_vendedor)
+    
     dt1,dt2 =  st.columns(2)
     with dt1:
         data_inicial = st.date_input('Data inicial')
@@ -63,7 +63,8 @@ def colab_individual():
         data_final = st.date_input('Data final')
     df_vendedor = df_vendedor.query('data >= @data_inicial')
     df_vendedor = df_vendedor.query('data <= @data_final')
-
+    st.write(df_vendedor)
+    
     #KPI's
     venda_liquida = round(float(df_vendedor['valor_liquido'].sum()),2)
     clientes_atendidos = int(df_vendedor['cupom'].count())
