@@ -55,6 +55,7 @@ def colab_individual():
     with dt2:
         data_final = st.date_input('Data final')
     
+    st.subheader('Estatísticas do vendedor para o período:')
     #utilizando os filtros da página
     df_vendedor = df_relacao_vendas.query('vendedor in @lista_codigos_vendedores')
     df_vendedor = df_vendedor.query('data >= @data_inicial')
