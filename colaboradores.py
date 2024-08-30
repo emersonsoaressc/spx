@@ -55,7 +55,7 @@ def colab_individual():
     print(lista_codigos_vendedores)
     # inserir tratamento de erros
     lll = ['10','20','30']
-    df_vendedor = df_relacao_vendas.query('vendedor in @lll')
+    df_vendedor = df_relacao_vendas.query('vendedor in @lista_codigos_vendedores')
     st.write(df_vendedor)
     dt1,dt2 =  st.columns(2)
     with dt1:
