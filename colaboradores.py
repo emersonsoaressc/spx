@@ -92,4 +92,4 @@ def colab_individual():
         st.warning('No momento não temos dados para este colaborador')
     
     #visualização dos gráficos de evolução dos KPI's ao longo do tempo
-    st.subheader('Evolução do ticket médio')
+    st.subheader('Evolução do ticket médio:')
