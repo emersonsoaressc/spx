@@ -52,10 +52,10 @@ def colab_individual():
     for i in seletor_colab:
         codigo = i.split('-')[0].strip()
         lista_codigos_vendedores.append(codigo)
-    st.write(lista_codigos_vendedores)
+    print(lista_codigos_vendedores)
     # inserir tratamento de erros
 
-    df_vendedor = df_relacao_vendas.query('vendedor.contains("lista_codigos_vendedores")')
+    df_vendedor = df_relacao_vendas.query('vendedor.str.contains("lista_codigos_vendedores")')
     st.write(df_vendedor)
     dt1,dt2 =  st.columns(2)
     with dt1:
