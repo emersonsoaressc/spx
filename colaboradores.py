@@ -61,6 +61,13 @@ def colab_individual():
     df_vendedor = df_vendedor.query('data >= @data_inicial')
     df_vendedor = df_vendedor.query('data <= @data_final')
     
+    #vendas genericos/similares
+    df_gensim = pd.read_excel('planilhas/vendas/vendedores/vendas_genericos_similares.xls', header=9,usecols=('C,D,H'))[0:-2]
+    df_gensim = df_gensim.set_axis(['codigo','vendedor','valor_liquido'],axis=1)
+    df_gensim = df_gensim.query('vendedor in @lista_codigos_vendedores')
+    df_gensim = df_gensim.query('data >= @data_inicial')
+    df_gensim = df_gensim.query('data <= @data_final')
+    
     # inserindo tratamento de erros para visualização dos KPI's
     try:
         #KPI's
@@ -74,6 +81,7 @@ def colab_individual():
         cupons_nao_identificados = df_vendedor['cliente'].isna().sum()
         cupons_identificados = df_vendedor['cliente'].count()
         cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
+        
         
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -93,3 +101,5 @@ def colab_individual():
     
     #visualização dos gráficos de evolução dos KPI's ao longo do tempo
     st.subheader('Evolução do ticket médio:')
+    
+    st.write(df_gensim)
