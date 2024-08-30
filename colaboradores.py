@@ -46,18 +46,17 @@ def colab_individual():
     df_relacao_vendas['cupom'] = df_relacao_vendas['cupom'].astype(str)
     lst_vendedor = df_colaboradores['cod_nome_colab'].unique()
     seletor_colab = st.multiselect('Selecione o vendedor',lst_vendedor)
-    st.write(seletor_colab)
     
     lista_codigos_vendedores = []
     
     for i in seletor_colab:
         codigo = i.split('-')[0].strip()
         lista_codigos_vendedores.append(codigo)
-        st.write(codigo)
     
     # inserir tratamento de erros
 
     df_vendedor = df_relacao_vendas.query('vendedor in @lista_codigos_vendedores')
+    st.write(df_vendedor)
     dt1,dt2 =  st.columns(2)
     with dt1:
         data_inicial = st.date_input('Data inicial')
