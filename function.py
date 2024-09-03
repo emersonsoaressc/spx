@@ -44,7 +44,14 @@ def analise_estoque_grupo(df_saldo_estoque_grupo, grupo):
     return valor_em_estoque, valor_faltas, df_faltas, df_excesso
 
 
-    
-    
-    
-    
+
+def vendas_grupo(grupo):
+    df = pd.read_excel(f'planilhas/vendas/vendedores/vendas_{grupo}.xls',header=10, usecols=('B,D,F,T,Z,AF,AM,BC') )
+    df = df.set_axis(['venda','filial','pagamento','data','hora','cupom','vendedor','valor_liquido'], axis=1)
+    df['vendedor'] = df['vendedor'].shift(-1)
+    df['valor_liquido'] = df['valor_liquido'].shift(-2)
+    df.dropna(inplace=True)
+    df['filial'] = df['filial'].astype(int)
+    df['cupom'] = df['cupom'].astype(int)
+    df['vendedor'] = df['vendedor'].astype(int)
+    return df

@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from function import analise_estoque, analise_estoque_grupo
+from function import analise_estoque, analise_estoque_grupo, vendas_grupo
 
 def dash_colab():
     st.header('Dashboard Geral')
@@ -46,6 +46,11 @@ def colab_individual():
     lst_vendedor = df_colaboradores['cod_nome_colab'].unique()
     seletor_colab = st.multiselect('Selecione o vendedor',lst_vendedor)
     lista_codigos_vendedores = []
+    
+    df_vendas_genericos = vendas_grupo('genericos')
+    df_vendas_similares = vendas_grupo('similares')
+    df_vendas_perfumaria = vendas_grupo('perfumaria')
+    
     for i in seletor_colab:
         codigo = i.split('-')[0].strip()
         lista_codigos_vendedores.append(int(codigo))
@@ -58,9 +63,21 @@ def colab_individual():
     st.subheader('Estatísticas do(s) vendedor(es) para o período:')
     #utilizando os filtros da página
     df_vendedor = df_relacao_vendas.query('vendedor in @lista_codigos_vendedores')
+    df_vendas_genericos = df_vendas_genericos.query('vendedor in @lista_codigos_vendedores')
+    df_vendas_similares = df_vendas_similares.query('vendedor in @lista_codigos_vendedores')
+    df_vendas_perfumaria = df_vendas_perfumaria.query('vendedor in @lista_codigos_vendedores')
+    
     df_vendedor = df_vendedor.query('data >= @data_inicial')
     df_vendedor = df_vendedor.query('data <= @data_final')
     
+    df_vendas_genericos = df_vendas_genericos.query('data >= @data_inicial')
+    df_vendas_genericos = df_vendas_genericos.query('data <= @data_final')
+    
+    df_vendas_similares = df_vendas_similares.query('data >= @data_inicial')
+    df_vendas_similares = df_vendas_similares.query('data <= @data_final')
+    
+    df_vendas_perfumaria = df_vendas_perfumaria.query('data >= @data_inicial')
+    df_vendas_perfumaria = df_vendas_perfumaria.query('data <= @data_final')
     
     # inserindo tratamento de erros para visualização dos KPI's
     try:
