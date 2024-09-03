@@ -50,6 +50,8 @@ def colab_individual():
     df_vendas_genericos = vendas_grupo('genericos')
     df_vendas_similares = vendas_grupo('similares')
     df_vendas_perfumaria = vendas_grupo('perfumaria')
+    df_vendas_csr_referencia = vendas_grupo('csr_referencia')
+    df_vendas_csr_gensim = vendas_grupo('csr_gensim')
     
     for i in seletor_colab:
         codigo = i.split('-')[0].strip()
@@ -66,6 +68,8 @@ def colab_individual():
     df_vendas_genericos = df_vendas_genericos.query('vendedor in @lista_codigos_vendedores')
     df_vendas_similares = df_vendas_similares.query('vendedor in @lista_codigos_vendedores')
     df_vendas_perfumaria = df_vendas_perfumaria.query('vendedor in @lista_codigos_vendedores')
+    df_vendas_csr_referencia = df_vendas_csr_referencia.query('vendedor in @lista_codigos_vendedores')
+    df_vendas_csr_gensim = df_vendas_csr_gensim.query('vendedor in @lista_codigos_vendedores')
     
     df_vendedor = df_vendedor.query('data >= @data_inicial')
     df_vendedor = df_vendedor.query('data <= @data_final')
@@ -79,6 +83,13 @@ def colab_individual():
     df_vendas_perfumaria = df_vendas_perfumaria.query('data >= @data_inicial')
     df_vendas_perfumaria = df_vendas_perfumaria.query('data <= @data_final')
     
+    df_vendas_csr_referencia = df_vendas_csr_referencia.query('data >= @data_inicial')
+    df_vendas_csr_referencia = df_vendas_csr_referencia.query('data <= @data_final')
+    
+    df_vendas_csr_gensim = df_vendas_csr_gensim.query('data >= @data_inicial')
+    df_vendas_csr_gensim = df_vendas_csr_gensim.query('data <= @data_final')
+    
+    
     # inserindo tratamento de erros para visualização dos KPI's
     try:
         #KPI's
@@ -89,6 +100,8 @@ def colab_individual():
         venda_bruta = venda_liquida + valor_desconto
         desconto_percent = round(valor_desconto/venda_bruta*100,2)
         vendas_genericos_similares = round(df_vendas_genericos['valor_liquido'].sum() + df_vendas_similares['valor_liquido'].sum(),2)
+        vendas_perfumaria = round(df_vendas_perfumaria['valor_liquido'].sum(),2)
+        vendas_csr = round(df_vendas_csr_referencia['valor_liquido'].sum() + df_vendas_csr_gensim['valor_liquido'].sum(),2)
         
         cupons_nao_identificados = df_vendedor['cliente'].isna().sum()
         cupons_identificados = df_vendedor['cliente'].count()
@@ -103,11 +116,11 @@ def colab_individual():
         with kpi2:
             st.metric(label='Clientes atendidos', value=clientes_atendidos)
             st.metric(label='% cupons com clientes cadastrados', value=f'{cupons_identificados_percent}%')
-            st.metric(label='Vendas Perfumaria', value=0)
+            st.metric(label='Vendas Perfumaria', value=f'R$ {vendas_perfumaria}')
         with kpi3:
             st.metric(label='Ticket médio', value=f'R$ {tkm}')
             st.metric(label='Itens por cupom', value=0)
-            st.metric(label='Vendas CSR', value=0)
+            st.metric(label='Vendas CSR', value=f'R$ {vendas_csr}')
     except:
         st.warning('No momento não temos dados para este colaborador')
     
