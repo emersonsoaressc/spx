@@ -113,4 +113,7 @@ def colab_individual():
     
     #visualização dos gráficos de evolução dos KPI's ao longo do tempo
     st.subheader('Evolução do ticket médio:')
+    st.write(vendas_genericos_similares)
+    st.write(df_vendas_genericos)
+    st.write(df_vendas_similares)
     
