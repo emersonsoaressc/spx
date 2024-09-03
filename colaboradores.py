@@ -130,5 +130,5 @@ def colab_individual():
     df_evol_tkm = df_vendedor.groupby('data')
     df_evol_tkm = df_evol_tkm[['valor_liquido']].sum() / df_evol_tkm[['valor_liquido']].count()
     df_evol_tkm['media_7d'] = df_evol_tkm['valor_liquido'].rolling(7).mean()
-    st.write(graf_plotly(df_evol_tkm))
+    st.write(graf_plotly(df_evol_tkm, 'Evolução do Ticket Médio'))
     
