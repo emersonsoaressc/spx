@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from function import analise_estoque, analise_estoque_grupo, vendas_grupo
+from function import analise_estoque, analise_estoque_grupo, vendas_grupo, graf_plotly
 
 def dash_colab():
     st.header('Dashboard Geral')
@@ -129,5 +129,6 @@ def colab_individual():
 
     df_evol_tkm = df_vendedor.groupby('data')
     df_evol_tkm = df_evol_tkm[['valor_liquido']].sum() / df_evol_tkm[['valor_liquido']].count()
-    st.write(df_evol_tkm)
+    df_evol_tkm['media_7d'] = df_evol_tkm['valor_liquido'].rolling(7).mean()
+    st.write(graf_plotly(df_evol_tkm))
     
