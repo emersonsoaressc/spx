@@ -132,4 +132,5 @@ def colab_individual():
     df_evol_tkm['media_7d'] = df_evol_tkm['valor_liquido'].ewm(span=7, min_periods=7).mean()
     df_evol_tkm['media_30d'] = df_evol_tkm['valor_liquido'].ewm(span=30, min_periods=30).mean()
     st.write(graf_plotly(df_evol_tkm, 'Evolução do Ticket Médio'))
+    st.write(df_evol_tkm)
     
