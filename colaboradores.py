@@ -132,5 +132,12 @@ def colab_individual():
     df_evol_tkm['media_7d'] = df_evol_tkm['valor_liquido'].ewm(span=7, min_periods=7).mean()
     df_evol_tkm['media_30d'] = df_evol_tkm['valor_liquido'].ewm(span=30, min_periods=30).mean()
     st.write(graf_plotly(df_evol_tkm, 'Evolução do Ticket Médio'))
-    st.write(df_evol_tkm)
     
+    st.subheader('Evolução das metas:')
+    
+    # META ZERO = Vender acima de 25 mil reais
+    meta_zero = 25000
+    
+    meta_zero_value = 0
+    
+    meta1 = 0
