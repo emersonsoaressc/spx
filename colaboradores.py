@@ -107,6 +107,8 @@ def colab_individual():
         cupons_identificados = df_vendedor['cliente'].count()
         cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
         
+        ipc = 2.30
+        
         
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -144,7 +146,7 @@ def colab_individual():
         meta_zero_icon = f'❌'
         
         
-    # meta 1
+    # meta_1
     if (meta_zero>0) and (tkm > 50):
         meta_1 = round(100.00,2)
         meta_1_icon = f'R$ {meta_1} ✅'
@@ -152,13 +154,21 @@ def colab_individual():
         meta_1 = 0
         meta_1_icon = f'❌'
         
-    # meta 2
+    # meta_2
     if (meta_zero>0) and (desconto_percent < 10):
         meta_2 = round(100.00,2)
         meta_2_icon = f'R$ {meta_2} ✅'
     else:
         meta_2 = 0
         meta_2_icon = f'❌'
+        
+    # meta_3
+    if (meta_zero>0) and (ipc > 2):
+        meta_3 = round(100.00,2)
+        meta_3_icon = f'R$ {meta_3} ✅'
+    else:
+        meta_3 = 0
+        meta_3_icon = f'❌'
     
     # metas de Agosto/2024
     if (data_inicial.month > 1): 
@@ -168,7 +178,7 @@ def colab_individual():
             st.metric(label='Meta 1', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
             st.metric(label='Meta 2', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
         with col_meta_2:
-            st.metric(label='Meta 3', value= '-')
+            st.metric(label='Meta 3', value= f'{meta_2_icon}', help=f'Itens por cliente acima de 2.00. O seu IPC foi de {ipc}')
             st.metric(label='Meta 4', value= '-')
             st.metric(label='Meta 5', value= '-')
         with col_meta_3:
