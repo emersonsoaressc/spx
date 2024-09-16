@@ -137,7 +137,19 @@ def colab_individual():
     
     # META ZERO = Vender acima de 25 mil reais
     meta_zero = 25000
-    
     meta_zero_value = 0
-    
     meta1 = 0
+    
+    col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
+    with col_meta_1:
+        st.metric(label='Venda liquida', value=f'R$ {venda_liquida}')
+        st.metric(label='% desconto concedido', value=f'{desconto_percent}%')
+        st.metric(label='Vendas Genéricos/Similares', value=f'R$ {vendas_genericos_similares}')
+    with col_meta_2:
+        st.metric(label='Clientes atendidos', value=clientes_atendidos)
+        st.metric(label='% cupons com clientes cadastrados', value=f'{cupons_identificados_percent}%')
+        st.metric(label='Vendas Perfumaria', value=f'R$ {vendas_perfumaria}')
+    with col_meta_3:
+        st.metric(label='Ticket médio', value=f'R$ {tkm}')
+        st.metric(label='Itens por cupom', value=0)
+        st.metric(label='Vendas CSR', value=f'R$ {vendas_csr}')
