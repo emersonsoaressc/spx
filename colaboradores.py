@@ -178,6 +178,14 @@ def colab_individual():
     else:
         meta_4 = 0
         meta_4_icon = f'❌'
+        
+    # meta_5
+    if (meta_zero>0) and (venda_liquida > 50000):
+        meta_5 = round(vendas_genericos_similares*0.01,2)
+        meta_5_icon = f'R$ {meta_5} ✅'
+    else:
+        meta_5 = 0
+        meta_5_icon = f'❌'
     
     # metas de Agosto/2024
     if (data_inicial.month > 1): 
