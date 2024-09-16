@@ -196,7 +196,7 @@ def colab_individual():
         meta_6_icon = f'❌'
     
     # metas de Agosto/2024
-    if (data_inicial.month > 1): 
+    if (data_inicial.month > 1 and lista_codigos_vendedores[0] != 10): 
         col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
         with col_meta_1:
             st.metric(label='Meta ZERO - R$ 25.000,00', value=f'{meta_zero_icon}', help=f'Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
@@ -217,5 +217,6 @@ def colab_individual():
     else:
         st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}.')
         
-    st.write(lista_codigos_vendedores[0] == 10)
+
+        
     # metas a partir de setembro/2024        
