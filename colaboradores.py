@@ -148,3 +148,5 @@ def colab_individual():
         st.metric(label='Meta 6', value=f'ATINGIDO')
         st.metric(label='Meta 7', value=f'ATINGIDO')
         st.metric(label='meta 8', value=f'ATINGIDO')
+        
+    st.write('teste')
