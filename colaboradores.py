@@ -121,7 +121,7 @@ def colab_individual():
             st.metric(label='Vendas Perfumaria', value=f'R$ {vendas_perfumaria}')
         with kpi3:
             st.metric(label='Ticket médio', value=f'R$ {tkm}')
-            st.metric(label='Itens por cupom', value=0)
+            st.metric(label='Itens por cupom', value=ipc)
             st.metric(label='Vendas CSR', value=f'R$ {vendas_csr}')
     except:
         st.warning('No momento não temos dados para este colaborador')
@@ -147,6 +147,7 @@ def colab_individual():
         
         
     # meta_1
+    tkm = 55
     if (meta_zero>0) and (tkm > 50):
         meta_1 = round(100.00,2)
         meta_1_icon = f'R$ {meta_1} ✅'
