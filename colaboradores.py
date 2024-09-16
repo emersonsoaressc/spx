@@ -217,5 +217,5 @@ def colab_individual():
     else:
         st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}.')
         
-    st.write(seletor_colab)
+    st.write(lista_codigos_vendedores)
     # metas a partir de setembro/2024        
