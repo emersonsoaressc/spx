@@ -170,6 +170,14 @@ def colab_individual():
     else:
         meta_3 = 0
         meta_3_icon = f'❌'
+        
+    # meta_4
+    if (meta_zero>0) and (vendas_perfumaria >= 10000):
+        meta_4 = round(100.00,2)
+        meta_4_icon = f'R$ {meta_4} ✅'
+    else:
+        meta_4 = 0
+        meta_4_icon = f'❌'
     
     # metas de Agosto/2024
     if (data_inicial.month > 1): 
@@ -180,7 +188,7 @@ def colab_individual():
             st.metric(label='Meta 2', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
         with col_meta_2:
             st.metric(label='Meta 3', value= f'{meta_3_icon}', help=f'Itens por cliente acima de 2.00. O seu IPC foi de {ipc}')
-            st.metric(label='Meta 4', value= '-')
+            st.metric(label='Meta 4', value= f'{meta_4_icon}', help=f'Venda de Perfumaria acima de 10.000,00. Você vendeu {vendas_perfumaria}')
             st.metric(label='Meta 5', value= '-')
         with col_meta_3:
             st.metric(label='Meta 6', value= '-')
