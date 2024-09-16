@@ -150,4 +150,4 @@ def colab_individual():
         st.metric(label='Meta 7', value=f'ATINGIDO')
         st.metric(label='meta 8', value=f'ATINGIDO')
         
-    st.write(data_inicial.month)
+    st.write(data_inicial.month > 8)
