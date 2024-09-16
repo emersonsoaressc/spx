@@ -137,7 +137,7 @@ def colab_individual():
     
     # meta ZERO
     if venda_liquida > 25000:
-        meta_zero = vendas_genericos_similares*0.02
+        meta_zero = round(vendas_genericos_similares*0.02,2)
         meta_zero_icon = f'R$ {meta_zero} ✅'
     else:
         meta_zero = 0
