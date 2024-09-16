@@ -140,16 +140,16 @@ def colab_individual():
         col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
         with col_meta_1:
             st.metric(label='Meta ZERO - R$ 25.000,00', value='ATINGIDO', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
-            st.metric(label='Meta 1', value= 'Atingida', delta=100.00,help='Ticket médio acima de R$ 50,00',delta_color='normal')
-            st.metric(label='Meta 2', value= 'Atingida', help='Desconto abaixo de 10%')
+            st.metric(label='Meta 1', value= 'OK', delta=100.00,help='Ticket médio acima de R$ 50,00',delta_color='normal')
+            st.metric(label='Meta 2', value= '', help='Desconto abaixo de 10%')
         with col_meta_2:
-            st.metric(label='Meta 3', value= 'Atingida')
-            st.metric(label='Meta 4', value= 'Atingida')
-            st.metric(label='Meta 5', value= 'Atingida')
+            st.metric(label='Meta 3', value= '')
+            st.metric(label='Meta 4', value= '')
+            st.metric(label='Meta 5', value= '')
         with col_meta_3:
-            st.metric(label='Meta 6', value= 'Atingida')
-            st.metric(label='Meta 7', value= 'Atingida')
-            st.metric(label='meta 8', value= 'Atingida')
+            st.metric(label='Meta 6', value= '')
+            st.metric(label='Meta 7', value= '')
+            st.metric(label='meta 8', value= '')
     
     # metas a partir de setembro/2024        
     elif (data_inicial.month > 8):
