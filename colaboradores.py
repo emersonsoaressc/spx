@@ -142,14 +142,14 @@ def colab_individual():
     
     col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
     with col_meta_1:
-        st.metric(label='Venda liquida', value=f'R$ {venda_liquida}')
-        st.metric(label='% desconto concedido', value=f'{desconto_percent}%')
-        st.metric(label='Vendas Genéricos/Similares', value=f'R$ {vendas_genericos_similares}')
+        st.metric(label='Meta ZERO - R$ 25.000,00', value=f'R$ {venda_liquida}')
+        st.metric(label='Meta 1', value=f'{desconto_percent}%')
+        st.metric(label='Meta 2', value=f'R$ {vendas_genericos_similares}')
     with col_meta_2:
-        st.metric(label='Clientes atendidos', value=clientes_atendidos)
-        st.metric(label='% cupons com clientes cadastrados', value=f'{cupons_identificados_percent}%')
-        st.metric(label='Vendas Perfumaria', value=f'R$ {vendas_perfumaria}')
+        st.metric(label='Meta 3', value=clientes_atendidos)
+        st.metric(label='Meta 4', value=f'{cupons_identificados_percent}%')
+        st.metric(label='Meta 5', value=f'R$ {vendas_perfumaria}')
     with col_meta_3:
-        st.metric(label='Ticket médio', value=f'R$ {tkm}')
-        st.metric(label='Itens por cupom', value=0)
-        st.metric(label='Vendas CSR', value=f'R$ {vendas_csr}')
+        st.metric(label='Meta 6', value=f'R$ {tkm}')
+        st.metric(label='Meta 7', value=0)
+        st.metric(label='meta 8', value=f'R$ {vendas_csr}')
