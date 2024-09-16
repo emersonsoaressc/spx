@@ -197,7 +197,7 @@ def colab_individual():
         with col_meta_2:
             st.metric(label='Meta 3', value= f'{meta_3_icon}', help=f'Itens por cliente acima de 2.00. O seu IPC foi de {ipc}')
             st.metric(label='Meta 4', value= f'{meta_4_icon}', help=f'Venda de Perfumaria acima de 10.000,00. Você vendeu {vendas_perfumaria}')
-            st.metric(label='Meta 5', value= '-')
+            st.metric(label='Meta 5', value= f'{meta_5_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
         with col_meta_3:
             st.metric(label='Meta 6', value= '-')
             st.metric(label='Meta 7', value= '-')
