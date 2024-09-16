@@ -212,7 +212,7 @@ def colab_individual():
             st.metric(label='Meta 2', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
             st.metric(label='Meta 5', value= f'{meta_5_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
     else:
-        comissao_otavio =  vendas_genericos_similares*0,05 + df_vendas_csr_gensim['valor_liquido'].sum()*0.05
+        comissao_otavio =  vendas_genericos_similares*0.05 + df_vendas_csr_gensim['valor_liquido'].sum()*0.05
         st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {round(comissao_otavio)}')
         
     if meta_zero > 0:
