@@ -144,7 +144,7 @@ def colab_individual():
         meta_zero_icon = f'❌'
     
     # metas de Agosto/2024
-    if (data_inicial.month == 8): 
+    if (data_inicial.month > 1): 
         col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
         with col_meta_1:
             st.metric(label='Meta ZERO - R$ 25.000,00', value=f'{meta_zero_icon}', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
@@ -160,7 +160,7 @@ def colab_individual():
             st.metric(label='meta 8', value= '❌')
     
     # metas a partir de setembro/2024        
-    elif (data_inicial.month > 8):
+    elif (data_inicial.month > 12):
         col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
         with col_meta_1:
             st.metric(label='Meta ZERO - R$ 25.000,00', value='❌', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
