@@ -133,13 +133,20 @@ def colab_individual():
     df_evol_tkm['media_30d'] = df_evol_tkm['valor_liquido'].ewm(span=30, min_periods=30).mean()
     st.write(graf_plotly(df_evol_tkm, 'Evolução do Ticket Médio'))
     
-    st.subheader('Evolução das metas:')
+    st.subheader('Evolução das metas e comissões:')
+    lst_mes = ['Agosto/2024', 'Setembro/2024', 'Outubro/2024', 'Novembro/2024', 'Dezembro/2024']
+    meta_mes = st.selectbox('Selecione o mês para consultar as metras e comissões:')
+    
+    df_venda_meta_mes = df_relacao_vendas.query('vendedor in @lista_codigos_vendedores')
+    df_venda_meta_mes = df_venda_meta_mes.query('data >= @data_inicial')
+    df_venda_meta_mes = df_venda_meta_mes.query('data <= @data_final')
+    
     
     col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
     with col_meta_1:
-        st.metric(label='Meta ZERO - R$ 25.000,00', value='ATINGIDO')
+        st.metric(label='Meta ZERO - R$ 25.000,00', value='ATINGIDO', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
         st.metric(label='Meta 1', value=f'NÃO ATINGIDO',help='Ticket médio acima de R$ 50,00')
-        st.metric(label='Meta 2', value=f'ATINGIDO')
+        st.metric(label='Meta 2', value=f'ATINGIDO', help='Desconto abaixo de 10%')
     with col_meta_2:
         st.metric(label='Meta 3', value=f'ATINGIDO')
         st.metric(label='Meta 4', value=f'ATINGIDO')
@@ -149,4 +156,4 @@ def colab_individual():
         st.metric(label='Meta 7', value=f'ATINGIDO')
         st.metric(label='meta 8', value=f'ATINGIDO')
         
-    st.write('teste')
+    st.write(data_inicial)
