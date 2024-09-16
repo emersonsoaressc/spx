@@ -128,7 +128,7 @@ def colab_individual():
     
     #visualização dos gráficos de evolução dos KPI's ao longo do tempo
     st.subheader('Evolução do ticket médio:')
-    tkm_checkbox = st.checkbox('Exibir grafico de evolução de TBM')
+    tkm_checkbox = st.checkbox('Exibir grafico de evolução de TKM')
     df_evol_tkm = df_vendedor.groupby('data')
     df_evol_tkm = df_evol_tkm[['valor_liquido']].sum() / df_evol_tkm[['valor_liquido']].count()
     df_evol_tkm['media_7d'] = df_evol_tkm['valor_liquido'].ewm(span=7, min_periods=7).mean()
