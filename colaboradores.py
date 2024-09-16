@@ -143,7 +143,7 @@ def colab_individual():
     col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
     with col_meta_1:
         st.metric(label='Meta ZERO - R$ 25.000,00', value=f'R$ {venda_liquida}')
-        st.metric(label='Meta 1', value=f'{desconto_percent}%')
+        st.metric(label='Meta 1', value=f'{desconto_percent}%',help='Ticket médio acima de R$ 50,00')
         st.metric(label='Meta 2', value=f'R$ {vendas_genericos_similares}')
     with col_meta_2:
         st.metric(label='Meta 3', value=clientes_atendidos)
