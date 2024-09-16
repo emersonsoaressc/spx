@@ -186,35 +186,30 @@ def colab_individual():
     else:
         meta_5 = 0
         meta_5_icon = f'❌'
+
+    # meta_6
+    if (meta_zero>0) and (venda_liquida > 70000):
+        meta_6 = round(vendas_genericos_similares*0.01,2)
+        meta_6_icon = f'R$ {meta_6} ✅'
+    else:
+        meta_6 = 0
+        meta_6_icon = f'❌'
     
     # metas de Agosto/2024
     if (data_inicial.month > 1): 
         col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
         with col_meta_1:
             st.metric(label='Meta ZERO - R$ 25.000,00', value=f'{meta_zero_icon}', help=f'Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
-            st.metric(label='Meta 1', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
-            st.metric(label='Meta 2', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
-        with col_meta_2:
             st.metric(label='Meta 3', value= f'{meta_3_icon}', help=f'Itens por cliente acima de 2.00. O seu IPC foi de {ipc}')
+            st.metric(label='Meta 6', value= f'{meta_6_icon}', help=f'Venda total acima de 70.000,00 . Você vendeu {venda_liquida}')
+            
+            
+        with col_meta_2:
+            st.metric(label='Meta 1', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
             st.metric(label='Meta 4', value= f'{meta_4_icon}', help=f'Venda de Perfumaria acima de 10.000,00. Você vendeu {vendas_perfumaria}')
-            st.metric(label='Meta 5', value= f'{meta_5_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
+            
         with col_meta_3:
-            st.metric(label='Meta 6', value= '-')
-            st.metric(label='Meta 7', value= '-')
-            st.metric(label='meta 8', value= '-')
+            st.metric(label='Meta 2', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
+            st.metric(label='Meta 5', value= f'{meta_5_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
     
     # metas a partir de setembro/2024        
-    elif (data_inicial.month > 12):
-        col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
-        with col_meta_1:
-            st.metric(label='Meta ZERO - R$ 25.000,00', value='❌', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
-            st.metric(label='Meta 1', value=f'❌',help='Ticket médio acima de R$ 50,00',delta_color='normal')
-            st.metric(label='Meta 2', value=f'❌', help='Desconto abaixo de 10%')
-        with col_meta_2:
-            st.metric(label='Meta 3', value=f'❌')
-            st.metric(label='Meta 4', value=f'❌')
-            st.metric(label='Meta 5', value=f'❌')
-        with col_meta_3:
-            st.metric(label='Meta 6', value=f'❌')
-            st.metric(label='Meta 7', value=f'❌')
-            st.metric(label='meta 8', value=f'❌')
