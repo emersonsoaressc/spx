@@ -135,21 +135,16 @@ def colab_individual():
     
     st.subheader('Evolução das metas:')
     
-    # META ZERO = Vender acima de 25 mil reais
-    meta_zero = 25000
-    meta_zero_value = 0
-    meta1 = 0
-    
     col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
     with col_meta_1:
-        st.metric(label='Meta ZERO - R$ 25.000,00', value=f'R$ {venda_liquida}')
-        st.metric(label='Meta 1', value=f'{desconto_percent}%',help='Ticket médio acima de R$ 50,00')
-        st.metric(label='Meta 2', value=f'R$ {vendas_genericos_similares}')
+        st.metric(label='Meta ZERO - R$ 25.000,00', value='ATINGIDO')
+        st.metric(label='Meta 1', value=f'NÃO ATINGIDO',help='Ticket médio acima de R$ 50,00')
+        st.metric(label='Meta 2', value=f'ATINGIDO')
     with col_meta_2:
-        st.metric(label='Meta 3', value=clientes_atendidos)
-        st.metric(label='Meta 4', value=f'{cupons_identificados_percent}%')
-        st.metric(label='Meta 5', value=f'R$ {vendas_perfumaria}')
+        st.metric(label='Meta 3', value=f'ATINGIDO')
+        st.metric(label='Meta 4', value=f'ATINGIDO')
+        st.metric(label='Meta 5', value=f'ATINGIDO')
     with col_meta_3:
-        st.metric(label='Meta 6', value=f'R$ {tkm}')
-        st.metric(label='Meta 7', value=0)
-        st.metric(label='meta 8', value=f'R$ {vendas_csr}')
+        st.metric(label='Meta 6', value=f'ATINGIDO')
+        st.metric(label='Meta 7', value=f'ATINGIDO')
+        st.metric(label='meta 8', value=f'ATINGIDO')
