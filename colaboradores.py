@@ -140,7 +140,7 @@ def colab_individual():
         col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
         with col_meta_1:
             st.metric(label='Meta ZERO - R$ 25.000,00', value='ATINGIDO', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
-            st.metric(label='Meta 1', value= f':100:', delta=100.00,help='Ticket médio acima de R$ 50,00',delta_color='normal')
+            st.metric(label='Meta 1', value= f'❌', delta=100.00,help='Ticket médio acima de R$ 50,00',delta_color='normal')
             st.metric(label='Meta 2', value= '-', help='Desconto abaixo de 10%')
         with col_meta_2:
             st.metric(label='Meta 3', value= '-')
