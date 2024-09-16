@@ -135,7 +135,7 @@ def colab_individual():
     
     st.subheader('Evolução das metas e comissões:')
     lst_mes = ['Agosto/2024', 'Setembro/2024', 'Outubro/2024', 'Novembro/2024', 'Dezembro/2024']
-    meta_mes = st.selectbox('Selecione o mês para consultar as metras e comissões:')
+    meta_mes = st.selectbox('Selecione o mês para consultar as metras e comissões:', lst_mes)
     
     df_venda_meta_mes = df_relacao_vendas.query('vendedor in @lista_codigos_vendedores')
     df_venda_meta_mes = df_venda_meta_mes.query('data >= @data_inicial')
