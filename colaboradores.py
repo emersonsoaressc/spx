@@ -178,7 +178,7 @@ def colab_individual():
             st.metric(label='Meta 1', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
             st.metric(label='Meta 2', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
         with col_meta_2:
-            st.metric(label='Meta 3', value= f'{meta_2_icon}', help=f'Itens por cliente acima de 2.00. O seu IPC foi de {ipc}')
+            st.metric(label='Meta 3', value= f'{meta_3_icon}', help=f'Itens por cliente acima de 2.00. O seu IPC foi de {ipc}')
             st.metric(label='Meta 4', value= '-')
             st.metric(label='Meta 5', value= '-')
         with col_meta_3:
