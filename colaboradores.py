@@ -189,7 +189,7 @@ def colab_individual():
 
     # meta_6
     if (meta_zero>0) and (venda_liquida > 70000):
-        meta_6 = round(vendas_genericos_similares*0.01,2)
+        meta_6 = round(vendas_genericos_similares*0.02,2)
         meta_6_icon = f'R$ {meta_6} ✅'
     else:
         meta_6 = 0
@@ -214,4 +214,6 @@ def colab_individual():
     
     if meta_zero > 0:
         st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {round(meta_zero+meta_1+meta_2+meta_3+meta_4+meta_5+meta_6,2)}')
+    else:
+        st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}.')
     # metas a partir de setembro/2024        
