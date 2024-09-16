@@ -217,8 +217,10 @@ def colab_individual():
             st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}.')
     
     else:
-        comissao_otavio =  vendas_genericos_similares*0.05 + df_vendas_csr_gensim['valor_liquido'].sum()*0.05
-        st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {round(comissao_otavio)}')
+        password = st.number_input('')
+        if password == 100000:
+            comissao_otavio =  vendas_genericos_similares*0.05 + df_vendas_csr_gensim['valor_liquido'].sum()*0.05
+            st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {round(comissao_otavio)}')
         
 
         
