@@ -135,19 +135,34 @@ def colab_individual():
     
     st.subheader('Evolução das metas e comissões:')
     
+    # metas de Agosto/2024
+    if (data_inicial.month == 8): 
+        col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
+        with col_meta_1:
+            st.metric(label='Meta ZERO - R$ 25.000,00', value='ATINGIDO', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
+            st.metric(label='Meta 1', value=f'NÃO ATINGIDO',help='Ticket médio acima de R$ 50,00', )
+            st.metric(label='Meta 2', value=f'ATINGIDO', help='Desconto abaixo de 10%')
+        with col_meta_2:
+            st.metric(label='Meta 3', value=f'ATINGIDO')
+            st.metric(label='Meta 4', value=f'ATINGIDO')
+            st.metric(label='Meta 5', value=f'ATINGIDO')
+        with col_meta_3:
+            st.metric(label='Meta 6', value=f'ATINGIDO')
+            st.metric(label='Meta 7', value=f'ATINGIDO')
+            st.metric(label='meta 8', value=f'ATINGIDO')
     
-    col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
-    with col_meta_1:
-        st.metric(label='Meta ZERO - R$ 25.000,00', value='ATINGIDO', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
-        st.metric(label='Meta 1', value=f'NÃO ATINGIDO',help='Ticket médio acima de R$ 50,00', )
-        st.metric(label='Meta 2', value=f'ATINGIDO', help='Desconto abaixo de 10%')
-    with col_meta_2:
-        st.metric(label='Meta 3', value=f'ATINGIDO')
-        st.metric(label='Meta 4', value=f'ATINGIDO')
-        st.metric(label='Meta 5', value=f'ATINGIDO')
-    with col_meta_3:
-        st.metric(label='Meta 6', value=f'ATINGIDO')
-        st.metric(label='Meta 7', value=f'ATINGIDO')
-        st.metric(label='meta 8', value=f'ATINGIDO')
-        
-    st.write(data_inicial.month > 8)
+    # metas a partir de setembro/2024        
+    elif (data_inicial.month > 8):
+        col_meta_1,col_meta_2,col_meta_3 =  st.columns(3)
+        with col_meta_1:
+            st.metric(label='Meta ZERO - R$ 25.000,00', value='ATINGIDO', help='Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
+            st.metric(label='Meta 1', value=f'NÃO ATINGIDO',help='Ticket médio acima de R$ 50,00', )
+            st.metric(label='Meta 2', value=f'ATINGIDO', help='Desconto abaixo de 10%')
+        with col_meta_2:
+            st.metric(label='Meta 3', value=f'ATINGIDO')
+            st.metric(label='Meta 4', value=f'ATINGIDO')
+            st.metric(label='Meta 5', value=f'ATINGIDO')
+        with col_meta_3:
+            st.metric(label='Meta 6', value=f'ATINGIDO')
+            st.metric(label='Meta 7', value=f'ATINGIDO')
+            st.metric(label='meta 8', value=f'ATINGIDO')
