@@ -147,7 +147,6 @@ def colab_individual():
         
         
     # meta_1
-    tkm = 55
     if (meta_zero>0) and (tkm > 50):
         meta_1 = round(100.00,2)
         meta_1_icon = f'R$ {meta_1} ✅'
@@ -164,7 +163,7 @@ def colab_individual():
         meta_2_icon = f'❌'
         
     # meta_3
-    if (meta_zero>0 and ipc > 2.0):
+    if (meta_zero>0) and (ipc >= 2.0):
         meta_3 = round(100.00,2)
         meta_3_icon = f'R$ {meta_3} ✅'
     else:
