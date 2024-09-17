@@ -213,7 +213,7 @@ def colab_individual():
         with col_meta_2:
             st.metric(label='Meta 1 - TKM', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
             st.metric(label='Meta 4 - Perfumaria', value= f'{meta_4_icon}', help=f'Venda de Perfumaria acima de 10.000,00. Você vendeu {vendas_perfumaria}')
-            st.metric(label='Bonificados 5 reais', value= f'{bonificados_5reais}', help=f'Vendeu {(bonificados_5reais)} produtos')
+            #st.metric(label='Bonificados 5 reais', value= f'{bonificados_5reais}', help=f'Vendeu {(bonificados_5reais)} produtos')
             
         with col_meta_3:
             st.metric(label='Meta 2 - Descontos', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
