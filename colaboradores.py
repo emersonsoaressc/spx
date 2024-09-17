@@ -110,8 +110,8 @@ def colab_individual():
         df_ipc_bonificados = pd.read_excel('planilhas/vendas/vendedores/ipc.xls')
         ipc = df_ipc_bonificados.query("codigo in @lista_codigos_vendedores")
         ipc = df_ipc_bonificados['ipc'].mean()
-        bonificados_5reais = int(df_ipc_bonificados['bonificados_5reais']).sum() * 5
-        bonificados_10reais = int(df_ipc_bonificados['bonificados_10reais']).sum() * 10
+        bonificados_5reais = df_ipc_bonificados['bonificados_5reais'].sum() * 5
+        bonificados_10reais = df_ipc_bonificados['bonificados_10reais'].sum() * 10
         
         
         kpi1,kpi2,kpi3 =  st.columns(3)
