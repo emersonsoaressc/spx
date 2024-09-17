@@ -199,15 +199,18 @@ def colab_individual():
         meta_6 = 0
         meta_6_icon = f'❌'
         
+
     if bonificados_5reais > 0:
         bon_5reais_icon = f'R$ {bonificados_5reais} ✅'
     else:
-        bon_5reais_ico = f'❌'
+        bon_5reais_icon = f'❌'
         
     if bonificados_10reais > 0:
         bon_10reais_icon = f'R$ {bonificados_10reais} ✅'
     else:
         bon_10reais_icon = f'❌'
+
+        
     
     
     # metas de Agosto/2024
