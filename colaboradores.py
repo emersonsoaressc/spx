@@ -110,8 +110,9 @@ def colab_individual():
         df_ipc_bonificados = pd.read_excel('planilhas/vendas/vendedores/ipc.xls')
         df_ipc_bonificados = df_ipc_bonificados.query("codigo in @lista_codigos_vendedores")
         ipc = df_ipc_bonificados['ipc'].mean()
-        bonificados_5reais = df_ipc_bonificados['bonificados_5reais'].sum() * 5
-        bonificados_10reais = df_ipc_bonificados['bonificados_10reais'].sum() * 10
+        bonificados_5reais = round(df_ipc_bonificados['bonificados_5reais'].sum() * 5,2)
+        bonificados_10reais = round(df_ipc_bonificados['bonificados_10reais'].sum() * 10,2)
+        
         st.write(df_ipc_bonificados)
         
         kpi1,kpi2,kpi3 =  st.columns(3)
@@ -199,6 +200,15 @@ def colab_individual():
         meta_6 = 0
         meta_6_icon = f'❌'
         
+    if bonificados_5reais > 0:
+        bon_5reais_icon = f'R$ {bonificados_5reais} ✅'
+    else:
+        bon_5reais_ico = f'❌'
+        
+    if bonificados_10reais > 0:
+        bon_10reais_icon = f'R$ {bonificados_10reais} ✅'
+    else:
+        bon_10reais_icon = f'❌'
     
     
     # metas de Agosto/2024
@@ -213,12 +223,12 @@ def colab_individual():
         with col_meta_2:
             st.metric(label='Meta 1 - TKM', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
             st.metric(label='Meta 4 - Perfumaria', value= f'{meta_4_icon}', help=f'Venda de Perfumaria acima de 10.000,00. Você vendeu {vendas_perfumaria}')
-            st.metric(label='Bonificados 5 reais', value=f'{bonificados_5reais}')
+            st.metric(label='Bonificados 5 reais', value=f'{bon_5reais_icon}')
             
         with col_meta_3:
             st.metric(label='Meta 2 - Descontos', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
             st.metric(label='Meta 5 - 50k', value= f'{meta_5_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
-            st.metric(label='Bonificados 10 reais', value=f'{bonificados_10reais}')
+            st.metric(label='Bonificados 10 reais', value=f'{bon_10reais_icon}')
         if meta_zero > 0:
             st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {round(meta_zero+meta_1+meta_2+meta_3+meta_4+meta_5+meta_6,2)}')
         else:
