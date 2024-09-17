@@ -107,11 +107,11 @@ def colab_individual():
         cupons_identificados = df_vendedor['cliente'].count()
         cupons_identificados_percent = round(cupons_identificados/(cupons_identificados+cupons_nao_identificados)*100,2)
         
-        ipc = pd.read_excel('planilhas/vendas/vendedores/ipc.xls')
-        ipc = ipc.query("codigo in @lista_codigos_vendedores")
-        ipc = ipc['ipc']
-        bonificados_5reais = int(ipc['bonificados_5reais']) 
-        bonificados_10reais = int(ipc['bonificados_10reais'])
+        df_ipc_bonificados = pd.read_excel('planilhas/vendas/vendedores/ipc.xls')
+        ipc = df_ipc_bonificados.query("codigo in @lista_codigos_vendedores")
+        ipc = df_ipc_bonificados['ipc']
+        bonificados_5reais = int(df_ipc_bonificados['bonificados_5reais']) 
+        bonificados_10reais = int(df_ipc_bonificados['bonificados_10reais'])
         
         
         kpi1,kpi2,kpi3 =  st.columns(3)
