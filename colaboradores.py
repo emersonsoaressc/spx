@@ -113,7 +113,6 @@ def colab_individual():
         bonificados_5reais = round(df_ipc_bonificados['bonificados_5reais'].sum() * 5,2)
         bonificados_10reais = round(df_ipc_bonificados['bonificados_10reais'].sum() * 10,2)
         
-        st.write(df_ipc_bonificados)
         
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
