@@ -229,10 +229,14 @@ def colab_individual():
             st.metric(label='Meta 2 - Descontos', value= f'{meta_2_icon}', help=f'Desconto abaixo de 10%. O seu desconto foi de {desconto_percent}%')
             st.metric(label='Meta 5 - 50k', value= f'{meta_5_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
             st.metric(label='Bonificados 10 reais', value=f'{bon_10reais_icon}')
+        
+        
         if meta_zero > 0:
-            st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {round(meta_zero+meta_1+meta_2+meta_3+meta_4+meta_5+meta_6,2)}')
+            meta_total = round(meta_zero+meta_1+meta_2+meta_3+meta_4+meta_5+meta_6+bonificados_10reais+bonificados_5reais,2)
+            st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {meta_total}')
         else:
-            st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}.')
+            meta_total = round(bonificados_10reais+bonificados_5reais,2)
+            st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}. Sua comissão é de {meta_total}')
     
     else:
         password = st.text_input('', max_chars=6)
