@@ -184,7 +184,7 @@ def colab_individual():
         meta_4_icon = f'❌'
         
     # meta_5
-    if (meta_zero>0) and (venda_liquida > 50000):
+    if (meta_zero>0) and (venda_liquida > 35000):
         meta_5 = round(vendas_genericos_similares*0.01,2)
         meta_5_icon = f'R$ {meta_5} ✅'
     else:
@@ -192,7 +192,7 @@ def colab_individual():
         meta_5_icon = f'❌'
 
     # meta_6
-    if (meta_zero>0) and (venda_liquida > 70000):
+    if (meta_zero>0) and (venda_liquida > 50000):
         meta_6 = round(vendas_genericos_similares*0.02,2)
         meta_6_icon = f'R$ {meta_6} ✅'
     else:
@@ -219,7 +219,7 @@ def colab_individual():
         with col_meta_1:
             st.metric(label='Meta ZERO - R$ 25.000,00', value=f'{meta_zero_icon}', help=f'Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
             st.metric(label='Meta 3 - IPC', value= f'{meta_3_icon}', help=f'Itens por cliente acima de 2.00. O seu IPC foi de {ipc}')
-            st.metric(label='Meta 6 - 70k', value= f'{meta_6_icon}', help=f'Venda total acima de 70.000,00 . Você vendeu {venda_liquida}')
+            st.metric(label='Meta 6 - 50k', value= f'{meta_6_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
             
             
         with col_meta_2:
@@ -229,7 +229,7 @@ def colab_individual():
             
         with col_meta_3:
             st.metric(label='Meta 2 - Cartões Brasil Card', value= f'❌', help=f'Não atingiu a meta de 30 cartões no mês')
-            st.metric(label='Meta 5 - 50k', value= f'{meta_5_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
+            st.metric(label='Meta 5 - 35k', value= f'{meta_5_icon}', help=f'Venda total acima de 35.000,00 . Você vendeu {venda_liquida}')
             st.metric(label='Bonificados 10 reais', value=f'{bon_10reais_icon}')
         
         
