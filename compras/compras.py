@@ -97,7 +97,7 @@ def layout_compras():
             'Comprar excuindo laboratorio'
             ])
         if filtro_avançado == 'Comprar por laboratório':
-            lst_labs = st.multiselect('laboratorios',(df_faltas_smartped['laboratorio'].unique()).sort())
+            lst_labs = st.multiselect('laboratorios',(str(df_faltas_smartped['laboratorio'].unique())).sort())
             df_faltas_smartped = df_faltas_smartped.query("laboratorio in @lst_labs")
         
         elif filtro_avançado == 'Comprar por descrição':
@@ -105,7 +105,7 @@ def layout_compras():
             df_faltas_smartped = df_faltas_smartped.query(f"produto.str.contains('{txt_descricao}')")
         
         elif filtro_avançado == 'Comprar excuindo laboratorio':
-            lst_not_labs = st.multiselect('laboratorios',(df_faltas_smartped['laboratorio'].unique()).sort())
+            lst_not_labs = st.multiselect('laboratorios',(str(df_faltas_smartped['laboratorio'].unique())).sort())
             df_faltas_smartped = df_faltas_smartped.query("laboratorio not in @lst_not_labs")
             
         #comprar por curva
