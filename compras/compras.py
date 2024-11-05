@@ -108,7 +108,7 @@ def layout_compras():
             df_faltas_smartped = df_faltas_smartped.query(f"produto.str.contains('{txt_descricao}')")
         
         elif filtro_avançado == 'Comprar excuindo laboratorio':
-            lst_not_labs = st.multiselect('laboratorios',(df_faltas_smartped['laboratorio'].unique()))
+            lst_not_labs = st.multiselect('laboratorios',np.sort(lst_labs_temp))
             df_faltas_smartped = df_faltas_smartped.query("laboratorio not in @lst_not_labs")
             
         #comprar por curva
