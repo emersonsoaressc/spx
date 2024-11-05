@@ -1,5 +1,6 @@
 import streamlit as st
 from function import analise_estoque, analise_estoque_grupo
+import numpy as np
 
 
 def layout_compras():
@@ -98,8 +99,7 @@ def layout_compras():
             ])
         if filtro_avançado == 'Comprar por laboratório':
             lst_labs_temp = df_faltas_smartped['laboratorio'].unique()
-            lst_labs = st.multiselect('laboratorios',(df_faltas_smartped['laboratorio'].unique()))
-            st.write(type(lst_labs_temp))
+            lst_labs = st.multiselect('laboratorios',(df_faltas_smartped['laboratorio'].unique()).np.sort)
             df_faltas_smartped = df_faltas_smartped.query("laboratorio in @lst_labs")
             
         
