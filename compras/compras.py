@@ -98,7 +98,7 @@ def layout_compras():
             'Comprar excuindo laboratorio'
             ])
         if filtro_avançado == 'Comprar por laboratório':
-            lst_labs_temp = df_faltas_smartped['laboratorio'].unique()
+            lst_labs_temp = (df_faltas_smartped['laboratorio'].unique()).astype()
             lst_labs = st.multiselect('laboratorios',np.sort(lst_labs_temp))
             df_faltas_smartped = df_faltas_smartped.query("laboratorio in @lst_labs")
             
