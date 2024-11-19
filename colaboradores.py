@@ -112,7 +112,7 @@ def colab_individual():
         ipc = df_ipc_bonificados['ipc'].mean()
         bonificados_5reais = round(df_ipc_bonificados['bonificados_5reais'].sum() * 5,2)
         bonificados_10reais = round(df_ipc_bonificados['bonificados_10reais'].sum() * 10,2)
-        
+        perfumaria_comissionada = round(df_ipc_bonificados['perfumaria_comissionada'].sum(),2)
         
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -160,9 +160,9 @@ def colab_individual():
         meta_1_icon = f'❌'
         
     # meta_2
-    perfumaria_comissionada = 0
+    
     if (meta_zero>0):
-        meta_2 = perfumaria_comissionada*0.02
+        meta_2 = round(perfumaria_comissionada*0.02,2)
         meta_2_icon = f'R$ {meta_2} ✅'
     else:
         meta_2 = 0
