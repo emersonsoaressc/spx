@@ -160,8 +160,9 @@ def colab_individual():
         meta_1_icon = f'❌'
         
     # meta_2
-    if (meta_zero>0) and (desconto_percent < 10):
-        meta_2 = 0
+    perfumaria_comissionada = 0
+    if (meta_zero>0):
+        meta_2 = perfumaria_comissionada*0.02
         meta_2_icon = f'R$ {meta_2} ✅'
     else:
         meta_2 = 0
@@ -228,7 +229,7 @@ def colab_individual():
             st.metric(label='Bonificados 5 reais', value=f'{bon_5reais_icon}')
             
         with col_meta_3:
-            st.metric(label='Meta 2 - Cartões Brasil Card', value= f'❌', help=f'Não atingiu a meta de 30 cartões no mês')
+            st.metric(label='Meta 2 - Comissão 2% em perfumaria comissionada', value= f'{meta_2_icon}', help=f'Você vendeu R$ {perfumaria_comissionada} em perfumaria comissionada (Dermos, perfumes e maquiagens)')
             st.metric(label='Meta 5 - 35k', value= f'{meta_5_icon}', help=f'Venda total acima de 35.000,00 . Você vendeu {venda_liquida}')
             st.metric(label='Bonificados 10 reais', value=f'{bon_10reais_icon}')
         
