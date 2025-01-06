@@ -4,7 +4,7 @@ from function import analise_estoque, analise_estoque_grupo
 
 
 def layout_compras():
-    filial = st.selectbox('Escolha a filial:', ['001 - Matriz','004 - Centrinho','005 - Calil','007 - Rio Vermelho','008 - Vargem','009 - Canasvieiras','010 - Upa','012 - Palhoça','011 - Trindade','100 - Central'])
+    filial = st.selectbox('Escolha a filial:', ['001 - Matriz','004 - Centrinho','005 - Calil','007 - Rio Vermelho','008 - Vargem','009 - Canasvieiras','010 - Upa','011 - Trindade','012 - Palhoça','100 - Central'])
     cod_filial = filial[0:3]
     
     valor_em_estoque, valor_faltas, df_estoque = analise_estoque(cod_filial)
