@@ -4,7 +4,7 @@ import numpy as np
 
 
 def layout_compras():
-    filial = st.selectbox('Escolha a filial:', ['001 - Matriz','004 - Centrinho','005 - Calil','007 - Rio Vermelho','008 - Vargem','009 - Canasvieiras','010 - Upa','011 - Trindade','100 - Central'])
+    filial = st.selectbox('Escolha a filial:', ['001 - Matriz','004 - Centrinho','005 - Calil','007 - Rio Vermelho','008 - Vargem','009 - Canasvieiras','010 - Upa','011 - Trindade','012 - Palhoça','100 - Central'])
     
     cod_filial = filial[0:3]
     
