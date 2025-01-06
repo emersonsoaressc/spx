@@ -27,3 +27,4 @@ if gestao_estoque_selectbox == 'Dashboard':
     
 if gestao_estoque_selectbox == 'Sistema de compras':
     layout_compras()
+    
