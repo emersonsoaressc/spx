@@ -110,9 +110,11 @@ def colab_individual():
         df_ipc_bonificados = pd.read_excel('planilhas/vendas/vendedores/ipc.xls')
         df_ipc_bonificados = df_ipc_bonificados.query("codigo in @lista_codigos_vendedores")
         ipc = df_ipc_bonificados['ipc'].mean()
+        bonificados_2_5reais = round(df_ipc_bonificados['bonificados_2.5reais'].sum() * 2.5,2)
         bonificados_5reais = round(df_ipc_bonificados['bonificados_5reais'].sum() * 5,2)
         bonificados_10reais = round(df_ipc_bonificados['bonificados_10reais'].sum() * 10,2)
         perfumaria_comissionada = round(df_ipc_bonificados['perfumaria_comissionada'].sum(),2)
+        validade = round(df_ipc_bonificados['validade'].sum(),2)
         
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -201,6 +203,11 @@ def colab_individual():
         meta_6_icon = f'❌'
         
 
+    if bonificados_2_5reais > 0:
+        bon_2_5reais_icon = f'R$ {bonificados_2_5reais} ✅'
+    else:
+        bon_2_5reais_icon = f'❌'
+
     if bonificados_5reais > 0:
         bon_5reais_icon = f'R$ {bonificados_5reais} ✅'
     else:
@@ -221,7 +228,7 @@ def colab_individual():
             st.metric(label='Meta ZERO - R$ 25.000,00', value=f'{meta_zero_icon}', help=f'Essa meta ativa as outras metas, se não atingir a meta ZERO, não tem direito as outras metas!')
             st.metric(label='Meta 3 - IPC', value= f'{meta_3_icon}', help=f'Itens por cliente acima de 2.00. O seu IPC foi de {ipc}')
             st.metric(label='Meta 6 - 50k', value= f'{meta_6_icon}', help=f'Venda total acima de 50.000,00 . Você vendeu {venda_liquida}')
-            
+            st.metric(label='Bonificados 2.5 reais', value=f'{bon_2_5reais_icon}')
             
         with col_meta_2:
             st.metric(label='Meta 1 - TKM', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
@@ -235,7 +242,7 @@ def colab_individual():
         
         
         if meta_zero > 0:
-            meta_total = round(meta_zero+meta_1+meta_2+meta_3+meta_4+meta_5+meta_6+bonificados_10reais+bonificados_5reais,2)
+            meta_total = round(meta_zero+meta_1+meta_2+meta_3+meta_4+meta_5+meta_6+bonificados_10reais+bonificados_5reais+bonificados_2_5reais,2)
             st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {meta_total}')
         else:
             meta_total = round(bonificados_10reais+bonificados_5reais,2)
