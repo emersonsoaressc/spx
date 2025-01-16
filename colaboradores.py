@@ -237,7 +237,7 @@ def colab_individual():
             st.metric(label='Meta 1 - TKM', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
             st.metric(label='Meta 4 - Perfumaria', value= f'{meta_4_icon}', help=f'Venda de Perfumaria acima de 10.000,00. Você vendeu {vendas_perfumaria}')
             st.metric(label='Bonificados 5 reais', value=f'{bon_5reais_icon}')
-            st.metric(label='Pré-vencidos', value=f'{validade}')
+            st.metric(label='Pré-vencidos', value=f'{validade_icon}')
             
         with col_meta_3:
             st.metric(label='Meta 2 - Comissão 2% em perfumaria comissionada', value= f'{meta_2_icon}', help=f'Você vendeu R$ {perfumaria_comissionada} em perfumaria comissionada (Dermos, perfumes e maquiagens)')
