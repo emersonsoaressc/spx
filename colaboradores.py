@@ -114,7 +114,7 @@ def colab_individual():
         bonificados_5reais = round(df_ipc_bonificados['bonificados_5reais'].sum() * 5,2)
         bonificados_10reais = round(df_ipc_bonificados['bonificados_10reais'].sum() * 10,2)
         perfumaria_comissionada = round(df_ipc_bonificados['perfumaria_comissionada'].sum(),2)
-        validade = round(df_ipc_bonificados['validade'].sum(),2)
+        validade = round(df_ipc_bonificados['validade'].sum() * 0.05,2)
         
         kpi1,kpi2,kpi3 =  st.columns(3)
         with kpi1:
@@ -218,7 +218,10 @@ def colab_individual():
     else:
         bon_10reais_icon = f'❌'
 
-        
+    if validade > 0:
+        validade_icon = f'R$ {validade} ✅'
+    else:
+        validade_icon = f'❌'
     
     
     # metas de Agosto/2024
@@ -234,6 +237,7 @@ def colab_individual():
             st.metric(label='Meta 1 - TKM', value= f'{meta_1_icon}', help=f'Ticket médio acima de 50,00. O seu TKM foi de {tkm}')
             st.metric(label='Meta 4 - Perfumaria', value= f'{meta_4_icon}', help=f'Venda de Perfumaria acima de 10.000,00. Você vendeu {vendas_perfumaria}')
             st.metric(label='Bonificados 5 reais', value=f'{bon_5reais_icon}')
+            st.metric(label='Pré-vencidos', value=f'{validade}')
             
         with col_meta_3:
             st.metric(label='Meta 2 - Comissão 2% em perfumaria comissionada', value= f'{meta_2_icon}', help=f'Você vendeu R$ {perfumaria_comissionada} em perfumaria comissionada (Dermos, perfumes e maquiagens)')
