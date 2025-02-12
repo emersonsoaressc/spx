@@ -1,5 +1,6 @@
 import streamlit as st
 from compras.compras import layout_compras
+from produto_individual import page_produto_individual
 from home import home
 from colaboradores import dash_colab, colab_individual
 
@@ -16,7 +17,7 @@ if gestao_colab == 'Avaliação Individual':
     colab_individual()
 
 with st.sidebar.expander('Gestão de estoque avançada', expanded=False):
-    lst_gestao_estoque = ['','Home','Sistema de compras']
+    lst_gestao_estoque = ['','Home','Produto Individual','Sistema de compras']
     gestao_estoque_selectbox = st.selectbox('',lst_gestao_estoque)
 
 if gestao_estoque_selectbox == 'Home':
@@ -24,6 +25,9 @@ if gestao_estoque_selectbox == 'Home':
 
 if gestao_estoque_selectbox == 'Dashboard':
     pass
+    
+if gestao_estoque_selectbox == 'Produto Individual':
+    page_produto_individual()
     
 if gestao_estoque_selectbox == 'Sistema de compras':
     layout_compras()
