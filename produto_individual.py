@@ -3,7 +3,7 @@ import pandas as pd
 import sqlite3
 import plotly.graph_objects as go
 
-def page_produto_individual()
+def page_produto_individual():
     # Dicionário de filiais
     filiais_dict = {
         1: "Matriz", 4: "Centrinho", 5: "Calil", 7: "Rio Vermelho",
