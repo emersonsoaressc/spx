@@ -15,14 +15,6 @@ def colab_individual():
     seletor_colab = st.multiselect('Selecione o vendedor',lst_vendedor)
     lista_codigos_vendedores = []
     
-    
-    st.write(df_colaboradores)
-    st.write(df_relacao_vendas)
-    st.write(df_vendas_genericos)
-    st.write(df_vendas_similares)
-    st.write(df_vendas_perfumaria)
-    st.write(df_vendas_csr_referencia)
-    st.write(df_vendas_csr_gensim)
 
 
     for i in seletor_colab:
