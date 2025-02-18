@@ -53,6 +53,9 @@ def colab_individual():
     df_vendas_csr_referencia = vendas_grupo('csr_referencia')
     df_vendas_csr_gensim = vendas_grupo('csr_gensim')
     
+    st.write(df_colaboradores)
+    st.write(df_relacao_vendas)
+
     for i in seletor_colab:
         codigo = i.split('-')[0].strip()
         lista_codigos_vendedores.append(int(codigo))
