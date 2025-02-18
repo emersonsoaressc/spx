@@ -55,6 +55,12 @@ def colab_individual():
     
     st.write(df_colaboradores)
     st.write(df_relacao_vendas)
+    st.write(df_vendas_genericos)
+    st.write(df_vendas_similares)
+    st.write(df_vendas_perfumaria)
+    st.write(df_vendas_csr_referencia)
+    st.write(df_vendas_csr_gensim)
+
 
     for i in seletor_colab:
         codigo = i.split('-')[0].strip()
