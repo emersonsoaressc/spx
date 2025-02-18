@@ -5,7 +5,7 @@ from home import home
 from colaboradores import dash_colab, colab_individual
 
 st.sidebar.image('images/logo_shopfarma_sem_fundo.png')
-st.sidebar.write('testando online...')
+st.sidebar.write('t')
 
 with st.sidebar.expander('Gestão de colaboradores',expanded=True):
     lst_gestao_colab = ['','Dashboard Geral','Avaliação Individual']
