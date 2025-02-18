@@ -2,7 +2,7 @@ import streamlit as st
 from compras.compras import layout_compras
 from produto_individual import page_produto_individual
 from home import home
-from colaboradores import dash_colab, colab_individual
+from colaboradores import  colab_individual
 
 st.sidebar.image('images/logo_shopfarma_sem_fundo.png')
 st.sidebar.write('t')
@@ -12,7 +12,7 @@ with st.sidebar.expander('Gestão de colaboradores',expanded=True):
     gestao_colab = st.selectbox('',lst_gestao_colab)
     
 if gestao_colab == 'Dashboard Geral':
-    dash_colab()
+    pass
     
 if gestao_colab == 'Avaliação Individual':
     colab_individual()
