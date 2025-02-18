@@ -1,38 +1,6 @@
 import streamlit as st
 import pandas as pd
 from function import analise_estoque, analise_estoque_grupo, vendas_grupo, graf_plotly
-
-def dash_colab():
-    st.header('Dashboard Geral')
-    
-    st.subheader('Colaboradores')
-    kpi1,kpi2,kpi3 =  st.columns(3)
-    with kpi1:
-        st.metric(label='Colaboradores ativos', value=0, delta=0.1)
-    with kpi2:
-        st.metric(label='Venda por colaborador', value=0, delta=0.1)
-    with kpi3:
-        st.metric(label='Lucro Bruto por colaborador', value=0, delta=0.1)
-    
-    # melhores vendedores em faturamento
-    with st.expander('Melhores Vendedores em faturamento', expanded=False):
-        st.write('')
-    
-    
-    # melhores vendedores em lucratividade bruta
-    with st.expander('Melhores Vendedores em lucratividade bruta', expanded=False):
-        st.write('')
-    
-    
-    # melhores vendedores em ticket médio
-    with st.expander('Melhores Vendedores em ticket médio', expanded=False):
-        st.write('')
-    
-    
-    # melhores vendedores em itens por cupom
-    with st.expander('Melhores Vendedores em itens por cupom', expanded=False):
-        st.write('')
-        
         
 def colab_individual():
     df_colaboradores = pd.read_excel('planilhas/vendas/vendedores/lista_colaboradores.xls', header=8,usecols=('B,C,E'))[0:-2]
@@ -47,11 +15,6 @@ def colab_individual():
     seletor_colab = st.multiselect('Selecione o vendedor',lst_vendedor)
     lista_codigos_vendedores = []
     
-    df_vendas_genericos = vendas_grupo('genericos')
-    df_vendas_similares = vendas_grupo('similares')
-    df_vendas_perfumaria = vendas_grupo('perfumaria')
-    df_vendas_csr_referencia = vendas_grupo('csr_referencia')
-    df_vendas_csr_gensim = vendas_grupo('csr_gensim')
     
     st.write(df_colaboradores)
     st.write(df_relacao_vendas)

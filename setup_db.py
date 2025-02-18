@@ -7,19 +7,16 @@ cursor = conn.cursor()
 # Criar tabela de colaboradores
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS colaboradores (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    codigo INTEGER UNIQUE NOT NULL,
+    codigo TEXT PRIMARY KEY UNIQUE NOT NULL,
     colaborador TEXT NOT NULL,
-    admissao DATE NOT NULL,
     cod_nome_colab TEXT NOT NULL
 );
 """)
 
-# Criar tabela de vendas por vendedor
+# Criar tabela de vendas gerais por vendedor
 cursor.execute("""
 CREATE TABLE IF NOT EXISTS vendas_vendedores (
-    id INTEGER PRIMARY KEY AUTOINCREMENT,
-    cod_venda TEXT NOT NULL,
+    cod_venda TEXT PRIMARY KEY,  -- Definir como chave primária para evitar duplicação
     filial TEXT NOT NULL,
     forma_pagamento TEXT,
     data DATE NOT NULL,
@@ -35,7 +32,28 @@ CREATE TABLE IF NOT EXISTS vendas_vendedores (
 );
 """)
 
-# Criar índices para melhorar performance nas consultas
+# Criar tabelas separadas para cada grupo de vendas
+grupos_vendas = ["genericos", "similares", "csr_gensim", "csr_referencia", "perfumaria"]
+
+for grupo in grupos_vendas:
+    cursor.execute(f"""
+    CREATE TABLE IF NOT EXISTS vendas_{grupo} (
+        cod_venda TEXT PRIMARY KEY,  -- Definir como chave primária
+        filial TEXT NOT NULL,
+        forma_pagamento TEXT,
+        data DATE NOT NULL,
+        hora TEXT,
+        cupom TEXT,
+        vendedor INTEGER NOT NULL,
+        valor_liquido REAL NOT NULL,
+        FOREIGN KEY (vendedor) REFERENCES colaboradores(codigo)
+    );
+    """)
+
+    # Criar índices para otimizar consultas
+    cursor.execute(f"CREATE INDEX IF NOT EXISTS idx_vendas_{grupo}_data ON vendas_{grupo}(data);")
+
+# Criar índices gerais
 cursor.execute("CREATE INDEX IF NOT EXISTS idx_vendas_vendedores_data ON vendas_vendedores(data);")
 cursor.execute("CREATE INDEX IF NOT EXISTS idx_colaboradores_codigo ON colaboradores(codigo);")
 
@@ -43,4 +61,4 @@ cursor.execute("CREATE INDEX IF NOT EXISTS idx_colaboradores_codigo ON colaborad
 conn.commit()
 conn.close()
 
-print("Tabelas criadas/atualizadas com sucesso!")
+print("🔧 Tabelas criadas/atualizadas com sucesso!")
