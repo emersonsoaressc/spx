@@ -236,7 +236,7 @@ def colab_individual():
     
     st.write(lista_codigos_vendedores[0])
     
-    if ('9') in lst_lideres:
+    if str(lista_codigos_vendedores[0]) in lst_lideres:
         st.write('Você é um LÍDER!')
 
 colab_individual()
