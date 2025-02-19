@@ -225,18 +225,27 @@ def colab_individual():
         st.metric(label='Meta 2 - Comissão 2% em perfumaria comissionada', value= f'{meta_2_icon}', help=f'Você vendeu R$ {perfumaria_comissionada} em perfumaria comissionada (Dermos, perfumes e maquiagens)')
         st.metric(label='Meta 5 - 35k', value= f'{meta_5_icon}', help=f'Venda total acima de 35.000,00 . Você vendeu {venda_liquida}')
         st.metric(label='Bonificados 10 reais', value=f'{bon_10reais_icon}')
-    
+
+    premio_lider = 0
+    if str(lista_codigos_vendedores[0]) in lst_lideres:
+        meta = st.number_input('Qual a meta da loja?')
+        venda = st.number_input('Qual foi a venda da loja?')
+        if venda >= meta:
+            premio_lider = venda * 0.05/100
+            st.success(f"PARABÉNS você atingiu a meta da loja! Seu premio é de R$ {round(premio_lider,2)}")
+        else:
+            premio_lider = venda * 0.025/100
+            st.warning("Infelizmente você não atingiu a meta da loja, sua premiação é de R$ {round(premio_lider,2)}")
+                
     
     if meta_zero > 0:
-        meta_total = round(meta_zero+meta_1+meta_2+meta_3+meta_4+meta_5+meta_6+bonificados_10reais+bonificados_5reais+bonificados_2_5reais+validade,2)
+        meta_total = round(meta_zero+meta_1+meta_2+meta_3+meta_4+meta_5+meta_6+bonificados_10reais+bonificados_5reais+bonificados_2_5reais+validade+premio_lider,2)
         st.success(f'Sua Comissão referente as vendas do mês {data_inicial.month} é de R$ {meta_total}')
     else:
-        meta_total = round(bonificados_10reais+bonificados_5reais+bonificados_2_5reais+validade,2)
+        meta_total = round(bonificados_10reais+bonificados_5reais+bonificados_2_5reais+validade+premio_lider,2)
         st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}. Sua comissão é de {meta_total}')
+
     
-    st.write(lista_codigos_vendedores[0])
-    
-    if str(lista_codigos_vendedores[0]) in lst_lideres:
-        st.write('Você é um LÍDER!')
+
 
 colab_individual()
