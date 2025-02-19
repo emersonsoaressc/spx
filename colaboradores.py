@@ -235,7 +235,7 @@ def colab_individual():
             st.success(f"PARABÉNS você atingiu a meta da loja! Seu premio é de R$ {round(premio_lider,2)}")
         else:
             premio_lider = venda * 0.025/100
-            st.warning("Infelizmente você não atingiu a meta da loja, sua premiação é de R$ {round(premio_lider,2)}")
+            st.warning(f"Infelizmente você não atingiu a meta da loja, sua premiação é de R$ {round(premio_lider,2)}")
                 
     
     if meta_zero > 0:
