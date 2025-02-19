@@ -43,6 +43,7 @@ def colab_individual():
     df_vendas_perfumaria = carregar_vendas_grupo('perfumaria')
     df_vendas_csr_referencia = carregar_vendas_grupo('csr_referencia')
     df_vendas_csr_gensim = carregar_vendas_grupo('csr_gensim')
+    lst_lideres = ['9','11','24','33','42','66','75','87','93']
 
     # Seleção do vendedors
     lst_vendedor = df_colaboradores['cod_nome_colab'].unique()
@@ -233,5 +234,7 @@ def colab_individual():
         meta_total = round(bonificados_10reais+bonificados_5reais+bonificados_2_5reais+validade,2)
         st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}. Sua comissão é de {meta_total}')
     
+    if lst_vendedor in lst_lideres:
+        st.write('Você é um LÍDER!')
 
 colab_individual()
