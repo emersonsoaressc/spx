@@ -235,7 +235,7 @@ def colab_individual():
         st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}. Sua comissão é de {meta_total}')
     
     st.write(seletor_colab[0])
-    if (seletor_colab[0].split('-')[0]) in lst_lideres:
+    if ('9') in lst_lideres:
         st.write('Você é um LÍDER!')
 
 colab_individual()
