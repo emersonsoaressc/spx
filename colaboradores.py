@@ -232,7 +232,7 @@ def colab_individual():
         venda = st.number_input('Qual foi a venda da loja?')
         if venda >= meta:
             premio_lider = venda * 0.5/100
-            st.success(f"PARABÉNS você atingiu a meta da loja! Seu premio é de R$ {round(premio_lider,2)}")
+            st.success(f"PARABÉNS você atingiu a meta da loja! Seu prêmio é de R$ {round(premio_lider,2)}")
         else:
             premio_lider = venda * 0.25/100
             st.warning(f"Infelizmente você não atingiu a meta da loja, sua premiação é de R$ {round(premio_lider,2)}")
