@@ -9,9 +9,10 @@ def conectar_banco():
 
 # Função para importar colaboradores
 def importar_colaboradores():
-    df_colaboradores = pd.read_excel('planilhas/vendas/vendedores/lista_colaboradores.xls', header=8,usecols=('B,C,E'))[0:-2]
-    df_colaboradores = df_colaboradores.set_axis(['codigo','colaborador','admissao'], axis=1)
-    df_colaboradores['cod_nome_colab'] = df_colaboradores['codigo'].astype(str) + ' - '+ df_colaboradores['colaborador']
+    df_colaboradores = pd.read_excel('planilhas/vendas/vendedores/lista_colaboradores.xls', header=8, usecols=('B,C,E'))[0:-2]
+    df_colaboradores = df_colaboradores.set_axis(['codigo', 'colaborador', 'admissao'], axis=1)
+    df_colaboradores['cod_nome_colab'] = df_colaboradores['codigo'].astype(str) + ' - ' + df_colaboradores['colaborador']
+    
     conn = conectar_banco()
     cursor = conn.cursor()
 
@@ -49,14 +50,14 @@ def importar_vendas():
     conn = conectar_banco()
     cursor = conn.cursor()
 
-    # Carregar as vendas existentes para evitar duplicação
-    cursor.execute("SELECT cod_venda FROM vendas_vendedores")
-    vendas_existentes = set(row[0] for row in cursor.fetchall())
+    # Carregar as vendas existentes para evitar duplicação (usando chave composta)
+    cursor.execute("SELECT cod_venda, filial FROM vendas_vendedores")
+    vendas_existentes = set((row[0], row[1]) for row in cursor.fetchall())
 
     novas_vendas = []
 
     for _, row in df_relacao_vendas.iterrows():
-        if row["cod_venda"] not in vendas_existentes:
+        if (row["cod_venda"], row["filial"]) not in vendas_existentes:
             novas_vendas.append((
                 row["cod_venda"], row["filial"], row["forma_pagamento"], row["data"],
                 row["hora"], row["cupom"], row["cliente"], row["vendedor"],
@@ -109,12 +110,14 @@ def vendas_grupo(grupo):
 
 # Função para importar vendas dos grupos sem duplicação e contar corretamente as inserções
 def importar_vendas_grupo(df_vendas_grupo, grupo_nome):
-    conn = sqlite3.connect("vendas.db")
+    conn = conectar_banco()
     cursor = conn.cursor()
 
-    # Filtrar apenas novas vendas que ainda não estão no banco
-    vendas_existentes = set(row[0] for row in cursor.execute(f"SELECT cod_venda FROM vendas_{grupo_nome}"))
-    novas_vendas = [tuple(row) for _, row in df_vendas_grupo.iterrows() if row["venda"] not in vendas_existentes]
+    # Filtrar apenas novas vendas que ainda não estão no banco (chave composta)
+    cursor.execute(f"SELECT cod_venda, filial FROM vendas_{grupo_nome}")
+    vendas_existentes = set((row[0], row[1]) for row in cursor.fetchall())
+
+    novas_vendas = [tuple(row) for _, row in df_vendas_grupo.iterrows() if (row["venda"], row["filial"]) not in vendas_existentes]
 
     if novas_vendas:
         cursor.executemany(f"""
