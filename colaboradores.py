@@ -234,7 +234,7 @@ def colab_individual():
         meta_total = round(bonificados_10reais+bonificados_5reais+bonificados_2_5reais+validade,2)
         st.error(f'Infelizmente você não atingiu a META ZERO no mês {data_inicial.month}. Sua comissão é de {meta_total}')
     
-    if lst_vendedor in lst_lideres:
+    if lst_vendedor[0] in lst_lideres:
         st.write('Você é um LÍDER!')
 
 colab_individual()
