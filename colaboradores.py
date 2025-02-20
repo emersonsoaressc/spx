@@ -58,15 +58,12 @@ def colab_individual():
                   '07 - Julho', '08 - Agosto', '09 - Setembro', '10 - Outubro', '11 - Novembro', '12 - Dezembro'])
     mes = int(mes.split('-')[0])
 
-    data_inicial = st.date_input("Insira a data inicial")#datetime.date(int(ano), int(mes), 1)
+    data_inicial = datetime.date(int(ano), int(mes), 1)
 
     # Determinar o último dia do mês
     ultimo_dia = calendar.monthrange(int(ano), mes)[1]
-    data_final = st.date_input("Insira a data final")#datetime.date(int(ano), mes, ultimo_dia)
+    data_final = datetime.date(int(ano), mes, ultimo_dia)
 
-    
-    st.write(data_final)
-    st.write(data_inicial)
     
     # Converter a coluna 'data' para datetime antes de filtrar
     df_vendas['data'] = pd.to_datetime(df_vendas['data'])
