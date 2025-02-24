@@ -81,6 +81,9 @@ def layout_compras():
             df_faltas_grupo['cnpj'] = '31179778000133'
         if cod_filial == '011':
             df_faltas_grupo['cnpj'] = '31179778000648'
+        if cod_filial == '012':
+            df_faltas_grupo['cnpj'] = '45780908000101'
+            
             
         #ver dataframe de faltas
         ver_df_faltas_grupo = st.checkbox('Ver dataframe')
