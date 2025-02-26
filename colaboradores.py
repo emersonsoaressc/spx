@@ -47,7 +47,7 @@ def colab_individual():
 
     # Seleção do vendedors
     lst_vendedor = df_colaboradores['cod_nome_colab'].unique()
-    seletor_colab = st.multiselect('Selecione o vendedor', lst_vendedor,default=any)
+    seletor_colab = st.multiselect('Selecione o vendedor', lst_vendedor,default=[])
 
     lista_codigos_vendedores = [int(i.split('-')[0].strip()) for i in seletor_colab]
 
