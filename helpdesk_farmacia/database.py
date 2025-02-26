@@ -1,7 +1,6 @@
 import sqlite3
 from datetime import datetime
 
-# Nome do banco de dados
 DB_NAME = "helpdesk.db"
 
 def connect_db():
@@ -9,11 +8,11 @@ def connect_db():
     return sqlite3.connect(DB_NAME, check_same_thread=False)
 
 def init_db():
-    """ Cria as tabelas do banco de dados se não existirem e adiciona um usuário padrão COO """
+    """ Cria as tabelas do banco de dados se não existirem """
     conn = connect_db()
     cursor = conn.cursor()
 
-    # Tabela de usuários (agora com campo "loja")
+    # Criar tabela de usuários com campos "loja" e "whatsapp"
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -22,11 +21,12 @@ def init_db():
             senha TEXT NOT NULL,
             cargo TEXT NOT NULL,
             loja TEXT DEFAULT NULL,
+            whatsapp TEXT NOT NULL,
             aprovado INTEGER DEFAULT 0  -- 0 = pendente, 1 = aprovado
         )
     """)
 
-    # Tabela de chamados
+    # Criar tabela de chamados
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS chamados (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -41,12 +41,12 @@ def init_db():
         )
     """)
 
-    # 🔹 Criando automaticamente um usuário padrão (COO) se ele ainda não existir
+    # Criar usuário padrão (COO) se não existir
     cursor.execute("SELECT COUNT(*) FROM usuarios WHERE cargo = 'COO'")
     if cursor.fetchone()[0] == 0:
         cursor.execute("""
-            INSERT INTO usuarios (nome, email, senha, cargo, loja, aprovado)
-            VALUES ('Admin COO', 'admin@shopfarma.com', 'admin123', 'COO', NULL, 1)
+            INSERT INTO usuarios (nome, email, senha, cargo, loja, whatsapp, aprovado)
+            VALUES ('Admin COO', 'admin@shopfarma.com', 'admin123', 'COO', NULL, '+55 48 99999-9999', 1)
         """)
         conn.commit()
         print("✅ Usuário padrão (COO) criado com sucesso!")
@@ -54,14 +54,14 @@ def init_db():
     conn.commit()
     conn.close()
 
-def create_user(nome, email, senha, cargo, loja=None):
+def create_user(nome, email, senha, cargo, loja, whatsapp):
     """ Cadastra um novo usuário como pendente, associado a uma loja se necessário """
     conn = connect_db()
     cursor = conn.cursor()
 
     try:
-        cursor.execute("INSERT INTO usuarios (nome, email, senha, cargo, loja, aprovado) VALUES (?, ?, ?, ?, ?, 0)", 
-                       (nome, email, senha, cargo, loja))
+        cursor.execute("INSERT INTO usuarios (nome, email, senha, cargo, loja, whatsapp, aprovado) VALUES (?, ?, ?, ?, ?, ?, 0)", 
+                       (nome, email, senha, cargo, loja, whatsapp))
         conn.commit()
         return True
     except sqlite3.IntegrityError:
@@ -73,7 +73,7 @@ def get_user(email, senha):
     """ Retorna um usuário pelo email e senha, verificando se foi aprovado """
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, nome, email, cargo, loja FROM usuarios WHERE email = ? AND senha = ? AND aprovado = 1", (email, senha))
+    cursor.execute("SELECT id, nome, email, cargo, loja, whatsapp FROM usuarios WHERE email = ? AND senha = ? AND aprovado = 1", (email, senha))
     user = cursor.fetchone()
     conn.close()
     return user
@@ -82,7 +82,7 @@ def get_pending_users():
     """ Retorna usuários que ainda não foram aprovados pelo COO """
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, nome, email, cargo, loja FROM usuarios WHERE aprovado = 0")
+    cursor.execute("SELECT id, nome, email, cargo, loja, whatsapp FROM usuarios WHERE aprovado = 0")
     users = cursor.fetchall()
     conn.close()
     return users
@@ -99,7 +99,7 @@ def get_all_users():
     """ Retorna todos os usuários cadastrados """
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, nome, email, cargo, loja, aprovado FROM usuarios")
+    cursor.execute("SELECT id, nome, email, cargo, loja, whatsapp, aprovado FROM usuarios")
     users = cursor.fetchall()
     conn.close()
     return users

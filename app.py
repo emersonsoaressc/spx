@@ -76,6 +76,7 @@ else:
         nome = st.text_input("Nome Completo")
         email_cadastro = st.text_input("E-mail para Cadastro")
         senha_cadastro = st.text_input("Senha para Cadastro", type="password")
+        whatsapp = st.text_input("Número do WhatsApp", placeholder="Ex: +5548999999999", help="")  # 🔹 Novo campo obrigatório
 
         cargo = st.selectbox("Selecione seu Cargo", [ 
             "Proprietário (CEO – Chief Executive Officer)", 
@@ -107,8 +108,8 @@ else:
         col1, col2 = st.columns(2)
         with col1:
             if st.button("Registrar"):
-                if nome and email_cadastro and senha_cadastro and cargo:
-                    if create_user(nome, email_cadastro, senha_cadastro, cargo, loja):
+                if nome and email_cadastro and senha_cadastro and whatsapp and cargo:
+                    if create_user(nome, email_cadastro, senha_cadastro, cargo, loja, whatsapp):
                         st.success(f"✅ Cadastro enviado! Aguarde aprovação do COO.")
                         st.session_state.show_register = False
                         st.experimental_rerun()
