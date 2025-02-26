@@ -78,11 +78,32 @@ else:
         email_cadastro = st.text_input("E-mail para Cadastro")
         senha_cadastro = st.text_input("Senha para Cadastro", type="password")
 
-        cargo = st.selectbox("Selecione seu Cargo", [
-            "Gestor", "CEO", "CFO", "Assistente Financeiro", "Assistente de RH", "Assistente de Estoque"
+        cargo = st.selectbox("Selecione seu Cargo", [ 
+            "Proprietário (CEO – Chief Executive Officer)", 
+            "Diretor de Operações (COO – Chief Operating Officer)", 
+            "Diretor Comercial (CCO – Chief Commercial Officer)", 
+            "Diretor Financeiro (CFO – Chief Financial Officer)", 
+            "Diretor de Compras",
+            "Diretor de Auditoria e Compliance (CAO – Chief Audit Officer)",
+            "Líder de Loja",
+            "Assistente Financeiro",
+            "Assistente de RH",
+            "Assistente de Estoque e Suprimentos",
+            "Fiscal de Auditoria e Compliance",
+            "Analista de Marketing",
         ])
 
-        loja = st.selectbox("Selecione sua Loja", ["Loja 1", "Loja 2", "Loja 3", "Loja 4"]) if cargo == "Gestor" else None
+        loja = st.selectbox("Selecione sua Loja", [
+            "001 - Matriz", 
+            "004 - Centrinho", 
+            "005 - Calil", 
+            "007 - Rio vermelho",
+            "008 - Vargem Grande",
+            "009 - Canasvieiras",
+            "010 - UPA Norte",
+            "011 - Trindade",
+            "012 - Palhoça"
+            ]) if cargo == "Líder de Loja" else None
 
         col1, col2 = st.columns(2)
         with col1:
