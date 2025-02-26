@@ -1,5 +1,5 @@
 import streamlit as st
-from auth import login, logout, check_session, approve_users
+from helpdesk_farmacia.auth import login, logout, check_session, approve_users
 from compras.compras import layout_compras
 from produto_individual import page_produto_individual
 from home import home
