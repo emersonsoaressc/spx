@@ -13,7 +13,7 @@ def init_db():
     conn = connect_db()
     cursor = conn.cursor()
 
-    # Tabela de usuários (agora com campo "aprovado")
+    # Tabela de usuários (agora com campo "loja")
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
@@ -21,6 +21,7 @@ def init_db():
             email TEXT UNIQUE NOT NULL,
             senha TEXT NOT NULL,
             cargo TEXT NOT NULL,
+            loja TEXT DEFAULT NULL,
             aprovado INTEGER DEFAULT 0  -- 0 = pendente, 1 = aprovado
         )
     """)
@@ -44,8 +45,8 @@ def init_db():
     cursor.execute("SELECT COUNT(*) FROM usuarios WHERE cargo = 'COO'")
     if cursor.fetchone()[0] == 0:
         cursor.execute("""
-            INSERT INTO usuarios (nome, email, senha, cargo, aprovado)
-            VALUES ('Admin COO', 'admin@shopfarma.com', 'admin123', 'COO', 1)
+            INSERT INTO usuarios (nome, email, senha, cargo, loja, aprovado)
+            VALUES ('Admin COO', 'admin@shopfarma.com', 'admin123', 'COO', NULL, 1)
         """)
         conn.commit()
         print("✅ Usuário padrão (COO) criado com sucesso!")
@@ -53,14 +54,14 @@ def init_db():
     conn.commit()
     conn.close()
 
-def create_user(nome, email, senha, cargo):
-    """ Cadastra um novo usuário como pendente """
+def create_user(nome, email, senha, cargo, loja=None):
+    """ Cadastra um novo usuário como pendente, associado a uma loja se necessário """
     conn = connect_db()
     cursor = conn.cursor()
 
     try:
-        cursor.execute("INSERT INTO usuarios (nome, email, senha, cargo, aprovado) VALUES (?, ?, ?, ?, 0)", 
-                       (nome, email, senha, cargo))
+        cursor.execute("INSERT INTO usuarios (nome, email, senha, cargo, loja, aprovado) VALUES (?, ?, ?, ?, ?, 0)", 
+                       (nome, email, senha, cargo, loja))
         conn.commit()
         return True
     except sqlite3.IntegrityError:
@@ -72,18 +73,16 @@ def get_user(email, senha):
     """ Retorna um usuário pelo email e senha, verificando se foi aprovado """
     conn = connect_db()
     cursor = conn.cursor()
-
-    cursor.execute("SELECT * FROM usuarios WHERE email = ? AND senha = ?", (email, senha))
+    cursor.execute("SELECT id, nome, email, cargo, loja FROM usuarios WHERE email = ? AND senha = ? AND aprovado = 1", (email, senha))
     user = cursor.fetchone()
     conn.close()
-
     return user
 
 def get_pending_users():
     """ Retorna usuários que ainda não foram aprovados pelo COO """
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT * FROM usuarios WHERE aprovado = 0")
+    cursor.execute("SELECT id, nome, email, cargo, loja FROM usuarios WHERE aprovado = 0")
     users = cursor.fetchall()
     conn.close()
     return users
@@ -95,6 +94,15 @@ def approve_user(user_id):
     cursor.execute("UPDATE usuarios SET aprovado = 1 WHERE id = ?", (user_id,))
     conn.commit()
     conn.close()
+
+def get_all_users():
+    """ Retorna todos os usuários cadastrados """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT id, nome, email, cargo, loja, aprovado FROM usuarios")
+    users = cursor.fetchall()
+    conn.close()
+    return users
 
 def create_ticket(usuario_id, titulo, descricao, categoria, urgencia="Média"):
     """ Cria um novo chamado no sistema """

@@ -1,58 +1,27 @@
 import streamlit as st
-from helpdesk_farmacia.auth import login, logout, check_session, approve_users
-from compras.compras import layout_compras
-from produto_individual import page_produto_individual
-from home import home
-from colaboradores import colab_individual
-from helpdesk_farmacia.app_helpdesk import helpdesk_main
+from database import create_user, get_user, get_pending_users, approve_user
+from helpdesk_farmacia.auth import check_session, logout
 
 # Configuração da página
 st.set_page_config(page_title="Shopfarma - Gestão", layout="wide")
 
-# Verifica se o usuário está logado
+# Verifica se o usuário já está logado
 user_data = check_session()
 
 if user_data:
-    # Exibir logo no topo
-    st.image('images/logo_shopfarma_sem_fundo.png', width=250)  
+    st.image('images/logo_shopfarma_sem_fundo.png', width=250)
     st.markdown(f"<h3 style='text-align: center;'>👤 Bem-vindo, {user_data['name']} ({user_data['role']})</h3>", unsafe_allow_html=True)
 
-    # Criar sessão de navegação
-    if "current_page" not in st.session_state:
-        st.session_state.current_page = "helpdesk"  # Padrão: Helpdesk
-
-    # Estilo dos botões como cards
-    button_style = """
-        <style>
-            .stButton>button {
-                width: 100%;
-                height: 100px;
-                font-size: 20px;
-                font-weight: bold;
-                border-radius: 12px;
-                background-color: #f8f9fa;
-                color: #333;
-                border: 2px solid #ddd;
-                transition: transform 0.2s, box-shadow 0.2s;
-            }
-            .stButton>button:hover {
-                transform: scale(1.05);
-                box-shadow: 2px 2px 10px rgba(0,0,0,0.2);
-            }
-        </style>
-    """
-    st.markdown(button_style, unsafe_allow_html=True)
-
-    # Criando os botões clicáveis (disfarçados de cards)
+    # Layout dos cards
     col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        if user_data["role"] == "COO":
+        if user_data["role"] in ["COO", "Gestor Estoque"]:
             if st.button("🛒 Gestão de Estoque"):
                 st.session_state.current_page = "estoque"
 
     with col2:
-        if user_data["role"] == "COO":
+        if user_data["role"] in ["COO", "Assistente de RH"]:
             if st.button("👥 Gestão de Colaboradores"):
                 st.session_state.current_page = "colaboradores"
 
@@ -64,22 +33,57 @@ if user_data:
         if st.button("🔒 Logout"):
             logout()
 
-    # Exibe o conteúdo da página atual
+    # Controle de navegação
+    if "current_page" not in st.session_state:
+        st.session_state.current_page = "helpdesk"
+
     if st.session_state.current_page == "estoque":
         st.title("📦 Gestão de Estoque")
-        opcao_estoque = st.selectbox("Selecione uma opção:", ["", "Produto Individual", "Sistema de Compras"])
-        if opcao_estoque == "Produto Individual":
-            page_produto_individual()
-        elif opcao_estoque == "Sistema de Compras":
-            layout_compras()
     elif st.session_state.current_page == "colaboradores":
-        colab_individual()
+        st.title("👥 Gestão de Colaboradores")
     elif st.session_state.current_page == "helpdesk":
-        helpdesk_main("Acompanhar Chamados")
+        st.title("🛠️ Helpdesk")
 
 else:
-    # Tela de login caso o usuário não esteja logado
     st.image('images/logo_shopfarma_sem_fundo.png', width=250)
     st.title("🔑 Login")
-    login()
-    st.warning("Seu cadastro precisa ser aprovado pelo COO antes do acesso.")
+
+    # Login
+    email = st.text_input("E-mail")
+    senha = st.text_input("Senha", type="password")
+
+    if st.button("Entrar"):
+        user = get_user(email, senha)
+        if user:
+            st.session_state["user"] = user
+            st.experimental_rerun()
+        else:
+            st.error("⚠️ Usuário não encontrado ou ainda não aprovado pelo COO.")
+
+    # Botão para novo cadastro
+    if st.button("Novo Cadastro"):
+        st.session_state.current_page = "cadastro"
+
+    # Página de cadastro
+    if "current_page" in st.session_state and st.session_state.current_page == "cadastro":
+        st.subheader("📋 Novo Cadastro")
+
+        nome = st.text_input("Nome Completo")
+        email = st.text_input("E-mail")
+        senha = st.text_input("Senha", type="password")
+
+        cargo = st.selectbox("Selecione seu Cargo", [
+            "Gestor", "CEO", "CFO", "Assistente Financeiro", "Assistente de RH", "Assistente de Estoque"
+        ])
+
+        loja = st.selectbox("Selecione sua Loja", ["Loja 1", "Loja 2", "Loja 3", "Loja 4"]) if cargo == "Gestor" else None
+
+        if st.button("Registrar"):
+            if nome and email and senha and cargo:
+                if create_user(nome, email, senha, cargo, loja):
+                    st.success(f"✅ Cadastro enviado! Aguarde aprovação do COO.")
+                    st.session_state.current_page = "login"
+                else:
+                    st.error("⚠️ Este e-mail já está em uso.")
+            else:
+                st.warning("⚠️ Preencha todos os campos antes de cadastrar.")
