@@ -9,7 +9,7 @@ def connect_db():
     return sqlite3.connect(DB_NAME, check_same_thread=False)
 
 def init_db():
-    """ Cria as tabelas do banco de dados se não existirem """
+    """ Cria as tabelas do banco de dados se não existirem e adiciona um usuário padrão COO """
     conn = connect_db()
     cursor = conn.cursor()
 
@@ -39,6 +39,16 @@ def init_db():
             FOREIGN KEY(usuario_id) REFERENCES usuarios(id)
         )
     """)
+
+    # 🔹 Criando automaticamente um usuário padrão (COO) se ele ainda não existir
+    cursor.execute("SELECT COUNT(*) FROM usuarios WHERE cargo = 'COO'")
+    if cursor.fetchone()[0] == 0:
+        cursor.execute("""
+            INSERT INTO usuarios (nome, email, senha, cargo, aprovado)
+            VALUES ('Admin COO', 'admin@shopfarma.com', 'admin123', 'COO', 1)
+        """)
+        conn.commit()
+        print("✅ Usuário padrão (COO) criado com sucesso!")
 
     conn.commit()
     conn.close()

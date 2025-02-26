@@ -5,7 +5,6 @@ from produto_individual import page_produto_individual
 from home import home
 from colaboradores import colab_individual
 from helpdesk_farmacia.app_helpdesk import helpdesk_main
-
 from helpdesk_farmacia.database import init_db
 
 # Inicializa o banco de dados (caso ainda não exista)
