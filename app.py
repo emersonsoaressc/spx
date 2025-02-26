@@ -12,20 +12,20 @@ st.set_page_config(page_title="Shopfarma - Gestão", layout="wide")
 st.sidebar.image('images/logo_shopfarma_sem_fundo.png', use_column_width=True)
 st.sidebar.markdown("### 📊 Painel de Gestão")
 
-# Criando um menu principal com botões estilizados
+# Criando um menu principal na sidebar
 menu_principal = st.sidebar.radio(
     "Escolha uma seção:", 
     ["🏠 Home", "🛒 Gestão de Estoque", "👥 Gestão de Colaboradores", "🛠️ Helpdesk"],
 )
 
-st.sidebar.markdown("---")
+st.sidebar.markdown("---")  # Linha divisória
 
 # Exibição do conteúdo conforme a opção escolhida
 if menu_principal == "🏠 Home":
     st.title("📌 Bem-vindo ao Painel Shopfarma")
     st.write("Aqui você pode gerenciar colaboradores, estoque e chamados de manutenção.")
 
-    # Criando métricas importantes (caso aplicável)
+    # Criando métricas importantes (se aplicável)
     col1, col2, col3 = st.columns(3)
     col1.metric(label="💰 Vendas Mensais", value="R$ 120.000", delta="+5%")
     col2.metric(label="📦 Produtos em Estoque", value="8.500", delta="-2%")
@@ -33,7 +33,7 @@ if menu_principal == "🏠 Home":
 
 elif menu_principal == "🛒 Gestão de Estoque":
     st.title("📦 Gestão de Estoque Avançada")
-    opcao_estoque = st.selectbox("Selecione uma opção:", ["", "Produto Individual", "Sistema de Compras"])
+    opcao_estoque = st.sidebar.selectbox("Selecione uma opção:", ["", "Produto Individual", "Sistema de Compras"])
 
     if opcao_estoque == "Produto Individual":
         page_produto_individual()
@@ -42,7 +42,7 @@ elif menu_principal == "🛒 Gestão de Estoque":
 
 elif menu_principal == "👥 Gestão de Colaboradores":
     st.title("👥 Gestão de Colaboradores")
-    opcao_colab = st.selectbox("Selecione uma opção:", ["", "Dashboard Geral", "Avaliação Individual"])
+    opcao_colab = st.sidebar.selectbox("Selecione uma opção:", ["", "Dashboard Geral", "Avaliação Individual"])
 
     if opcao_colab == "Dashboard Geral":
         st.write("Aqui ficará o dashboard de colaboradores.")
@@ -51,7 +51,7 @@ elif menu_principal == "👥 Gestão de Colaboradores":
 
 elif menu_principal == "🛠️ Helpdesk":
     st.title("🛠️ Helpdesk - Suporte e Manutenção")
-    helpdesk_option = st.selectbox("Selecione uma opção:", ["", "Acompanhar Chamados", "Abrir Novo Chamado"])
+    opcao_helpdesk = st.sidebar.selectbox("Selecione uma opção:", ["", "Acompanhar Chamados", "Abrir Novo Chamado"])
 
-    if helpdesk_option in ["Acompanhar Chamados", "Abrir Novo Chamado"]:
-        helpdesk_main(helpdesk_option)
+    if opcao_helpdesk in ["Acompanhar Chamados", "Abrir Novo Chamado"]:
+        helpdesk_main(opcao_helpdesk)
