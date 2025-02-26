@@ -1,5 +1,5 @@
 import streamlit as st
-from database import create_user, get_user, get_pending_users, approve_user
+from helpdesk_farmacia.database import create_user, get_user, get_pending_users, approve_user
 from helpdesk_farmacia.auth import check_session, logout
 
 # Configuração da página
@@ -45,10 +45,10 @@ if user_data:
         st.title("🛠️ Helpdesk")
 
 else:
+    # Tela de login
     st.image('images/logo_shopfarma_sem_fundo.png', width=250)
     st.title("🔑 Login")
 
-    # Login
     email = st.text_input("E-mail")
     senha = st.text_input("Senha", type="password")
 
@@ -60,30 +60,26 @@ else:
         else:
             st.error("⚠️ Usuário não encontrado ou ainda não aprovado pelo COO.")
 
-    # Botão para novo cadastro
-    if st.button("Novo Cadastro"):
-        st.session_state.current_page = "cadastro"
+    st.markdown("---")
 
-    # Página de cadastro
-    if "current_page" in st.session_state and st.session_state.current_page == "cadastro":
-        st.subheader("📋 Novo Cadastro")
+    # Exibir formulário de cadastro abaixo do login
+    st.subheader("📋 Novo Cadastro")
 
-        nome = st.text_input("Nome Completo")
-        email = st.text_input("E-mail")
-        senha = st.text_input("Senha", type="password")
+    nome = st.text_input("Nome Completo")
+    email_cadastro = st.text_input("E-mail para Cadastro")
+    senha_cadastro = st.text_input("Senha", type="password")
 
-        cargo = st.selectbox("Selecione seu Cargo", [
-            "Gestor", "CEO", "CFO", "Assistente Financeiro", "Assistente de RH", "Assistente de Estoque"
-        ])
+    cargo = st.selectbox("Selecione seu Cargo", [
+        "Gestor", "CEO", "CFO", "Assistente Financeiro", "Assistente de RH", "Assistente de Estoque"
+    ])
 
-        loja = st.selectbox("Selecione sua Loja", ["Loja 1", "Loja 2", "Loja 3", "Loja 4"]) if cargo == "Gestor" else None
+    loja = st.selectbox("Selecione sua Loja", ["Loja 1", "Loja 2", "Loja 3", "Loja 4"]) if cargo == "Gestor" else None
 
-        if st.button("Registrar"):
-            if nome and email and senha and cargo:
-                if create_user(nome, email, senha, cargo, loja):
-                    st.success(f"✅ Cadastro enviado! Aguarde aprovação do COO.")
-                    st.session_state.current_page = "login"
-                else:
-                    st.error("⚠️ Este e-mail já está em uso.")
+    if st.button("Registrar"):
+        if nome and email_cadastro and senha_cadastro and cargo:
+            if create_user(nome, email_cadastro, senha_cadastro, cargo, loja):
+                st.success(f"✅ Cadastro enviado! Aguarde aprovação do COO.")
             else:
-                st.warning("⚠️ Preencha todos os campos antes de cadastrar.")
+                st.error("⚠️ Este e-mail já está em uso.")
+        else:
+            st.warning("⚠️ Preencha todos os campos antes de cadastrar.")
