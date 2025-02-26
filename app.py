@@ -1,10 +1,15 @@
 import streamlit as st
-from helpdesk_farmacia.auth import login, logout, check_session
+from helpdesk_farmacia.auth import login, logout, check_session, approve_users
 from compras.compras import layout_compras
 from produto_individual import page_produto_individual
 from home import home
 from colaboradores import colab_individual
 from helpdesk_farmacia.app_helpdesk import helpdesk_main
+
+from helpdesk_farmacia.database import init_db
+
+# Inicializa o banco de dados (caso ainda não exista)
+init_db()
 
 # Configuração da página
 st.set_page_config(page_title="Shopfarma - Gestão", layout="wide")
@@ -14,9 +19,14 @@ user_data = check_session()
 
 if user_data:
     # Se logado, mostra o menu e dashboard
-    st.sidebar.image('images/logo_shopfarma_sem_fundo.png', use_column_width=True)
+    st.sidebar.image('images/logo_shopfarma_sem_fundo.png', use_column_width=True)  # 🔹 Corrigindo o logo!
     st.sidebar.markdown(f"### 👤 Bem-vindo, {user_data['name']} ({user_data['role']})")
     st.sidebar.button("🔒 Logout", on_click=logout)
+
+    # Se for COO, exibe opção para aprovar usuários
+    if user_data["role"] == "COO":
+        with st.sidebar.expander("⚡ Aprovar Usuários"):
+            approve_users()
 
     # Criando menu principal
     menu_principal = st.sidebar.radio(
@@ -63,8 +73,9 @@ if user_data:
 
 else:
     # Se não estiver logado, mostra apenas o login
+    st.sidebar.image('images/logo_shopfarma_sem_fundo.png', use_column_width=True)  # 🔹 Corrigindo o logo na tela de login
     st.sidebar.title("🔑 Login")
     login()
     st.sidebar.markdown("---")
-    st.sidebar.subheader("Novo por aqui?")
-    st.sidebar.write("Cadastre-se com o administrador do sistema.")
+    st.sidebar.subheader("Cadastro restrito")
+    st.sidebar.write("O COO precisa aprovar seu cadastro antes de você acessar o sistema.")

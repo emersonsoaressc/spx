@@ -13,14 +13,15 @@ def init_db():
     conn = connect_db()
     cursor = conn.cursor()
 
-    # Tabela de usuários
+    # Tabela de usuários (agora com campo "aprovado")
     cursor.execute("""
         CREATE TABLE IF NOT EXISTS usuarios (
             id INTEGER PRIMARY KEY AUTOINCREMENT,
             nome TEXT NOT NULL,
             email TEXT UNIQUE NOT NULL,
             senha TEXT NOT NULL,
-            cargo TEXT NOT NULL
+            cargo TEXT NOT NULL,
+            aprovado INTEGER DEFAULT 0  -- 0 = pendente, 1 = aprovado
         )
     """)
 
@@ -43,12 +44,12 @@ def init_db():
     conn.close()
 
 def create_user(nome, email, senha, cargo):
-    """ Cadastra um novo usuário no sistema """
+    """ Cadastra um novo usuário como pendente """
     conn = connect_db()
     cursor = conn.cursor()
 
     try:
-        cursor.execute("INSERT INTO usuarios (nome, email, senha, cargo) VALUES (?, ?, ?, ?)",
+        cursor.execute("INSERT INTO usuarios (nome, email, senha, cargo, aprovado) VALUES (?, ?, ?, ?, 0)", 
                        (nome, email, senha, cargo))
         conn.commit()
         return True
@@ -58,7 +59,7 @@ def create_user(nome, email, senha, cargo):
         conn.close()
 
 def get_user(email, senha):
-    """ Retorna um usuário pelo email e senha """
+    """ Retorna um usuário pelo email e senha, verificando se foi aprovado """
     conn = connect_db()
     cursor = conn.cursor()
 
@@ -67,6 +68,23 @@ def get_user(email, senha):
     conn.close()
 
     return user
+
+def get_pending_users():
+    """ Retorna usuários que ainda não foram aprovados pelo COO """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("SELECT * FROM usuarios WHERE aprovado = 0")
+    users = cursor.fetchall()
+    conn.close()
+    return users
+
+def approve_user(user_id):
+    """ Aprova um usuário pendente """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("UPDATE usuarios SET aprovado = 1 WHERE id = ?", (user_id,))
+    conn.commit()
+    conn.close()
 
 def create_ticket(usuario_id, titulo, descricao, categoria, urgencia="Média"):
     """ Cria um novo chamado no sistema """
