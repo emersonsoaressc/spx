@@ -1,5 +1,5 @@
 import streamlit as st
-from database import create_user, get_user, get_pending_users, approve_user
+from helpdesk_farmacia.database import create_user, get_user, get_pending_users, approve_user
 from helpdesk_farmacia.auth import check_session, logout
 
 # Configuração da página
