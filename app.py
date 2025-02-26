@@ -59,6 +59,10 @@ else:
 
         col1, col2 = st.columns(2)
         with col1:
+            if st.button("Cadastre-se"):
+                st.session_state.show_register = True
+                st.experimental_rerun()
+        with col2:
             if st.button("Entrar"):
                 user = get_user(email_login, senha_login)
                 if user:
@@ -66,11 +70,6 @@ else:
                     st.experimental_rerun()
                 else:
                     st.error("⚠️ Usuário não encontrado ou ainda não aprovado pelo COO.")
-        with col2:
-            if st.button("Cadastre-se"):
-                st.session_state.show_register = True
-                st.experimental_rerun()
-
     else:
         st.title("📋 Novo Cadastro")
 
