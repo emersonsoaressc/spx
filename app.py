@@ -28,7 +28,7 @@ if user_data:
 
     # Criar sessão de navegação
     if "current_page" not in st.session_state:
-        st.session_state.current_page = "home"
+        st.session_state.current_page = "helpdesk"  # Padrão: Helpdesk
 
     # Estilo dos botões como cards
     button_style = """
@@ -53,24 +53,28 @@ if user_data:
     st.markdown(button_style, unsafe_allow_html=True)
 
     # Criando os botões clicáveis (disfarçados de cards)
-    col1, col2 = st.columns(2)
+    col1, col2, col3, col4 = st.columns(4)
 
     with col1:
-        if st.button("🏠 Home"):
-            st.session_state.current_page = "home"
-        if st.button("🛒 Gestão de Estoque"):
-            st.session_state.current_page = "estoque"
+        if user_data["role"] == "COO":
+            if st.button("🛒 Gestão de Estoque"):
+                st.session_state.current_page = "estoque"
 
     with col2:
-        if st.button("👥 Gestão de Colaboradores"):
-            st.session_state.current_page = "colaboradores"
+        if user_data["role"] == "COO":
+            if st.button("👥 Gestão de Colaboradores"):
+                st.session_state.current_page = "colaboradores"
+
+    with col3:
         if st.button("🛠️ Helpdesk"):
             st.session_state.current_page = "helpdesk"
 
+    with col4:
+        if st.button("🔄 Atualizar"):
+            st.session_state.current_page = "helpdesk"
+
     # Exibe o conteúdo da página atual
-    if st.session_state.current_page == "home":
-        home()
-    elif st.session_state.current_page == "estoque":
+    if st.session_state.current_page == "estoque":
         st.title("📦 Gestão de Estoque")
         opcao_estoque = st.selectbox("Selecione uma opção:", ["", "Produto Individual", "Sistema de Compras"])
         if opcao_estoque == "Produto Individual":
