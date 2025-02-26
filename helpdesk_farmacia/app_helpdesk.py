@@ -1,6 +1,7 @@
 import streamlit as st
 from helpdesk_farmacia.database import get_user_tickets, create_ticket, update_ticket_status
-from auth import check_session
+from helpdesk_farmacia.auth import check_session
+
 
 def helpdesk_main(option):
     """Função principal do módulo Helpdesk"""
