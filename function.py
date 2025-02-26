@@ -6,7 +6,6 @@ import plotly.graph_objects as go
 def convertXLS(arquivo_xls):
     pass
 
-@st.cache
 def analise_estoque(filial):
     df_saldo_estoque = pd.read_excel(f'planilhas/estoque/saldo_estoque_{filial}.xlsx', header=11, usecols=('B,C,F,G,H,I,J,O,P,Q,S,U,X'))[0:-3]
     df_saldo_estoque = df_saldo_estoque.set_axis(['ean','produto','laboratorio','grupo','curva','estoque_minimo','demanda','estoque','preco_custo','preco_venda','lucro','preco_custo_total','preco_venda_total'], axis=1)
@@ -28,7 +27,6 @@ def analise_estoque(filial):
     return valor_em_estoque, valor_faltas, df_saldo_estoque
 
 
-@st.cache
 def analise_estoque_grupo(df_saldo_estoque_grupo, grupo):
     df = df_saldo_estoque_grupo.query(f'grupo == {grupo}')
     df_saldo_estoque_grupo_filtrado = df.query('estoque_minimo > 0')

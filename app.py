@@ -2,34 +2,56 @@ import streamlit as st
 from compras.compras import layout_compras
 from produto_individual import page_produto_individual
 from home import home
-from colaboradores import  colab_individual
+from colaboradores import colab_individual
+from helpdesk_farmacia.app_helpdesk import helpdesk_main
 
-st.sidebar.image('images/logo_shopfarma_sem_fundo.png')
-st.sidebar.write('t')
+# Configuração da página
+st.set_page_config(page_title="Shopfarma - Gestão", layout="wide")
 
-with st.sidebar.expander('Gestão de colaboradores',expanded=True):
-    lst_gestao_colab = ['','Dashboard Geral','Avaliação Individual']
-    gestao_colab = st.selectbox('',lst_gestao_colab)
-    
-if gestao_colab == 'Dashboard Geral':
-    pass
-    
-if gestao_colab == 'Avaliação Individual':
-    colab_individual()
+# Sidebar - Logo e Menu
+st.sidebar.image('images/logo_shopfarma_sem_fundo.png', use_column_width=True)
+st.sidebar.markdown("### 📊 Painel de Gestão")
 
-with st.sidebar.expander('Gestão de estoque avançada', expanded=False):
-    lst_gestao_estoque = ['','Home','Produto Individual','Sistema de compras']
-    gestao_estoque_selectbox = st.selectbox('',lst_gestao_estoque)
+# Criando um menu principal com botões estilizados
+menu_principal = st.sidebar.radio(
+    "Escolha uma seção:", 
+    ["🏠 Home", "🛒 Gestão de Estoque", "👥 Gestão de Colaboradores", "🛠️ Helpdesk"],
+)
 
-if gestao_estoque_selectbox == 'Home':
-    home()
+st.sidebar.markdown("---")
 
-if gestao_estoque_selectbox == 'Dashboard':
-    pass
-    
-if gestao_estoque_selectbox == 'Produto Individual':
-    page_produto_individual()
-    
-if gestao_estoque_selectbox == 'Sistema de compras':
-    layout_compras()
-    
+# Exibição do conteúdo conforme a opção escolhida
+if menu_principal == "🏠 Home":
+    st.title("📌 Bem-vindo ao Painel Shopfarma")
+    st.write("Aqui você pode gerenciar colaboradores, estoque e chamados de manutenção.")
+
+    # Criando métricas importantes (caso aplicável)
+    col1, col2, col3 = st.columns(3)
+    col1.metric(label="💰 Vendas Mensais", value="R$ 120.000", delta="+5%")
+    col2.metric(label="📦 Produtos em Estoque", value="8.500", delta="-2%")
+    col3.metric(label="📋 Chamados Pendentes", value="12", delta="+3")
+
+elif menu_principal == "🛒 Gestão de Estoque":
+    st.title("📦 Gestão de Estoque Avançada")
+    opcao_estoque = st.selectbox("Selecione uma opção:", ["", "Produto Individual", "Sistema de Compras"])
+
+    if opcao_estoque == "Produto Individual":
+        page_produto_individual()
+    elif opcao_estoque == "Sistema de Compras":
+        layout_compras()
+
+elif menu_principal == "👥 Gestão de Colaboradores":
+    st.title("👥 Gestão de Colaboradores")
+    opcao_colab = st.selectbox("Selecione uma opção:", ["", "Dashboard Geral", "Avaliação Individual"])
+
+    if opcao_colab == "Dashboard Geral":
+        st.write("Aqui ficará o dashboard de colaboradores.")
+    elif opcao_colab == "Avaliação Individual":
+        colab_individual()
+
+elif menu_principal == "🛠️ Helpdesk":
+    st.title("🛠️ Helpdesk - Suporte e Manutenção")
+    helpdesk_option = st.selectbox("Selecione uma opção:", ["", "Acompanhar Chamados", "Abrir Novo Chamado"])
+
+    if helpdesk_option in ["Acompanhar Chamados", "Abrir Novo Chamado"]:
+        helpdesk_main(helpdesk_option)
