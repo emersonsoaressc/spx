@@ -17,7 +17,7 @@ if user_data:
     num_pendentes = len(pending_users)
 
     # Layout dos cards
-    col1, col2, col3, col4 = st.columns(4)
+    col1, col2, col3, col4, col5 = st.columns(5)
 
     with col1:
         if user_data["role"] in ["COO", "Gestor Estoque"]:
@@ -38,10 +38,8 @@ if user_data:
             logout()
 
     # Se for COO, mostrar o card de aprovações pendentes
-    if user_data["role"] == "COO":
-        st.markdown("---")
-        col1, col2 = st.columns(2)
-        with col1:
+    with col5:
+        if user_data["role"] == "COO":
             if num_pendentes > 0:
                 if st.button(f"✅ Aprovar Cadastros ({num_pendentes})"):
                     st.session_state.current_page = "aprovar_cadastros"
@@ -65,10 +63,15 @@ if user_data:
             st.success("✅ Nenhum usuário pendente no momento.")
         else:
             for user in pending_users:
-                st.markdown(f"**Nome:** {user[1]}  \n**Cargo:** {user[3]}  \n**Loja:** {user[4] or 'N/A'}  \n**WhatsApp:** {user[5]}")
-                if st.button(f"Aprovar {user[1]}", key=user[0]):
-                    approve_user(user[0])
-                    st.success(f"✅ {user[1]} foi aprovado!")
+                st.markdown(f"""
+                **Nome:** {user['name']}  
+                **Cargo:** {user['role']}  
+                **Loja:** {user['loja'] or 'N/A'}  
+                **WhatsApp:** {user['whatsapp']}
+                """)
+                if st.button(f"Aprovar {user['name']}", key=user['id']):
+                    approve_user(user['id'])
+                    st.success(f"✅ {user['name']} foi aprovado!")
                     st.experimental_rerun()
 
 else:

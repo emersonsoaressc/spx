@@ -96,7 +96,10 @@ def get_pending_users():
     cursor.execute("SELECT id, nome, email, cargo, loja, whatsapp FROM usuarios WHERE aprovado = 0")
     users = cursor.fetchall()
     conn.close()
-    return users
+
+    # Converte os usuários para dicionários
+    return [{"id": u[0], "name": u[1], "email": u[2], "role": u[3], "loja": u[4], "whatsapp": u[5]} for u in users]
+
 
 def approve_user(user_id):
     """ Aprova um usuário pendente """
