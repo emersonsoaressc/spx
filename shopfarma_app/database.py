@@ -110,13 +110,35 @@ def approve_user(user_id):
     conn.close()
 
 def get_all_users():
-    """ Retorna todos os usuários cadastrados """
+    """ Retorna todos os usuários cadastrados no sistema """
     conn = connect_db()
     cursor = conn.cursor()
-    cursor.execute("SELECT id, nome, email, cargo, loja, whatsapp, aprovado FROM usuarios")
+    cursor.execute("SELECT id, nome, email, cargo, loja, whatsapp FROM usuarios WHERE aprovado = 1")
     users = cursor.fetchall()
     conn.close()
-    return users
+    
+    return [{"id": u[0], "name": u[1], "email": u[2], "role": u[3], "loja": u[4], "whatsapp": u[5]} for u in users]
+
+def update_user(user_id, nome, cargo, loja, whatsapp):
+    """ Atualiza os dados do usuário """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("""
+        UPDATE usuarios 
+        SET nome = ?, cargo = ?, loja = ?, whatsapp = ?
+        WHERE id = ?
+    """, (nome, cargo, loja, whatsapp, user_id))
+    conn.commit()
+    conn.close()
+
+def delete_user(user_id):
+    """ Remove um usuário do sistema """
+    conn = connect_db()
+    cursor = conn.cursor()
+    cursor.execute("DELETE FROM usuarios WHERE id = ?", (user_id,))
+    conn.commit()
+    conn.close()
+
 
 def create_ticket(usuario_id, titulo, descricao, categoria, urgencia="Média"):
     """ Cria um novo chamado no sistema """
@@ -149,3 +171,4 @@ def update_ticket_status(ticket_id, new_status):
     cursor.execute("UPDATE chamados SET status = ? WHERE id = ?", (new_status, ticket_id))
     conn.commit()
     conn.close()
+    

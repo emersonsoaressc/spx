@@ -1,6 +1,6 @@
 import streamlit as st
-from database import create_ticket, get_user_tickets, update_ticket_status
-from auth import check_session
+from shopfarma_app.database import create_ticket, get_user_tickets, update_ticket_status
+from shopfarma_app.auth import check_session
 
 def create_ticket_interface(user_data):
     """ Interface para abertura de novos chamados """

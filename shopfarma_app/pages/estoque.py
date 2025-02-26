@@ -1,6 +1,6 @@
 import streamlit as st
 import pandas as pd
-from function import analise_estoque, analise_estoque_grupo
+from arquivados.function import analise_estoque, analise_estoque_grupo
 
 
 def layout_compras():

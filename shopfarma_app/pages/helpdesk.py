@@ -1,6 +1,6 @@
 import streamlit as st
-from helpdesk_farmacia.database import get_user_tickets, create_ticket, update_ticket_status
-from helpdesk_farmacia.auth import check_session
+from shopfarma_app.database import get_user_tickets, create_ticket, update_ticket_status
+from shopfarma_app.auth import check_session
 
 
 def helpdesk_main(option):

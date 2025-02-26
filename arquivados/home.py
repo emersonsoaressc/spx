@@ -1,5 +1,5 @@
 import streamlit as st
-from function import analise_estoque, analise_estoque_grupo
+from arquivados.function import analise_estoque, analise_estoque_grupo
 
 def home():
     filiais = [
