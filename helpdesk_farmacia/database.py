@@ -74,9 +74,20 @@ def get_user(email, senha):
     conn = connect_db()
     cursor = conn.cursor()
     cursor.execute("SELECT id, nome, email, cargo, loja, whatsapp FROM usuarios WHERE email = ? AND senha = ? AND aprovado = 1", (email, senha))
-    user = cursor.fetchone()
+    user = cursor.fetchone()  # Retorna uma tupla
+    
     conn.close()
-    return user
+    
+    if user:
+        return {
+            "id": user[0],
+            "name": user[1],
+            "email": user[2],
+            "role": user[3],
+            "loja": user[4],
+            "whatsapp": user[5]
+        }
+    return None  # Retorna None caso o usuário não seja encontrado ou não esteja aprovado
 
 def get_pending_users():
     """ Retorna usuários que ainda não foram aprovados pelo COO """
