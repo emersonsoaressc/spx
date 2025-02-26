@@ -1,5 +1,5 @@
 import streamlit as st
-from database import get_user_tickets, create_new_ticket, update_ticket_status
+from helpdesk_farmacia.database import get_user_tickets, create_ticket, update_ticket_status
 from auth import check_session
 
 def helpdesk_main(option):
