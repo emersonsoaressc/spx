@@ -49,11 +49,11 @@ else:
     st.image('images/logo_shopfarma_sem_fundo.png', width=250)
     st.title("🔑 Login")
 
-    email = st.text_input("E-mail")
-    senha = st.text_input("Senha", type="password")
+    email_login = st.text_input("E-mail para Login")
+    senha_login = st.text_input("Senha para Login", type="password")  # 🔹 Nome único para evitar duplicação
 
     if st.button("Entrar"):
-        user = get_user(email, senha)
+        user = get_user(email_login, senha_login)
         if user:
             st.session_state["user"] = user
             st.experimental_rerun()
@@ -67,7 +67,7 @@ else:
 
     nome = st.text_input("Nome Completo")
     email_cadastro = st.text_input("E-mail para Cadastro")
-    senha_cadastro = st.text_input("Senha", type="password")
+    senha_cadastro = st.text_input("Senha para Cadastro", type="password")  # 🔹 Nome único para evitar duplicação
 
     cargo = st.selectbox("Selecione seu Cargo", [
         "Gestor", "CEO", "CFO", "Assistente Financeiro", "Assistente de RH", "Assistente de Estoque"
