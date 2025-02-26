@@ -16,15 +16,6 @@ if user_data:
     # Exibir logo no topo
     st.image('images/logo_shopfarma_sem_fundo.png', width=250)  
     st.markdown(f"<h3 style='text-align: center;'>👤 Bem-vindo, {user_data['name']} ({user_data['role']})</h3>", unsafe_allow_html=True)
-    
-    # Botão de logout no topo
-    st.markdown("<div style='text-align: right;'>", unsafe_allow_html=True)
-    if st.button("🔒 Logout"):
-        logout()
-    st.markdown("</div>", unsafe_allow_html=True)
-
-    # Exibir cards estilizados para selecionar a seção
-    st.markdown("## 📌 Escolha uma seção:")
 
     # Criar sessão de navegação
     if "current_page" not in st.session_state:
@@ -70,8 +61,8 @@ if user_data:
             st.session_state.current_page = "helpdesk"
 
     with col4:
-        if st.button("🔄 Atualizar"):
-            st.session_state.current_page = "helpdesk"
+        if st.button("🔒 Logout"):
+            logout()
 
     # Exibe o conteúdo da página atual
     if st.session_state.current_page == "estoque":
