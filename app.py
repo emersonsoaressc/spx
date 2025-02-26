@@ -5,10 +5,6 @@ from produto_individual import page_produto_individual
 from home import home
 from colaboradores import colab_individual
 from helpdesk_farmacia.app_helpdesk import helpdesk_main
-from helpdesk_farmacia.database import init_db
-
-# Inicializa o banco de dados (caso ainda não exista)
-init_db()
 
 # Configuração da página
 st.set_page_config(page_title="Shopfarma - Gestão", layout="wide")
@@ -17,64 +13,55 @@ st.set_page_config(page_title="Shopfarma - Gestão", layout="wide")
 user_data = check_session()
 
 if user_data:
-    # Se logado, mostra o menu e dashboard
-    st.sidebar.image('images/logo_shopfarma_sem_fundo.png', use_column_width=True)  # 🔹 Corrigindo o logo!
-    st.sidebar.markdown(f"### 👤 Bem-vindo, {user_data['name']} ({user_data['role']})")
-    st.sidebar.button("🔒 Logout", on_click=logout)
+    # Exibir logo no topo
+    st.image('images/logo_shopfarma_sem_fundo.png', width=200)  
+    st.write(f"### 👤 Bem-vindo, {user_data['name']} ({user_data['role']})")
+    st.button("🔒 Logout", on_click=logout)
 
-    # Se for COO, exibe opção para aprovar usuários
-    if user_data["role"] == "COO":
-        with st.sidebar.expander("⚡ Aprovar Usuários"):
-            approve_users()
+    # Exibir cards clicáveis para selecionar a seção
+    st.markdown("## 📌 Escolha uma seção:")
 
-    # Criando menu principal
-    menu_principal = st.sidebar.radio(
-        "📌 Escolha uma seção:", 
-        ["🏠 Home", "🛒 Gestão de Estoque", "👥 Gestão de Colaboradores", "🛠️ Helpdesk"]
-    )
+    col1, col2 = st.columns(2)  # Criando layout de 2 colunas
 
-    st.sidebar.markdown("---")  # Linha divisória
+    with col1:
+        home_button = st.button("🏠 Home")
+        estoque_button = st.button("🛒 Gestão de Estoque")
 
-    # Exibição do conteúdo conforme a opção escolhida
-    if menu_principal == "🏠 Home":
-        st.title("📌 Painel Shopfarma")
-        st.write("Gerencie colaboradores, estoque e chamados de manutenção.")
+    with col2:
+        colaboradores_button = st.button("👥 Gestão de Colaboradores")
+        helpdesk_button = st.button("🛠️ Helpdesk")
 
-        col1, col2, col3 = st.columns(3)
-        col1.metric(label="💰 Vendas Mensais", value="R$ 120.000", delta="+5%")
-        col2.metric(label="📦 Produtos em Estoque", value="8.500", delta="-2%")
-        col3.metric(label="📋 Chamados Pendentes", value="12", delta="+3")
+    # Controlando a navegação entre as seções
+    if home_button:
+        st.experimental_set_query_params(page="home")
+    elif estoque_button:
+        st.experimental_set_query_params(page="estoque")
+    elif colaboradores_button:
+        st.experimental_set_query_params(page="colaboradores")
+    elif helpdesk_button:
+        st.experimental_set_query_params(page="helpdesk")
 
-    elif menu_principal == "🛒 Gestão de Estoque":
+    # Verifica a página atual e exibe o conteúdo correspondente
+    query_params = st.experimental_get_query_params()
+    current_page = query_params.get("page", ["home"])[0]
+
+    if current_page == "home":
+        home()
+    elif current_page == "estoque":
         st.title("📦 Gestão de Estoque")
-        opcao_estoque = st.sidebar.selectbox("Selecione uma opção:", ["", "Produto Individual", "Sistema de Compras"])
-
+        opcao_estoque = st.selectbox("Selecione uma opção:", ["", "Produto Individual", "Sistema de Compras"])
         if opcao_estoque == "Produto Individual":
             page_produto_individual()
         elif opcao_estoque == "Sistema de Compras":
             layout_compras()
-
-    elif menu_principal == "👥 Gestão de Colaboradores":
-        st.title("👥 Gestão de Colaboradores")
-        opcao_colab = st.sidebar.selectbox("Selecione uma opção:", ["", "Dashboard Geral", "Avaliação Individual"])
-
-        if opcao_colab == "Dashboard Geral":
-            st.write("Aqui ficará o dashboard de colaboradores.")
-        elif opcao_colab == "Avaliação Individual":
-            colab_individual()
-
-    elif menu_principal == "🛠️ Helpdesk":
-        st.title("🛠️ Helpdesk - Suporte e Manutenção")
-        opcao_helpdesk = st.sidebar.selectbox("Selecione uma opção:", ["", "Acompanhar Chamados", "Abrir Novo Chamado"])
-
-        if opcao_helpdesk in ["Acompanhar Chamados", "Abrir Novo Chamado"]:
-            helpdesk_main(opcao_helpdesk)
+    elif current_page == "colaboradores":
+        colab_individual()
+    elif current_page == "helpdesk":
+        helpdesk_main("Acompanhar Chamados")
 
 else:
-    # Se não estiver logado, mostra apenas o login
-    st.sidebar.image('images/logo_shopfarma_sem_fundo.png', use_column_width=True)  # 🔹 Corrigindo o logo na tela de login
-    st.sidebar.title("🔑 Login")
+    # Tela de login caso o usuário não esteja logado
+    st.image('images/logo_shopfarma_sem_fundo.png', width=200)
+    st.title("🔑 Login")
     login()
-    st.sidebar.markdown("---")
-    st.sidebar.subheader("Cadastro restrito")
-    st.sidebar.write("O COO precisa aprovar seu cadastro antes de você acessar o sistema.")
+    st.warning("Seu cadastro precisa ser aprovado pelo COO antes do acesso.")
