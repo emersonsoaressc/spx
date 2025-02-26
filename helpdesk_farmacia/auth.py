@@ -1,6 +1,7 @@
 import streamlit as st
 import sqlite3
-from database import create_user, get_user
+from helpdesk_farmacia.database import create_user, get_user
+
 
 # Simples sistema de sessão
 def check_session():
