@@ -1,54 +1,50 @@
 import streamlit as st
-from shopfarma_app.database import get_user_tickets, create_ticket, update_ticket_status
-from shopfarma_app.auth import check_session
+from database import create_ticket, get_user_tickets, update_ticket_status
+from auth import check_session
 
-
-def helpdesk_main(option):
-    """Função principal do módulo Helpdesk"""
-    
-    # Verifica se o usuário está logado
+def show():
+    """Exibe a página do Helpdesk"""
     user_data = check_session()
 
     if not user_data:
-        st.error("⚠️ Você precisa estar logado para acessar o Helpdesk.")
+        st.warning("⚠️ Você precisa estar logado.")
         return
 
-    st.title("🛠️ Helpdesk - Suporte e Manutenção")
+    st.title("🛠️ Helpdesk - Gestão de Chamados")
 
-    if option == "Acompanhar Chamados":
-        show_tickets(user_data)
+    st.subheader("📌 Meus Chamados")
+    tickets = get_user_tickets(user_data["email"])
 
-    elif option == "Abrir Novo Chamado":
-        open_ticket(user_data)
+    if tickets:
+        for ticket in tickets:
+            with st.expander(f"{ticket['titulo']} - {ticket['status']}"):
+                st.write(f"**Descrição:** {ticket['descricao']}")
+                st.write(f"**Categoria:** {ticket['categoria']}")
+                st.write(f"**Urgência:** {ticket['urgencia']}")
+                
+                if user_data["cargo"] in ["COO", "Assistente"]:
+                    novo_status = st.selectbox(
+                        "Atualizar Status", 
+                        ["Aberto", "Em andamento", "Concluído"], 
+                        index=["Aberto", "Em andamento", "Concluído"].index(ticket["status"])
+                    )
+                    if st.button(f"Atualizar {ticket['titulo']}"):
+                        update_ticket_status(ticket["id"], novo_status)
+                        st.success(f"✅ Status atualizado para {novo_status}")
+                        st.experimental_rerun()
+    else:
+        st.info("Nenhum chamado encontrado.")
 
-def show_tickets(user_data):
-    """Exibe os chamados do usuário logado"""
-    st.subheader("📋 Meus Chamados")
+    st.subheader("➕ Abrir Novo Chamado")
+    titulo = st.text_input("Título do Chamado")
+    descricao = st.text_area("Descrição")
+    categoria = st.selectbox("Categoria", ["TI", "Infraestrutura", "Administrativo"])
+    urgencia = st.selectbox("Urgência", ["Baixa", "Média", "Alta"])
 
-    tickets = get_user_tickets(user_data["id"])
-
-    if not tickets:
-        st.info("🔹 Nenhum chamado encontrado.")
-        return
-
-    for ticket in tickets:
-        st.write(f"🆔 **ID:** {ticket['id']}")
-        st.write(f"📌 **Título:** {ticket['titulo']}")
-        st.write(f"📅 **Data:** {ticket['data_abertura']}")
-        st.write(f"📌 **Status:** `{ticket['status']}`")
-        st.write("---")
-
-def open_ticket(user_data):
-    """Formulário para abrir novo chamado"""
-    st.subheader("🆕 Abrir Novo Chamado")
-
-    with st.form("novo_chamado_form"):
-        titulo = st.text_input("Título do chamado")
-        descricao = st.text_area("Descreva o problema")
-        categoria = st.selectbox("Categoria", ["Infraestrutura", "TI", "Equipamentos", "Outros"])
-        submit_button = st.form_submit_button("📩 Enviar Chamado")
-
-        if submit_button and titulo and descricao:
-            create_new_ticket(user_data["id"], titulo, descricao, categoria)
+    if st.button("Criar Chamado"):
+        if titulo and descricao:
+            create_ticket(user_data["email"], titulo, descricao, categoria, urgencia)
             st.success("✅ Chamado aberto com sucesso!")
-
+            st.experimental_rerun()
+        else:
+            st.warning("⚠️ Preencha todos os campos antes de criar um chamado.")
