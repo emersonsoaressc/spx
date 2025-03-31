@@ -6,6 +6,7 @@ import plotly.graph_objects as go
 def convertXLS(arquivo_xls):
     pass
 
+@st.cache_data
 def analise_estoque(filial):
     df_saldo_estoque = pd.read_excel(f'planilhas/estoque/saldo_estoque_{filial}.xlsx', header=11, usecols=('B,C,F,G,H,I,J,O,P,Q,S,U,X'))[0:-3]
     df_saldo_estoque = df_saldo_estoque.set_axis(['ean','produto','laboratorio','grupo','curva','estoque_minimo','demanda','estoque','preco_custo','preco_venda','lucro','preco_custo_total','preco_venda_total'], axis=1)
@@ -16,6 +17,7 @@ def analise_estoque(filial):
     df_saldo_estoque['preco_custo_total'] = pd.to_numeric(df_saldo_estoque['preco_custo_total'], errors='coerce')
     df_saldo_estoque['preco_custo'] = pd.to_numeric(df_saldo_estoque['preco_custo'], errors='coerce')
     df_saldo_estoque['ean'] = df_saldo_estoque['ean'].fillna(0).astype(int)
+    df_saldo_estoque['ean'] = df_saldo_estoque['ean'].astype(str)
 
     
     df_saldo_estoque_filtrado = df_saldo_estoque.query('estoque_minimo > 0')
@@ -26,7 +28,7 @@ def analise_estoque(filial):
     
     return valor_em_estoque, valor_faltas, df_saldo_estoque
 
-
+@st.cache_data
 def analise_estoque_grupo(df_saldo_estoque_grupo, grupo):
     df = df_saldo_estoque_grupo.query(f'grupo == {grupo}')
     df_saldo_estoque_grupo_filtrado = df.query('estoque_minimo > 0')
@@ -42,8 +44,20 @@ def analise_estoque_grupo(df_saldo_estoque_grupo, grupo):
     df_excesso['ean'] = df_excesso['ean'].astype(str)
     return valor_em_estoque, valor_faltas, df_faltas, df_excesso
 
+@st.cache_data
+def consulta_estoque_central():
+    df_estoque_central = pd.read_excel(f'planilhas/estoque/saldo_estoque_100.xls', header=11, usecols=('B,C,F,G,H,I,J,O,P,Q,S,U,X'))[0:-3]
+    df_estoque_central = df_estoque_central.set_axis(['ean','produto','laboratorio','grupo','curva','estoque_minimo','demanda','estoque','preco_custo','preco_venda','lucro','preco_custo_total','preco_venda_total'], axis=1)
+    df_estoque_central['grupo'] = df_estoque_central['grupo'].astype(int)
+    df_estoque_central['estoque_minimo'] = pd.to_numeric(df_estoque_central['estoque_minimo'], errors='coerce')
+    df_estoque_central['preco_custo_total'] = pd.to_numeric(df_estoque_central['preco_custo_total'], errors='coerce')
+    df_estoque_central['ean'] = df_estoque_central['ean'].fillna(0).astype(int)
+    df_estoque_central['ean'] = df_estoque_central['ean'].astype(str)
+    df_estoque_central = df_estoque_central.query("estoque > 0")
+    return df_estoque_central
 
 
+@st.cache_data
 def vendas_grupo(grupo):
     df = pd.read_excel(f'planilhas/vendas/vendedores/vendas_{grupo}.xls',header=10, usecols=('B,D,F,T,Z,AF,AM,BC') )
     df = df.set_axis(['venda','filial','pagamento','data','hora','cupom','vendedor','valor_liquido'], axis=1)
